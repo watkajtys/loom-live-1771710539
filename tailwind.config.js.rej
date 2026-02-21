@@ -1,28 +1,36 @@
 diff a/tailwind.config.js b/tailwind.config.js	(rejected hunks)
-@@ -4,8 +4,24 @@ export default {
+@@ -4,8 +4,31 @@ export default {
      "./index.html",
      "./src/**/*.{js,ts,jsx,tsx}",
    ],
 +  darkMode: "class",
    theme: {
 -    extend: {},
-+    extend: {
-+      colors: {
-+        "mono-bg": "#1c1c1e",
-+        "mono-surface": "#2c2c2e",
-+        "mono-border": "rgba(255, 255, 255, 0.2)",
-+        "mono-text-primary": "#f2f2f7",
-+        "mono-text-secondary": "#aeaeb2",
++      extend: {
++          colors: {
++              "primary": "#1ff9f9",
++              "background-light": "#f5f8f8",
++              "background-dark": "#111818", 
++              "surface-dark": "#1b2727",
++              "surface-light": "#273a3a",
++          },
++          fontFamily: {
++              "display": ["Space Grotesk", "sans-serif"],
++              "mono": ["monospace"]
++          },
++          boxShadow: {
++              'neon': '0 0 5px theme("colors.primary"), 0 0 10px theme("colors.primary")',
++              'neon-magenta': '0 0 5px #ff00ff, 0 0 10px #ff00ff',
++              'neon-amber': '0 0 5px #ffbf00, 0 0 10px #ffbf00',
++              'neon-red': '0 0 5px #ff3b30, 0 0 10px #ff3b30',
++              'inset-slot': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.6)',
++          },
++          backgroundImage: {
++              'brushed-metal': "linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%), repeating-linear-gradient(90deg, transparent 0, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)",
++          }
 +      },
-+      fontFamily: {
-+        serif: ["Playfair Display", "serif"],
-+        sans: ["Inter", "sans-serif"],
-+      },
-+      backgroundImage: {
-+        'soft-gradient': "radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, transparent 70%)",
-+      }
-+    },
    },
    plugins: [],
- }
+-}
 \ No newline at end of file
++}

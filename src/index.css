@@ -2,103 +2,41 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme {
-  --color-brut-bg: #0a0a0f;
-  --color-brut-panel: #111116;
-  --color-brut-border: #333333;
-  --color-brut-accent: #eab308;
-  --color-brut-text: #ffffff;
-  --color-brut-text-muted: #888888;
-  --color-brut-red: #ef4444;
-  --color-brut-blue: #3b82f6;
-
-  --font-sans: "Inter", "Helvetica", "Arial", sans-serif;
-}
-
-/* Custom Utilities */
-@utility no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
     display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .knob-shadow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  .fader-track {
+    background: #0f1515;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), inset 0 0 2px rgba(0,0,0,1); 
+  }
+  .fader-handle {
+    background: linear-gradient(180deg, #3a4b4b 0%, #222e2e 100%);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.15);
+  }
+  .led-segment {
+    box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
+  }
+  .led-active {
+    box-shadow: 0 0 4px currentColor;
+  }
+  .lcd-screen {
+    background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
   }
 }
 
-@utility brut-border {
-  border: 2px solid #333;
-}
-
-@utility brut-border-r {
-  border-right: 2px solid #333;
-}
-
-@utility brut-border-b {
-  border-bottom: 2px solid #333;
-}
-
-@utility brut-border-l {
-  border-left: 2px solid #333;
-}
-
-@utility brut-border-t {
-  border-top: 2px solid #333;
-}
-
-@utility connector-line {
-  stroke-dasharray: 8, 8;
-  stroke-width: 2px;
-}
-
-@utility drag-thread {
-  stroke-dasharray: 10, 10;
-  stroke-width: 4px;
-  animation: flow 20s linear infinite;
-}
-
-@keyframes flow {
-  from { stroke-dashoffset: 200; }
-  to { stroke-dashoffset: 0; }
-}
-
-/* Tiptap Editor Styles */
-.tiptap-editor p {
-  margin-bottom: 1em;
-  line-height: 1.4;
-  color: #d4d4d4;
-  font-weight: 400;
-  font-size: 1.1rem;
-}
-
-.tiptap-editor h2 {
-  font-weight: 800;
-  font-size: 1.75rem;
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: -0.02em;
-  border-bottom: 2px solid #333;
-  padding-bottom: 0.25em;
-}
-
-.tiptap-editor blockquote {
-  border-left: 4px solid #eab308;
-  background: #1a1a1e;
-  padding: 1rem;
-  font-style: italic;
-  color: #fff;
-  margin-bottom: 1.5em;
-  font-weight: 500;
-}
-
-/* Base Styles */
 body {
-  font-family: var(--font-sans);
-  background-color: #050508;
-  color: var(--color-brut-text);
-  @apply h-screen w-full overflow-hidden flex relative antialiased selection:bg-yellow-500 selection:text-black;
-}
-
-#root {
-  @apply h-full w-full;
+  background-color: #111818;
+  color: #ffffff;
+  font-family: 'Space Grotesk', sans-serif;
+  min-height: max(884px, 100dvh);
 }

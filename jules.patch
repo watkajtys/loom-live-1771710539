@@ -1,484 +1,1429 @@
+diff --git a/index.html b/index.html
+index 0d50b75..d676866 100644
+--- a/index.html
++++ b/index.html
+@@ -4,13 +4,13 @@
+     <meta charset="UTF-8" />
+     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+-    <title>Chronos: The Fractal Lore Mapper</title>
++    <title>ChronoFader Master Console</title>
+     <link rel="preconnect" href="https://fonts.googleapis.com" />
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
++    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+   </head>
+-  <body>
++  <body class="bg-background-dark text-slate-100 flex flex-col h-screen overflow-hidden">
+     <div id="root"></div>
+     <script type="module" src="/src/main.tsx"></script>
+   </body>
+diff --git a/package-lock.json b/package-lock.json
+index 95e5755..7038471 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -9,8 +9,11 @@
+       "version": "0.0.0",
+       "dependencies": {
+         "@tailwindcss/postcss": "^4.2.0",
++        "clsx": "^2.1.1",
+         "react": "^19.2.0",
+-        "react-dom": "^19.2.0"
++        "react-dom": "^19.2.0",
++        "tailwind-merge": "^3.5.0",
++        "zustand": "^5.0.11"
+       },
+       "devDependencies": {
+         "@eslint/js": "^9.39.1",
+@@ -1212,7 +1215,7 @@
+       "version": "19.2.14",
+       "resolved": "https://registry.npmjs.org/@types/react/-/react-19.2.14.tgz",
+       "integrity": "sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "MIT",
+       "dependencies": {
+         "csstype": "^3.2.2"
+@@ -1744,6 +1747,15 @@
+         "url": "https://github.com/chalk/chalk?sponsor=1"
+       }
+     },
++    "node_modules/clsx": {
++      "version": "2.1.1",
++      "resolved": "https://registry.npmjs.org/clsx/-/clsx-2.1.1.tgz",
++      "integrity": "sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=6"
++      }
++    },
+     "node_modules/color-convert": {
+       "version": "2.0.1",
+       "resolved": "https://registry.npmjs.org/color-convert/-/color-convert-2.0.1.tgz",
+@@ -1797,7 +1809,7 @@
+       "version": "3.2.3",
+       "resolved": "https://registry.npmjs.org/csstype/-/csstype-3.2.3.tgz",
+       "integrity": "sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "MIT"
+     },
+     "node_modules/debug": {
+@@ -3070,6 +3082,16 @@
+         "node": ">=8"
+       }
+     },
++    "node_modules/tailwind-merge": {
++      "version": "3.5.0",
++      "resolved": "https://registry.npmjs.org/tailwind-merge/-/tailwind-merge-3.5.0.tgz",
++      "integrity": "sha512-I8K9wewnVDkL1NTGoqWmVEIlUcB9gFriAEkXkfCjX5ib8ezGxtR3xD7iZIxrfArjEsH7F1CHD4RFUtxefdqV/A==",
++      "license": "MIT",
++      "funding": {
++        "type": "github",
++        "url": "https://github.com/sponsors/dcastil"
++      }
++    },
+     "node_modules/tailwindcss": {
+       "version": "4.2.0",
+       "resolved": "https://registry.npmjs.org/tailwindcss/-/tailwindcss-4.2.0.tgz",
+@@ -3372,6 +3394,35 @@
+       "peerDependencies": {
+         "zod": "^3.25.0 || ^4.0.0"
+       }
++    },
++    "node_modules/zustand": {
++      "version": "5.0.11",
++      "resolved": "https://registry.npmjs.org/zustand/-/zustand-5.0.11.tgz",
++      "integrity": "sha512-fdZY+dk7zn/vbWNCYmzZULHRrss0jx5pPFiOuMZ/5HJN6Yv3u+1Wswy/4MpZEkEGhtNH+pwxZB8OKgUBPzYAGg==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=12.20.0"
++      },
++      "peerDependencies": {
++        "@types/react": ">=18.0.0",
++        "immer": ">=9.0.6",
++        "react": ">=18.0.0",
++        "use-sync-external-store": ">=1.2.0"
++      },
++      "peerDependenciesMeta": {
++        "@types/react": {
++          "optional": true
++        },
++        "immer": {
++          "optional": true
++        },
++        "react": {
++          "optional": true
++        },
++        "use-sync-external-store": {
++          "optional": true
++        }
++      }
+     }
+   }
+ }
+diff --git a/package.json b/package.json
+index fbd48f5..47356c7 100644
+--- a/package.json
++++ b/package.json
+@@ -11,8 +11,11 @@
+   },
+   "dependencies": {
+     "@tailwindcss/postcss": "^4.2.0",
++    "clsx": "^2.1.1",
+     "react": "^19.2.0",
+-    "react-dom": "^19.2.0"
++    "react-dom": "^19.2.0",
++    "tailwind-merge": "^3.5.0",
++    "zustand": "^5.0.11"
+   },
+   "devDependencies": {
+     "@eslint/js": "^9.39.1",
 diff --git a/src/App.tsx b/src/App.tsx
-index 956f9a9..1fc01b5 100644
+index 1fc01b5..15d16c8 100644
 --- a/src/App.tsx
 +++ b/src/App.tsx
-@@ -1,139 +1,215 @@
--// --- Components ---
-+function App() {
-+  return (
-+    <>
-+      <main className="absolute inset-0 w-full h-full overflow-hidden z-0 bg-[#08080a]">
-+        {/* Background Grid */}
-+        <div 
-+          className="absolute inset-0 opacity-[0.08]" 
-+          style={{
-+            backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)',
-+            backgroundSize: '40px 40px'
-+          }}
-+        ></div>
- 
--const Header = () => (
--  <header className="absolute top-0 left-0 right-0 z-50 pt-12 pb-4 px-6 flex justify-between items-center bg-gradient-to-b from-mono-bg/90 to-transparent pointer-events-none">
--    <div className="flex items-center gap-3 text-mono-text-secondary pointer-events-auto">
--      <span className="material-symbols-outlined text-sm opacity-70">menu_book</span>
--      <div className="flex items-center gap-2 text-xs tracking-widest uppercase font-medium">
--        <span className="opacity-50">Eldoria</span>
--        <span className="opacity-30">/</span>
--        <span className="opacity-50">Fractured Lands</span>
--        <span className="opacity-30">/</span>
--        <span className="text-white border-b border-white/20 pb-0.5">Whispering Woods</span>
--      </div>
--    </div>
--    <button className="w-8 h-8 flex items-center justify-center rounded-full border border-mono-border hover:bg-white/5 transition-colors text-mono-text-primary pointer-events-auto">
--      <span className="material-symbols-outlined text-sm">settings</span>
--    </button>
--  </header>
--);
-+        {/* Semantic Zoom Container */}
-+        <div className="absolute inset-0 transform -translate-x-[20%] transition-transform duration-700 ease-out">
-+          
-+          {/* Connection Layer */}
-+          <svg className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible">
-+            <path className="connector-line opacity-40" d="M380,450 C480,450 450,280 580,280" fill="none" stroke="#666"></path>
-+            <path className="drag-thread opacity-100" d="M1250,820 C1000,820 500,600 380,520" fill="none" stroke="#eab308" strokeLinecap="butt"></path>
-+            <rect className="animate-pulse" fill="#eab308" height="8" width="8" x="376" y="516"></rect>
-+          </svg>
- 
--const ConnectionLayer = () => (
--  <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
--    <path className="connector-line" d="M180,300 C250,300 150,520 220,520" fill="none" stroke="#888"></path>
--    <path className="connector-line" d="M220,520 C280,520 300,450 340,400" fill="none" stroke="#888" strokeOpacity="0.5"></path>
--    <rect fill="#1c1c1e" height="18" rx="4" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" width="90" x="185" y="383"></rect>
--    <text fill="#ccc" fontFamily="Inter" fontSize="9" letterSpacing="0.5" textAnchor="middle" x="230" y="396">CORRUPTION</text>
--  </svg>
--);
-+          {/* Node: Obsidian Spire */}
-+          <div className="absolute top-[480px] left-[200px] w-64 bg-[#111] border-2 border-[#444] p-0 shadow-none">
-+            <div className="h-8 bg-[#222] border-b-2 border-[#444] flex items-center justify-between px-2">
-+              <span className="text-[10px] font-bold uppercase tracking-widest text-[#888]">LOC-01</span>
-+              <div className="w-2 h-2 bg-red-500 rounded-none"></div>
-+            </div>
-+            <div className="p-4">
-+              <h3 className="text-white font-bold text-lg leading-none mb-2 uppercase">Obsidian Spire</h3>
-+              <div className="h-20 w-full bg-[#000] border border-[#333] relative grayscale">
-+                <img 
-+                  alt="Dark gothic spire" 
-+                  className="w-full h-full object-cover opacity-60" 
-+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"
-+                />
-+              </div>
-+            </div>
-+          </div>
- 
--const ObsidianSpireNode = () => (
--  <div className="absolute top-[220px] left-6 w-64 glass-panel rounded-sm p-5 cursor-grab active:cursor-grabbing hover:border-white/30 transition-colors group">
--    <div className="active-node-glow opacity-0 group-hover:opacity-100 transition-opacity"></div>
--    <div className="flex items-start justify-between mb-4">
--      <div className="flex flex-col gap-1">
--        <span className="text-[10px] uppercase tracking-wider text-mono-text-secondary">Location</span>
--        <h3 className="text-white font-serif font-normal text-xl leading-tight italic">The Obsidian Spire</h3>
--      </div>
--      <span className="material-symbols-outlined text-mono-text-secondary text-base opacity-50">castle</span>
--    </div>
--    <div className="h-20 w-full bg-black/40 mb-4 overflow-hidden relative border border-white/5 grayscale hover:grayscale-0 transition-all duration-500">
--      <img
--        alt="Dark gothic spire silhouette against a purple night sky"
--        className="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-opacity"
--        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"
--      />
--    </div>
--    <div className="border-t border-white/10 pt-3 mt-1 flex justify-between items-center">
--      <span className="text-[10px] text-mono-text-secondary">Magical Focus Point</span>
--      <div className="w-1.5 h-1.5 rounded-full bg-white/20"></div>
--    </div>
--  </div>
--);
-+          {/* Node: Active Node (Whispering Woods) */}
-+          <div className="absolute top-[200px] left-[580px] w-72 bg-[#111] border-2 border-white shadow-[8px_8px_0px_rgba(0,0,0,1)] z-10">
-+            <div className="bg-white text-black text-xs font-bold px-3 py-1 uppercase tracking-wider border-b-2 border-white flex justify-between items-center">
-+              <span>Active Node</span>
-+              <span className="w-2 h-2 bg-black"></span>
-+            </div>
-+            <div className="h-32 w-full bg-[#000] border-b-2 border-white overflow-hidden relative">
-+              <img 
-+                alt="Mystical forest" 
-+                className="w-full h-full object-cover" 
-+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"
-+              />
-+              <div className="absolute inset-0 bg-black/20"></div>
-+            </div>
-+            <div className="p-4 bg-[#111]">
-+              <h3 className="text-white font-black text-2xl mb-2 uppercase tracking-tight leading-none">Whispering<br/>Woods</h3>
-+              <p className="text-xs text-[#888] font-mono border-t border-[#333] pt-2 mt-2">ID: 8X-992 // SECTOR 4</p>
-+            </div>
-+          </div>
- 
--const WhisperingWoodsNode = () => (
--  <div className="absolute top-[480px] left-1/2 -translate-x-1/2 w-72 glass-panel rounded-sm p-6 cursor-grab active:cursor-grabbing hover:border-white/40 transition-colors group z-20">
--    <div className="active-node-glow opacity-100"></div>
--    <div className="flex items-start justify-between mb-4">
--      <div className="flex flex-col gap-1">
--        <span className="text-[10px] uppercase tracking-wider text-mono-text-secondary">Territory</span>
--        <h3 className="text-white font-serif font-semibold text-2xl leading-tight">Whispering Woods</h3>
--      </div>
--      <div className="w-6 h-6 border border-white/20 flex items-center justify-center text-white/70 rounded-full">
--        <span className="material-symbols-outlined text-sm">forest</span>
--      </div>
--    </div>
--    <p className="text-sm font-serif italic text-mono-text-secondary mb-5 leading-relaxed border-l-2 border-white/20 pl-3">
--      "Home of the unseen fae. The trees themselves seem to shift when not observed directly."
--    </p>
--    <div className="flex items-center justify-between pt-2 border-t border-white/10">
--      <div className="flex -space-x-3 opacity-70 grayscale group-hover:grayscale-0 transition-all">
--        <div className="w-6 h-6 rounded-full bg-gray-600 border border-mono-bg"></div>
--        <div className="w-6 h-6 rounded-full bg-gray-500 border border-mono-bg"></div>
--        <div className="w-6 h-6 rounded-full bg-gray-800 border border-mono-bg flex items-center justify-center text-[8px] text-white">+3</div>
--      </div>
--      <button className="text-[10px] uppercase tracking-widest text-white hover:text-white/70 transition-colors border border-white/20 px-3 py-1 rounded-full hover:bg-white/5">
--        Inspect
--      </button>
--    </div>
--  </div>
--);
-+          {/* Node: Small Draft */}
-+          <div className="absolute top-[150px] left-[250px] w-40 border-2 border-[#333] bg-[#0a0a0a] p-2 opacity-50">
-+            <div className="h-2 w-full bg-[#222] mb-2"></div>
-+            <div className="h-12 w-full border border-[#222] bg-[#111]"></div>
-+          </div>
- 
--const SunkenGrottoNode = () => (
--  <div className="absolute top-[350px] left-[320px] w-48 glass-panel rounded-sm p-4 opacity-40 hover:opacity-100 transition-opacity scale-95 border-dashed border-white/20">
--    <div className="flex items-center justify-between mb-2">
--      <h4 className="text-slate-200 font-serif text-lg italic">Sunken Grotto</h4>
--      <span className="material-symbols-outlined text-xs text-mono-text-secondary">water_drop</span>
--    </div>
--    <div className="h-[1px] w-full bg-white/10 mt-2 mb-2">
--      <div className="h-full bg-white w-1/3"></div>
--    </div>
--    <p className="text-[9px] uppercase tracking-widest text-mono-text-secondary text-right">Draft</p>
--  </div>
--);
-+        </div>
-+      </main>
- 
--const FloatingControls = () => (
--  <div className="absolute bottom-10 right-8 z-50 flex flex-col items-end gap-4 group pointer-events-none">
--    <div className="flex flex-col gap-3 items-end transition-all duration-300 opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto mb-2">
--      <button className="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-mono-text-secondary hover:text-white hover:border-white transition-all shadow-lg pointer-events-auto" title="Add Node">
--        <span className="material-symbols-outlined text-lg">add</span>
--      </button>
--      <button className="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-mono-text-secondary hover:text-white hover:border-white transition-all shadow-lg pointer-events-auto" title="Search">
--        <span className="material-symbols-outlined text-lg">search</span>
--      </button>
--      <button className="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-mono-text-secondary hover:text-white hover:border-white transition-all shadow-lg pointer-events-auto" title="Zoom">
--        <span className="material-symbols-outlined text-lg">center_focus_strong</span>
--      </button>
--    </div>
--    <button className="w-14 h-14 bg-white text-mono-bg rounded-full shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] flex items-center justify-center transition-all hover:scale-105 active:scale-95 z-50 pointer-events-auto">
--      <span className="material-symbols-outlined text-2xl group-hover:rotate-90 transition-transform duration-300">more_horiz</span>
--    </button>
--  </div>
--);
-+      {/* Sidebar (Codex) */}
-+      <aside className="absolute top-0 right-0 bottom-0 w-[600px] bg-[#111] z-50 flex flex-col border-l-2 border-[#333] shadow-none">
-+        
-+        {/* Header */}
-+        <header className="h-14 flex items-center justify-between px-6 border-b-2 border-[#333] bg-[#0a0a0a] shrink-0">
-+          <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wide">
-+            <span className="text-[#666]">ROOT</span>
-+            <span className="text-[#444]">/</span>
-+            <span className="text-[#888]">FRACTURED LANDS</span>
-+            <span className="text-[#444]">/</span>
-+            <span className="bg-white text-black px-1">WHISPERING WOODS</span>
-+          </div>
-+          <div className="flex gap-[-2px]"> 
-+            <button className="w-8 h-8 flex items-center justify-center border-2 border-[#333] bg-[#111] text-white hover:bg-white hover:text-black transition-colors -ml-[2px]">
-+              <span className="material-symbols-outlined text-lg">more_horiz</span>
-+            </button>
-+            <button className="w-8 h-8 flex items-center justify-center border-2 border-[#333] bg-[#111] text-white hover:bg-red-600 hover:text-white transition-colors -ml-[2px]">
-+              <span className="material-symbols-outlined text-lg">close</span>
-+            </button>
-+          </div>
-+        </header>
- 
--const Pagination = () => (
--  <div className="absolute bottom-0 w-full z-40 flex justify-center pb-4 pointer-events-none">
--    <div className="flex gap-1.5 pointer-events-auto glass-panel px-3 py-1.5 rounded-full border border-white/10">
--      <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
--      <div className="w-1.5 h-1.5 bg-white/20 rounded-full hover:bg-white/50 transition-colors cursor-pointer"></div>
--      <div className="w-1.5 h-1.5 bg-white/20 rounded-full hover:bg-white/50 transition-colors cursor-pointer"></div>
--    </div>
--  </div>
--);
-+        {/* Relational Matrix */}
-+        <div className="border-b-2 border-[#333] bg-[#16161a] p-6 shrink-0">
-+          <div className="flex items-center justify-between mb-4">
-+            <h4 className="text-sm font-black uppercase tracking-wider text-white flex items-center gap-2">
-+              <span className="w-3 h-3 bg-yellow-500 inline-block"></span>
-+              Relational Matrix
-+            </h4>
-+            <button className="text-[10px] font-bold bg-transparent hover:bg-white hover:text-black text-white border border-[#444] px-3 py-1 uppercase transition-colors">
-+              Expand Graph
-+            </button>
-+          </div>
-+          <div className="grid grid-cols-2 gap-3">
-+            <div className="flex items-center justify-between bg-[#0a0a0a] border border-[#333] p-3 group hover:border-white transition-colors cursor-pointer">
-+              <div className="flex items-center gap-3">
-+                <span className="material-symbols-outlined text-base text-[#666]">water_drop</span>
-+                <span className="text-sm font-bold text-[#ccc]">Sunken Grotto</span>
-+              </div>
-+              <span className="text-[10px] font-mono font-bold text-[#444] border border-[#333] px-1 bg-[#111] group-hover:bg-white group-hover:text-black">NEAR</span>
-+            </div>
-+            <div className="flex items-center justify-between bg-[#1a1a10] border border-yellow-500/50 p-3 relative overflow-hidden">
-+              <div className="flex items-center gap-3 z-10">
-+                <div className="w-2 h-2 bg-yellow-500 animate-pulse"></div>
-+                <span className="text-sm font-bold text-yellow-500 italic">Linking...</span>
-+              </div>
-+              <div className="absolute right-0 top-0 bottom-0 w-8 bg-yellow-500 flex items-center justify-center">
-+                <span className="material-symbols-outlined text-sm text-black font-bold">link</span>
-+              </div>
-+            </div>
-+            <button className="col-span-2 flex items-center justify-center py-2 border border-dashed border-[#444] text-[#444] hover:text-white hover:border-white transition-colors text-xs font-bold uppercase tracking-widest">
-+              + Add Connection
-+            </button>
-+          </div>
-+        </div>
- 
--function App() {
--  return (
--    <div className="h-full w-full flex flex-col bg-mono-bg text-mono-text-primary font-sans overflow-hidden relative antialiased selection:bg-white selection:text-mono-bg">
--      <Header />
--      <main className="flex-1 relative w-full h-full overflow-hidden z-10 touch-none">
--        <ConnectionLayer />
--        <ObsidianSpireNode />
--        <WhisperingWoodsNode />
--        <SunkenGrottoNode />
+@@ -1,215 +1,8 @@
++import { Console } from './components/chrono-fader/Console';
++
+ function App() {
+   return (
+-    <>
+-      <main className="absolute inset-0 w-full h-full overflow-hidden z-0 bg-[#08080a]">
+-        {/* Background Grid */}
+-        <div 
+-          className="absolute inset-0 opacity-[0.08]" 
+-          style={{
+-            backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)',
+-            backgroundSize: '40px 40px'
+-          }}
+-        ></div>
+-
+-        {/* Semantic Zoom Container */}
+-        <div className="absolute inset-0 transform -translate-x-[20%] transition-transform duration-700 ease-out">
+-          
+-          {/* Connection Layer */}
+-          <svg className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible">
+-            <path className="connector-line opacity-40" d="M380,450 C480,450 450,280 580,280" fill="none" stroke="#666"></path>
+-            <path className="drag-thread opacity-100" d="M1250,820 C1000,820 500,600 380,520" fill="none" stroke="#eab308" strokeLinecap="butt"></path>
+-            <rect className="animate-pulse" fill="#eab308" height="8" width="8" x="376" y="516"></rect>
+-          </svg>
+-
+-          {/* Node: Obsidian Spire */}
+-          <div className="absolute top-[480px] left-[200px] w-64 bg-[#111] border-2 border-[#444] p-0 shadow-none">
+-            <div className="h-8 bg-[#222] border-b-2 border-[#444] flex items-center justify-between px-2">
+-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#888]">LOC-01</span>
+-              <div className="w-2 h-2 bg-red-500 rounded-none"></div>
+-            </div>
+-            <div className="p-4">
+-              <h3 className="text-white font-bold text-lg leading-none mb-2 uppercase">Obsidian Spire</h3>
+-              <div className="h-20 w-full bg-[#000] border border-[#333] relative grayscale">
+-                <img 
+-                  alt="Dark gothic spire" 
+-                  className="w-full h-full object-cover opacity-60" 
+-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"
+-                />
+-              </div>
+-            </div>
+-          </div>
+-
+-          {/* Node: Active Node (Whispering Woods) */}
+-          <div className="absolute top-[200px] left-[580px] w-72 bg-[#111] border-2 border-white shadow-[8px_8px_0px_rgba(0,0,0,1)] z-10">
+-            <div className="bg-white text-black text-xs font-bold px-3 py-1 uppercase tracking-wider border-b-2 border-white flex justify-between items-center">
+-              <span>Active Node</span>
+-              <span className="w-2 h-2 bg-black"></span>
+-            </div>
+-            <div className="h-32 w-full bg-[#000] border-b-2 border-white overflow-hidden relative">
+-              <img 
+-                alt="Mystical forest" 
+-                className="w-full h-full object-cover" 
+-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"
+-              />
+-              <div className="absolute inset-0 bg-black/20"></div>
+-            </div>
+-            <div className="p-4 bg-[#111]">
+-              <h3 className="text-white font-black text-2xl mb-2 uppercase tracking-tight leading-none">Whispering<br/>Woods</h3>
+-              <p className="text-xs text-[#888] font-mono border-t border-[#333] pt-2 mt-2">ID: 8X-992 // SECTOR 4</p>
+-            </div>
+-          </div>
+-
+-          {/* Node: Small Draft */}
+-          <div className="absolute top-[150px] left-[250px] w-40 border-2 border-[#333] bg-[#0a0a0a] p-2 opacity-50">
+-            <div className="h-2 w-full bg-[#222] mb-2"></div>
+-            <div className="h-12 w-full border border-[#222] bg-[#111]"></div>
+-          </div>
+-
+-        </div>
 -      </main>
--      <FloatingControls />
--      <Pagination />
--    </div>
-+        {/* Scrollable Content */}
-+        <div className="flex-1 overflow-y-auto overflow-x-hidden relative no-scrollbar bg-[#0a0a0a]">
-+          <div className="h-48 w-full relative border-b-2 border-[#333]">
-+            <img 
-+              className="w-full h-full object-cover opacity-40 grayscale contrast-125" 
-+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"
-+              alt="Whispering Woods Detail"
-+            />
-+            <div className="absolute inset-0 bg-[#0a0a0a] mix-blend-multiply"></div>
-+            <div className="absolute bottom-0 left-0 bg-black text-white px-4 py-1 text-xs font-mono border-t border-r border-[#333]">IMG_REF_992</div>
-+            <button className="absolute top-4 right-4 bg-black border border-white text-white px-3 py-1 text-xs font-bold hover:bg-white hover:text-black transition-colors uppercase">
-+              Replace
-+            </button>
-+          </div>
-+
-+          <div className="p-8 pb-32">
-+            <div className="flex items-start gap-4 mb-8">
-+              <div className="w-16 h-16 bg-[#111] border-2 border-[#333] flex items-center justify-center shrink-0">
-+                <span className="material-symbols-outlined text-3xl text-white">forest</span>
-+              </div>
-+              <div>
-+                <h1 className="font-black text-5xl text-white leading-[0.9] uppercase tracking-tighter mb-2">Whispering<br/>Woods</h1>
-+                <div className="text-[#666] font-mono text-xs">LAST EDITED: TODAY 14:02</div>
-+              </div>
-+            </div>
-+
-+            <div className="grid grid-cols-3 gap-px bg-[#333] border-2 border-[#333] mb-10">
-+              <div className="bg-[#111] p-3 hover:bg-[#161616] transition-colors">
-+                <span className="text-[9px] uppercase tracking-widest text-[#666] font-bold block mb-1">Type</span>
-+                <div className="flex items-center gap-1 text-xs font-bold text-white">
-+                  <span className="material-symbols-outlined text-xs">terrain</span>
-+                  Territory
-+                </div>
-+              </div>
-+              <div className="bg-[#111] p-3 hover:bg-[#161616] transition-colors">
-+                <span className="text-[9px] uppercase tracking-widest text-[#666] font-bold block mb-1">Status</span>
-+                <div className="flex items-center gap-1 text-xs font-bold text-white">
-+                  <span className="w-2 h-2 bg-green-500"></span>
-+                  Active
-+                </div>
-+              </div>
-+              <div className="bg-[#111] p-3 hover:bg-[#161616] transition-colors">
-+                <span className="text-[9px] uppercase tracking-widest text-[#666] font-bold block mb-1">Owner</span>
-+                <div className="flex items-center gap-1 text-xs font-bold text-white">
-+                  <span className="text-indigo-400 font-black">GM</span>
-+                  System
-+                </div>
-+              </div>
-+            </div>
-+
-+            <div className="tiptap-editor outline-none max-w-none">
-+              <p>The Whispering Woods is not merely a forest, but a sentient organism of vast proportions. Travelers report that the trees themselves seem to shift positions when not directly observed, creating a labyrinth that defies traditional cartography.</p>
-+              <blockquote>
-+                "The leaves don't rustle with the wind; they rustle with intent. Watch your periphery, for that is where the Unseen Fae dwell."
-+                <footer className="mt-2 text-sm text-[#666] not-italic font-mono uppercase">— Elder Kaelen's Journal, Entry 402</footer>
-+              </blockquote>
-+              <h2>Flora &amp; Fauna</h2>
-+              <p>Notable species include the <span className="bg-emerald-900/30 text-emerald-400 border-b border-emerald-500 font-medium px-1">Silver-Barked Oak</span> and the luminous <span className="bg-purple-900/30 text-purple-400 border-b border-purple-500 font-medium px-1">Ghost Ferns</span>, which glow faintly in the presence of latent magic.</p>
-+              <p>Recent scouting expeditions have uncovered ruins near the northern edge, suggesting a civilization pre-dating the Age of Dust.</p>
-+              <div className="my-8 border-l-4 border-yellow-600 bg-[#161610] p-4 flex gap-4">
-+                <span className="material-symbols-outlined text-yellow-600">lightbulb</span>
-+                <div className="text-sm text-[#ccc]">
-+                  <strong className="text-yellow-600 uppercase block text-xs tracking-wider mb-1">GM Note</strong>
-+                  Players with Perception &gt; 15 may notice the subtle hum of the leylines converging here.
-+                </div>
-+              </div>
-+            </div>
-+          </div>
-+        </div>
-+
-+        {/* Footer */}
-+        <div className="bg-[#0a0a0a] border-t-2 border-[#333] p-4 flex justify-between items-center shrink-0">
-+          <div className="text-[10px] font-mono text-[#444] uppercase">
-+            v3.0.2 // BRUTAL_MOD
-+          </div>
-+          <div className="flex gap-2">
-+            <button className="bg-[#111] border border-[#333] text-[#888] px-3 py-1.5 text-xs font-bold uppercase hover:bg-white hover:text-black transition-colors">
-+              Discard
-+            </button>
-+            <button className="bg-white text-black border border-white px-3 py-1.5 text-xs font-bold uppercase hover:bg-[#ccc] transition-colors">
-+              Save Changes
-+            </button>
-+          </div>
-+        </div>
-+      </aside>
-+    </>
+-
+-      {/* Sidebar (Codex) */}
+-      <aside className="absolute top-0 right-0 bottom-0 w-[600px] bg-[#111] z-50 flex flex-col border-l-2 border-[#333] shadow-none">
+-        
+-        {/* Header */}
+-        <header className="h-14 flex items-center justify-between px-6 border-b-2 border-[#333] bg-[#0a0a0a] shrink-0">
+-          <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wide">
+-            <span className="text-[#666]">ROOT</span>
+-            <span className="text-[#444]">/</span>
+-            <span className="text-[#888]">FRACTURED LANDS</span>
+-            <span className="text-[#444]">/</span>
+-            <span className="bg-white text-black px-1">WHISPERING WOODS</span>
+-          </div>
+-          <div className="flex gap-[-2px]"> 
+-            <button className="w-8 h-8 flex items-center justify-center border-2 border-[#333] bg-[#111] text-white hover:bg-white hover:text-black transition-colors -ml-[2px]">
+-              <span className="material-symbols-outlined text-lg">more_horiz</span>
+-            </button>
+-            <button className="w-8 h-8 flex items-center justify-center border-2 border-[#333] bg-[#111] text-white hover:bg-red-600 hover:text-white transition-colors -ml-[2px]">
+-              <span className="material-symbols-outlined text-lg">close</span>
+-            </button>
+-          </div>
+-        </header>
+-
+-        {/* Relational Matrix */}
+-        <div className="border-b-2 border-[#333] bg-[#16161a] p-6 shrink-0">
+-          <div className="flex items-center justify-between mb-4">
+-            <h4 className="text-sm font-black uppercase tracking-wider text-white flex items-center gap-2">
+-              <span className="w-3 h-3 bg-yellow-500 inline-block"></span>
+-              Relational Matrix
+-            </h4>
+-            <button className="text-[10px] font-bold bg-transparent hover:bg-white hover:text-black text-white border border-[#444] px-3 py-1 uppercase transition-colors">
+-              Expand Graph
+-            </button>
+-          </div>
+-          <div className="grid grid-cols-2 gap-3">
+-            <div className="flex items-center justify-between bg-[#0a0a0a] border border-[#333] p-3 group hover:border-white transition-colors cursor-pointer">
+-              <div className="flex items-center gap-3">
+-                <span className="material-symbols-outlined text-base text-[#666]">water_drop</span>
+-                <span className="text-sm font-bold text-[#ccc]">Sunken Grotto</span>
+-              </div>
+-              <span className="text-[10px] font-mono font-bold text-[#444] border border-[#333] px-1 bg-[#111] group-hover:bg-white group-hover:text-black">NEAR</span>
+-            </div>
+-            <div className="flex items-center justify-between bg-[#1a1a10] border border-yellow-500/50 p-3 relative overflow-hidden">
+-              <div className="flex items-center gap-3 z-10">
+-                <div className="w-2 h-2 bg-yellow-500 animate-pulse"></div>
+-                <span className="text-sm font-bold text-yellow-500 italic">Linking...</span>
+-              </div>
+-              <div className="absolute right-0 top-0 bottom-0 w-8 bg-yellow-500 flex items-center justify-center">
+-                <span className="material-symbols-outlined text-sm text-black font-bold">link</span>
+-              </div>
+-            </div>
+-            <button className="col-span-2 flex items-center justify-center py-2 border border-dashed border-[#444] text-[#444] hover:text-white hover:border-white transition-colors text-xs font-bold uppercase tracking-widest">
+-              + Add Connection
+-            </button>
+-          </div>
+-        </div>
+-
+-        {/* Scrollable Content */}
+-        <div className="flex-1 overflow-y-auto overflow-x-hidden relative no-scrollbar bg-[#0a0a0a]">
+-          <div className="h-48 w-full relative border-b-2 border-[#333]">
+-            <img 
+-              className="w-full h-full object-cover opacity-40 grayscale contrast-125" 
+-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"
+-              alt="Whispering Woods Detail"
+-            />
+-            <div className="absolute inset-0 bg-[#0a0a0a] mix-blend-multiply"></div>
+-            <div className="absolute bottom-0 left-0 bg-black text-white px-4 py-1 text-xs font-mono border-t border-r border-[#333]">IMG_REF_992</div>
+-            <button className="absolute top-4 right-4 bg-black border border-white text-white px-3 py-1 text-xs font-bold hover:bg-white hover:text-black transition-colors uppercase">
+-              Replace
+-            </button>
+-          </div>
+-
+-          <div className="p-8 pb-32">
+-            <div className="flex items-start gap-4 mb-8">
+-              <div className="w-16 h-16 bg-[#111] border-2 border-[#333] flex items-center justify-center shrink-0">
+-                <span className="material-symbols-outlined text-3xl text-white">forest</span>
+-              </div>
+-              <div>
+-                <h1 className="font-black text-5xl text-white leading-[0.9] uppercase tracking-tighter mb-2">Whispering<br/>Woods</h1>
+-                <div className="text-[#666] font-mono text-xs">LAST EDITED: TODAY 14:02</div>
+-              </div>
+-            </div>
+-
+-            <div className="grid grid-cols-3 gap-px bg-[#333] border-2 border-[#333] mb-10">
+-              <div className="bg-[#111] p-3 hover:bg-[#161616] transition-colors">
+-                <span className="text-[9px] uppercase tracking-widest text-[#666] font-bold block mb-1">Type</span>
+-                <div className="flex items-center gap-1 text-xs font-bold text-white">
+-                  <span className="material-symbols-outlined text-xs">terrain</span>
+-                  Territory
+-                </div>
+-              </div>
+-              <div className="bg-[#111] p-3 hover:bg-[#161616] transition-colors">
+-                <span className="text-[9px] uppercase tracking-widest text-[#666] font-bold block mb-1">Status</span>
+-                <div className="flex items-center gap-1 text-xs font-bold text-white">
+-                  <span className="w-2 h-2 bg-green-500"></span>
+-                  Active
+-                </div>
+-              </div>
+-              <div className="bg-[#111] p-3 hover:bg-[#161616] transition-colors">
+-                <span className="text-[9px] uppercase tracking-widest text-[#666] font-bold block mb-1">Owner</span>
+-                <div className="flex items-center gap-1 text-xs font-bold text-white">
+-                  <span className="text-indigo-400 font-black">GM</span>
+-                  System
+-                </div>
+-              </div>
+-            </div>
+-
+-            <div className="tiptap-editor outline-none max-w-none">
+-              <p>The Whispering Woods is not merely a forest, but a sentient organism of vast proportions. Travelers report that the trees themselves seem to shift positions when not directly observed, creating a labyrinth that defies traditional cartography.</p>
+-              <blockquote>
+-                "The leaves don't rustle with the wind; they rustle with intent. Watch your periphery, for that is where the Unseen Fae dwell."
+-                <footer className="mt-2 text-sm text-[#666] not-italic font-mono uppercase">— Elder Kaelen's Journal, Entry 402</footer>
+-              </blockquote>
+-              <h2>Flora &amp; Fauna</h2>
+-              <p>Notable species include the <span className="bg-emerald-900/30 text-emerald-400 border-b border-emerald-500 font-medium px-1">Silver-Barked Oak</span> and the luminous <span className="bg-purple-900/30 text-purple-400 border-b border-purple-500 font-medium px-1">Ghost Ferns</span>, which glow faintly in the presence of latent magic.</p>
+-              <p>Recent scouting expeditions have uncovered ruins near the northern edge, suggesting a civilization pre-dating the Age of Dust.</p>
+-              <div className="my-8 border-l-4 border-yellow-600 bg-[#161610] p-4 flex gap-4">
+-                <span className="material-symbols-outlined text-yellow-600">lightbulb</span>
+-                <div className="text-sm text-[#ccc]">
+-                  <strong className="text-yellow-600 uppercase block text-xs tracking-wider mb-1">GM Note</strong>
+-                  Players with Perception &gt; 15 may notice the subtle hum of the leylines converging here.
+-                </div>
+-              </div>
+-            </div>
+-          </div>
+-        </div>
+-
+-        {/* Footer */}
+-        <div className="bg-[#0a0a0a] border-t-2 border-[#333] p-4 flex justify-between items-center shrink-0">
+-          <div className="text-[10px] font-mono text-[#444] uppercase">
+-            v3.0.2 // BRUTAL_MOD
+-          </div>
+-          <div className="flex gap-2">
+-            <button className="bg-[#111] border border-[#333] text-[#888] px-3 py-1.5 text-xs font-bold uppercase hover:bg-white hover:text-black transition-colors">
+-              Discard
+-            </button>
+-            <button className="bg-white text-black border border-white px-3 py-1.5 text-xs font-bold uppercase hover:bg-[#ccc] transition-colors">
+-              Save Changes
+-            </button>
+-          </div>
+-        </div>
+-      </aside>
+-    </>
++    <Console />
    );
  }
  
+diff --git a/src/components/chrono-fader/Chronoline.tsx b/src/components/chrono-fader/Chronoline.tsx
+new file mode 100644
+index 0000000..a0fbc2e
+--- /dev/null
++++ b/src/components/chrono-fader/Chronoline.tsx
+@@ -0,0 +1,102 @@
++import React, { useEffect, useRef, useMemo } from 'react';
++import { useMixerStore } from '../../store/useMixerStore';
++import { clsx } from 'clsx';
++
++const PIXELS_PER_MS = 0.1; // 100px per second
++
++export const Chronoline: React.FC = () => {
++  const scrollContainerRef = useRef<HTMLDivElement>(null);
++  
++  // Connect to store
++  const currentTime = useMixerStore((state) => state.currentTime);
++  const duration = useMixerStore((state) => state.duration);
++  const isPlaying = useMixerStore((state) => state.isPlaying);
++  const scrub = useMixerStore((state) => state.scrub);
++  
++  // Memoize bars generation
++  const bars = useMemo(() => {
++    // Generate enough bars for the duration
++    // Each bar is 4px wide + 1px gap = 5px
++    // Wait, previous code used 10px? No, explicit width not set for gap?
++    // Tailwind `gap-1` is 0.25rem = 4px.
++    // Width `w-1` is 0.25rem = 4px.
++    // Total 8px per bar?
++    // Let's assume bar width + gap = 6px (w-1 is 4px, gap-0.5 is 2px? or gap-1 is 4px -> 8px total).
++    // Let's assume 6px per unit for calculation.
++    
++    // The previous code had `Array.from({ length: ... / 6 })`.
++    // Let's generate a fixed set of fake data based on duration.
++    const count = Math.ceil((duration * PIXELS_PER_MS) / 6);
++    return Array.from({ length: count }, (_, i) => {
++      // Deterministic random height based on index
++      // Use simple noise function
++      const noise = (Math.sin(i * 0.1) + Math.sin(i * 0.31) + Math.sin(i * 0.73)) / 3;
++      // Map -1..1 to 20..100 % height
++      const height = 20 + ((noise + 1) / 2) * 80;
++      return height;
++    });
++  }, [duration]);
++
++  // Sync scroll position with currentTime
++  useEffect(() => {
++    if (scrollContainerRef.current) {
++      const targetScroll = currentTime * PIXELS_PER_MS;
++      if (Math.abs(scrollContainerRef.current.scrollLeft - targetScroll) > 1) {
++        scrollContainerRef.current.scrollLeft = targetScroll;
++      }
++    }
++  }, [currentTime]);
++
++  const handleScroll = () => {
++    if (!scrollContainerRef.current) return;
++    if (isPlaying) return; 
++
++    const newTime = scrollContainerRef.current.scrollLeft / PIXELS_PER_MS;
++    scrub(newTime);
++  };
++
++  return (
++    <section className="flex-none h-24 bg-[#0a0f0f] border-b border-surface-light relative overflow-hidden group">
++      {/* Playhead Line */}
++      <div className="absolute inset-y-0 left-1/2 w-0.5 bg-primary shadow-neon z-10 transform -translate-x-1/2 pointer-events-none"></div>
++      {/* Playhead Label */}
++      <div className="absolute top-2 left-1/2 transform -translate-x-1/2 z-20 bg-primary text-black text-[10px] font-bold px-1 rounded-sm pointer-events-none shadow-neon">PLAYHEAD</div>
++      
++      {/* Scroll Container */}
++      <div 
++        ref={scrollContainerRef}
++        className="flex items-center h-full overflow-x-auto no-scrollbar px-[50vw]"
++        onScroll={handleScroll}
++      >
++        <div className="flex gap-1 h-12 items-end opacity-60">
++          {bars.map((height, i) => {
++            // Check if this bar is under the playhead
++            // Bar i is at x = i * 6 (approx)
++            // Playhead is at currentTime * PIXELS_PER_MS
++            const barX = i * 6;
++            const playheadX = currentTime * PIXELS_PER_MS;
++            const distance = Math.abs(barX - playheadX);
++            const isActive = distance < 4; // close enough
++
++            return (
++                <div 
++                    key={i} 
++                    className={clsx(
++                        "w-1 rounded-sm transition-all duration-75",
++                        isActive ? "bg-primary shadow-neon opacity-100" : "bg-slate-600 opacity-60"
++                    )}
++                    style={{ height: `${height}%` }}
++                ></div>
++            );
++          })}
++          
++          {/* Scene Marker (Hardcoded for demo) */}
++          <div className="flex flex-col items-center justify-end h-full w-24 mx-2 relative top-2">
++            <div className="text-[10px] text-slate-400 mb-1 whitespace-nowrap uppercase tracking-wider">Scene 3</div>
++            <div className="w-full h-full bg-surface-light/30 border-l border-r border-slate-600"></div>
++          </div>
++        </div>
++      </div>
++    </section>
++  );
++};
+diff --git a/src/components/chrono-fader/Console.tsx b/src/components/chrono-fader/Console.tsx
+new file mode 100644
+index 0000000..d8685e3
+--- /dev/null
++++ b/src/components/chrono-fader/Console.tsx
+@@ -0,0 +1,60 @@
++import React, { useEffect, useRef } from 'react';
++import { useMixerStore } from '../../store/useMixerStore';
++import { Header } from './Header';
++import { Chronoline } from './Chronoline';
++import { Teleprompter } from './Teleprompter';
++import { MixerChannel } from './MixerChannel';
++import { TransportControls } from './TransportControls';
++import { Footer } from './Footer';
++
++export const Console: React.FC = () => {
++  const tick = useMixerStore((state) => state.tick);
++  const isPlaying = useMixerStore((state) => state.isPlaying);
++  const channels = useMixerStore((state) => state.channels);
++  
++  const lastTimeRef = useRef<number>(0);
++  const requestRef = useRef<number>(0);
++
++  const animate = (time: number) => {
++    if (lastTimeRef.current !== 0) {
++      const deltaTime = time - lastTimeRef.current;
++      tick(deltaTime);
++    }
++    lastTimeRef.current = time;
++    requestRef.current = requestAnimationFrame(animate);
++  };
++
++  useEffect(() => {
++    if (isPlaying) {
++      lastTimeRef.current = performance.now();
++      requestRef.current = requestAnimationFrame(animate);
++    } else {
++      cancelAnimationFrame(requestRef.current);
++      lastTimeRef.current = 0;
++    }
++    return () => cancelAnimationFrame(requestRef.current);
++  }, [isPlaying]); // tick is stable
++
++  return (
++    <div className="bg-background-dark text-slate-100 flex flex-col h-screen overflow-hidden font-display">
++      <Header />
++      
++      <main className="flex-1 overflow-y-auto flex flex-col relative bg-background-dark bg-brushed-metal">
++        <Chronoline />
++        <Teleprompter />
++        
++        {/* Mixer Section */}
++        <section className="flex-1 px-4 py-2 min-h-0 overflow-y-auto">
++          <div className="grid grid-cols-4 gap-3 h-full pb-4">
++            {channels.map((channel) => (
++              <MixerChannel key={channel.id} channelId={channel.id} />
++            ))}
++          </div>
++        </section>
++        
++        <TransportControls />
++        <Footer />
++      </main>
++    </div>
++  );
++};
+diff --git a/src/components/chrono-fader/Footer.tsx b/src/components/chrono-fader/Footer.tsx
+new file mode 100644
+index 0000000..d4cb65e
+--- /dev/null
++++ b/src/components/chrono-fader/Footer.tsx
+@@ -0,0 +1,24 @@
++import React from 'react';
++
++export const Footer: React.FC = () => {
++  return (
++    <div className="flex gap-2 border-t border-[#273a3a] bg-[#0c1212] px-4 pb-6 pt-2 select-none">
++      <a className="just flex flex-1 flex-col items-center justify-end gap-1 rounded-full text-primary" href="#">
++        <span className="material-symbols-outlined text-primary drop-shadow-[0_0_5px_rgba(31,249,249,0.5)]">tune</span>
++        <p className="text-primary text-[10px] font-medium leading-normal tracking-widest uppercase">Mixer</p>
++      </a>
++      <a className="just flex flex-1 flex-col items-center justify-end gap-1 text-[#5a6b6b] hover:text-[#9bbbbb] transition-colors" href="#">
++        <span className="material-symbols-outlined">description</span>
++        <p className="text-[10px] font-medium leading-normal tracking-widest uppercase">Script</p>
++      </a>
++      <a className="just flex flex-1 flex-col items-center justify-end gap-1 text-[#5a6b6b] hover:text-[#9bbbbb] transition-colors" href="#">
++        <span className="material-symbols-outlined">library_books</span>
++        <p className="text-[10px] font-medium leading-normal tracking-widest uppercase">Library</p>
++      </a>
++      <a className="just flex flex-1 flex-col items-center justify-end gap-1 text-[#5a6b6b] hover:text-[#9bbbbb] transition-colors" href="#">
++        <span className="material-symbols-outlined">ios_share</span>
++        <p className="text-[10px] font-medium leading-normal tracking-widest uppercase">Export</p>
++      </a>
++    </div>
++  );
++};
+diff --git a/src/components/chrono-fader/Header.tsx b/src/components/chrono-fader/Header.tsx
+new file mode 100644
+index 0000000..61e0b61
+--- /dev/null
++++ b/src/components/chrono-fader/Header.tsx
+@@ -0,0 +1,33 @@
++import React from 'react';
++import { useMixerStore } from '../../store/useMixerStore';
++import { clsx } from 'clsx';
++
++export const Header: React.FC = () => {
++  const isRecording = useMixerStore((state) => state.isRecording);
++
++  return (
++    <header className="flex-none bg-surface-dark border-b border-surface-light px-4 py-3 flex items-center justify-between z-20 shadow-lg relative select-none">
++      <div className="flex items-center gap-3">
++        <span className="material-symbols-outlined text-slate-400 cursor-pointer hover:text-white transition-colors">menu</span>
++        <h1 
++            className="font-bold text-lg tracking-widest text-slate-200 uppercase" 
++            style={{ textShadow: '0 1px 2px black' }}
++        >
++            ChronoFader
++        </h1>
++      </div>
++      <div className="flex items-center gap-4">
++        <div 
++            className={clsx(
++                "flex items-center gap-1 bg-black/40 px-3 py-1 rounded border shadow-inset-slot transition-colors duration-300",
++                isRecording ? "border-red-500/50 bg-red-900/10" : "border-surface-light"
++            )}
++        >
++          <span className={clsx("w-2 h-2 rounded-full transition-all duration-300", isRecording ? "bg-red-500 animate-pulse shadow-neon-red" : "bg-red-900")}></span>
++          <span className={clsx("text-xs font-mono tracking-wider transition-colors", isRecording ? "text-red-400" : "text-red-900")}>REC</span>
++        </div>
++        <span className="material-symbols-outlined text-slate-400 cursor-pointer hover:text-white transition-colors">settings</span>
++      </div>
++    </header>
++  );
++};
+diff --git a/src/components/chrono-fader/MixerChannel.tsx b/src/components/chrono-fader/MixerChannel.tsx
+new file mode 100644
+index 0000000..54e2515
+--- /dev/null
++++ b/src/components/chrono-fader/MixerChannel.tsx
+@@ -0,0 +1,71 @@
++import React from 'react';
++import { useMixerStore } from '../../store/useMixerStore';
++import { RotaryKnob } from './shared/RotaryKnob';
++import { VUMeter } from './shared/VUMeter';
++import { SlidingFader } from './shared/SlidingFader';
++
++interface MixerChannelProps {
++  channelId: string;
++}
++
++export const MixerChannel: React.FC<MixerChannelProps> = ({ channelId }) => {
++  const channel = useMixerStore((state) => state.channels.find((c) => c.id === channelId));
++  const setChannelLevel = useMixerStore((state) => state.setChannelLevel);
++
++  if (!channel) return null;
++
++  const handleLevelChange = (level: number) => {
++    setChannelLevel(channelId, level);
++  };
++
++  return (
++    <div className="flex flex-col h-full bg-[#161e1e] rounded border border-surface-light shadow-lg p-1 relative select-none">
++      {/* Screws */}
++      <div className="absolute top-1 left-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner pointer-events-none"></div>
++      <div className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner pointer-events-none"></div>
++      <div className="absolute bottom-1 left-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner pointer-events-none"></div>
++      <div className="absolute bottom-1 right-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner pointer-events-none"></div>
++
++      {/* Header */}
++      <div className="text-center mt-2 mb-2">
++        <span className="block text-[10px] font-bold text-slate-400 tracking-widest uppercase truncate px-2">{channel.name}</span>
++        <div className="w-full h-8 flex justify-center items-center my-1 pointer-events-none">
++          {/* Rotary Knob (Visual only for now, mirroring level) */}
++          <RotaryKnob 
++            value={channel.currentLevel} 
++            color={channel.color} 
++            shadowColor={channel.shadowColor} 
++          />
++        </div>
++      </div>
++
++      {/* Main Control Area */}
++      <div className="flex-1 flex justify-center gap-1 relative px-1 min-h-0">
++        {/* VU Meter */}
++        <VUMeter 
++            value={channel.currentLevel} 
++            color={channel.color} 
++            shadowColor={channel.shadowColor} 
++        />
++        
++        {/* Fader */}
++        <SlidingFader 
++            value={channel.currentLevel} 
++            onChange={handleLevelChange} 
++            color={channel.color} 
++            shadowColor={channel.shadowColor} 
++        />
++      </div>
++
++      {/* Value Display */}
++      <div className="text-center mt-2 mb-1">
++        <span 
++            className="text-[9px] font-mono"
++            style={{ color: channel.color }}
++        >
++            {Math.round(channel.currentLevel)}%
++        </span>
++      </div>
++    </div>
++  );
++};
+diff --git a/src/components/chrono-fader/Teleprompter.tsx b/src/components/chrono-fader/Teleprompter.tsx
+new file mode 100644
+index 0000000..b2515dd
+--- /dev/null
++++ b/src/components/chrono-fader/Teleprompter.tsx
+@@ -0,0 +1,59 @@
++import React, { useMemo } from 'react';
++import { useMixerStore } from '../../store/useMixerStore';
++import { clsx } from 'clsx';
++
++export const Teleprompter: React.FC = () => {
++  const channels = useMixerStore((state) => state.channels);
++  const isPlaying = useMixerStore((state) => state.isPlaying);
++  
++  // Determine dominant channel and generate prompt
++  const prompt = useMemo(() => {
++    // Find highest level channel
++    const sorted = [...channels].sort((a, b) => b.currentLevel - a.currentLevel);
++    const top = sorted[0];
++    const second = sorted[1];
++    
++    if (top.currentLevel < 30) return { main: "Quiet Beat", sub: "Build tension..." };
++    
++    // Mix logic
++    if (top.id === 'action') {
++        if (second.id === 'threat' && second.currentLevel > 50) return { main: "High Stakes Combat", sub: "Raise the stakes, immediate danger." };
++        if (second.id === 'romance' && second.currentLevel > 50) return { main: "Passionate Conflict", sub: "Fighting for love, or with it." };
++        return { main: "Escalate Action", sub: "Increase pacing, rapid cuts." };
++    }
++    if (top.id === 'romance') {
++        if (second.id === 'threat' && second.currentLevel > 50) return { main: "Forbidden Love", sub: "Intimacy amidst danger." };
++        return { main: "Deepen Connection", sub: "Slow pacing, focus on emotion." };
++    }
++    if (top.id === 'threat') {
++        return { main: "Impending Doom", sub: "Shadows lengthen, silence falls." };
++    }
++    if (top.id === 'expo') {
++        return { main: "Lore Revelation", sub: "Explain the mechanism, reveal the history." };
++    }
++    
++    return { main: "Narrative Beat", sub: "Transitioning..." };
++  }, [channels]);
++
++  return (
++    <section className="flex-none p-4 pb-2">
++      <div className="bg-black border-2 border-surface-light rounded-lg p-3 shadow-inset-slot relative overflow-hidden lcd-screen">
++        <div className="flex justify-between items-center mb-1">
++          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">System Prompt</span>
++          <span className={clsx("text-[10px] font-mono animate-pulse", isPlaying ? "text-primary" : "text-slate-600")}>
++            {isPlaying ? "● LIVE" : "○ PAUSED"}
++          </span>
++        </div>
++        <div 
++            className="font-mono text-lg leading-tight text-primary/90 uppercase tracking-wide transition-all duration-300" 
++            style={{ textShadow: '0 0 4px rgba(31, 249, 249, 0.5)' }}
++        >
++          &gt; {prompt.main}<br/>
++          <span className="opacity-50 text-sm">&gt; {prompt.sub}</span>
++        </div>
++        {/* Scanline effect overlay */}
++        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent h-full w-full pointer-events-none opacity-20 animate-pulse"></div>
++      </div>
++    </section>
++  );
++};
+diff --git a/src/components/chrono-fader/TransportControls.tsx b/src/components/chrono-fader/TransportControls.tsx
+new file mode 100644
+index 0000000..eb47268
+--- /dev/null
++++ b/src/components/chrono-fader/TransportControls.tsx
+@@ -0,0 +1,96 @@
++import React from 'react';
++import { useMixerStore } from '../../store/useMixerStore';
++import { clsx } from 'clsx';
++
++export const TransportControls: React.FC = () => {
++  const isPlaying = useMixerStore((state) => state.isPlaying);
++  const isRecording = useMixerStore((state) => state.isRecording);
++  const currentTime = useMixerStore((state) => state.currentTime);
++  const togglePlay = useMixerStore((state) => state.togglePlay);
++  const toggleRecord = useMixerStore((state) => state.toggleRecord);
++  const stop = useMixerStore((state) => state.stop);
++
++  // Format timecode: HH:MM:SS.ms
++  const formatTime = (ms: number) => {
++    const totalSeconds = Math.floor(ms / 1000);
++    const hours = Math.floor(totalSeconds / 3600);
++    const minutes = Math.floor((totalSeconds % 3600) / 60);
++    const seconds = totalSeconds % 60;
++    const milliseconds = Math.floor((ms % 1000) / 10); // 2 digits
++
++    const pad = (n: number) => n.toString().padStart(2, '0');
++    
++    return {
++      main: `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`,
++      sub: `.${pad(milliseconds)}`
++    };
++  };
++
++  const timecode = formatTime(currentTime);
++
++  return (
++    <section className="flex-none bg-[#111616] border-t border-surface-light px-4 py-4 flex flex-col gap-4">
++      {/* Timecode & Status */}
++      <div className="flex justify-between items-end">
++        <div className="flex flex-col">
++          <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Timecode</span>
++          <span className="text-2xl font-mono text-primary leading-none tracking-tight">
++            {timecode.main}<span className="text-sm text-slate-600">{timecode.sub}</span>
++          </span>
++        </div>
++        <div className="flex gap-2">
++          <span className="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-400 border border-slate-700">MASTER OUT</span>
++          <span className="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-400 border border-slate-700">-3.2dB</span>
++        </div>
++      </div>
++
++      {/* Transport Buttons */}
++      <div className="flex gap-4 items-center justify-center py-2 bg-[#0c1010] rounded-xl shadow-inset-slot border border-surface-light p-2 select-none">
++        {/* Stop Button */}
++        <button 
++          onClick={stop}
++          className="flex-1 aspect-square max-h-16 rounded bg-[#2a3030] shadow-[0_4px_0_rgb(20,20,20),0_5px_10px_rgba(0,0,0,0.5)] active:shadow-none active:translate-y-1 border-t border-slate-600 flex items-center justify-center group transition-transform"
++        >
++          <span className="material-symbols-outlined text-slate-400 group-active:text-slate-200" style={{ fontSize: '32px' }}>stop</span>
++        </button>
++        
++        {/* Play Button (Big) */}
++        <button 
++          onClick={togglePlay}
++          className={clsx(
++            "flex-[1.5] aspect-square max-h-20 rounded bg-gradient-to-b from-[#2a3838] to-[#1b2727] shadow-[0_4px_0_rgb(15,30,30),0_5px_10px_rgba(0,0,0,0.5)] active:shadow-none active:translate-y-1 border-t border-surface-light flex flex-col items-center justify-center group relative overflow-hidden transition-transform",
++            isPlaying && "shadow-none translate-y-1 border-primary/50"
++          )}
++        >
++          <div className={clsx("absolute inset-0 bg-primary/10 transition-opacity", isPlaying ? "opacity-100" : "opacity-0 group-active:opacity-100")}></div>
++          <span 
++            className={clsx(
++                "material-symbols-outlined transition-colors", 
++                isPlaying ? "text-primary drop-shadow-[0_0_5px_rgba(31,249,249,0.8)]" : "text-primary group-active:text-white"
++            )} 
++            style={{ fontSize: '40px' }}
++          >
++            {isPlaying ? 'pause' : 'play_arrow'}
++          </span>
++          <span className="text-[10px] font-bold text-primary/50 mt-1 tracking-widest uppercase">{isPlaying ? 'Pause' : 'Play'}</span>
++        </button>
++        
++        {/* Record Button */}
++        <button 
++          onClick={toggleRecord}
++          className={clsx(
++            "flex-1 aspect-square max-h-16 rounded bg-[#302a2a] shadow-[0_4px_0_rgb(30,15,15),0_5px_10px_rgba(0,0,0,0.5)] active:shadow-none active:translate-y-1 border-t border-red-900/50 flex items-center justify-center group transition-transform",
++            isRecording && "shadow-none translate-y-1 bg-[#3a1a1a]"
++          )}
++        >
++          <div 
++            className={clsx(
++                "w-4 h-4 rounded-full transition-all duration-200",
++                isRecording ? "bg-red-500 shadow-neon-red scale-110 animate-pulse" : "bg-red-700 shadow-inner group-active:bg-red-500 group-active:shadow-neon-red"
++            )}
++          ></div>
++        </button>
++      </div>
++    </section>
++  );
++};
+diff --git a/src/components/chrono-fader/shared/RotaryKnob.tsx b/src/components/chrono-fader/shared/RotaryKnob.tsx
+new file mode 100644
+index 0000000..c872349
+--- /dev/null
++++ b/src/components/chrono-fader/shared/RotaryKnob.tsx
+@@ -0,0 +1,24 @@
++import React from 'react';
++
++interface RotaryKnobProps {
++  value: number; // 0-100
++  color: string;
++  shadowColor: string;
++}
++
++export const RotaryKnob: React.FC<RotaryKnobProps> = ({ value, color, shadowColor }) => {
++  // Map value (0-100) to rotation (-135 to 135 degrees)
++  const rotation = (value / 100) * 270 - 135;
++
++  return (
++    <div 
++      className="w-6 h-6 rounded-full bg-gradient-to-br from-[#3a4b4b] to-[#1a2525] knob-shadow border border-[#2a3838] relative flex items-center justify-center"
++      style={{ transform: `rotate(${rotation}deg)` }}
++    >
++      <div 
++        className={`w-0.5 h-2 absolute top-0.5 ${shadowColor}`}
++        style={{ backgroundColor: color }}
++      ></div>
++    </div>
++  );
++};
+diff --git a/src/components/chrono-fader/shared/SlidingFader.tsx b/src/components/chrono-fader/shared/SlidingFader.tsx
+new file mode 100644
+index 0000000..08ecd73
+--- /dev/null
++++ b/src/components/chrono-fader/shared/SlidingFader.tsx
+@@ -0,0 +1,96 @@
++import React, { useRef, useState } from 'react';
++import { clsx } from 'clsx';
++
++interface SlidingFaderProps {
++  value: number; // 0-100
++  onChange: (value: number) => void;
++  color: string;
++  shadowColor: string;
++}
++
++export const SlidingFader: React.FC<SlidingFaderProps> = ({ value, onChange, color, shadowColor }) => {
++  const trackRef = useRef<HTMLDivElement>(null);
++  const handleRef = useRef<HTMLDivElement>(null);
++  const [isDragging, setIsDragging] = useState(false);
++  const [dragOffset, setDragOffset] = useState(0);
++
++  const calculateValueFromTop = (top: number, trackHeight: number, handleHeight: number) => {
++    const range = trackHeight - handleHeight;
++    const clampedTop = Math.max(0, Math.min(top, range));
++    const percent = 1 - (clampedTop / range);
++    return Math.max(0, Math.min(100, percent * 100));
++  };
++
++  const handlePointerDown = (e: React.PointerEvent) => {
++    if (!handleRef.current) return;
++    
++    e.stopPropagation(); // Prevent track click
++    const rect = handleRef.current.getBoundingClientRect();
++    setDragOffset(e.clientY - rect.top);
++    
++    setIsDragging(true);
++    e.currentTarget.setPointerCapture(e.pointerId);
++  };
++
++  const handlePointerMove = (e: React.PointerEvent) => {
++    if (!isDragging || !trackRef.current || !handleRef.current) return;
++    
++    const trackRect = trackRef.current.getBoundingClientRect();
++    const handleHeight = handleRef.current.offsetHeight;
++    
++    // The new top position relative to track
++    const newTop = e.clientY - trackRect.top - dragOffset;
++    
++    const newValue = calculateValueFromTop(newTop, trackRect.height, handleHeight);
++    onChange(newValue);
++  };
++
++  const handlePointerUp = (e: React.PointerEvent) => {
++    setIsDragging(false);
++    e.currentTarget.releasePointerCapture(e.pointerId);
++  };
++
++  const handleTrackClick = (e: React.MouseEvent) => {
++    if (!trackRef.current || !handleRef.current) return;
++    
++    const trackRect = trackRef.current.getBoundingClientRect();
++    const handleHeight = handleRef.current.offsetHeight;
++    
++    // Center the handle on the click point
++    const newTop = e.clientY - trackRect.top - (handleHeight / 2);
++    
++    const newValue = calculateValueFromTop(newTop, trackRect.height, handleHeight);
++    onChange(newValue);
++  };
++
++  return (
++    <div 
++      className="w-6 relative fader-track rounded-full h-full cursor-pointer" 
++      ref={trackRef} 
++      onClick={handleTrackClick}
++    >
++      <div 
++        ref={handleRef}
++        className="absolute left-[-4px] right-[-4px] h-10 fader-handle rounded flex items-center justify-center cursor-ns-resize touch-none group"
++        style={{ 
++          // 100% -> 0px top
++          // 0% -> (100% - 40px) top
++          top: `calc((100% - 40px) * ${1 - value / 100})` 
++        }}
++        onPointerDown={handlePointerDown}
++        onPointerMove={handlePointerMove}
++        onPointerUp={handlePointerUp}
++      >
++        <div className="w-full h-[1px] bg-black/50 absolute top-1/2"></div>
++        <div 
++            className={clsx("w-4 h-0.5 transition-shadow", shadowColor)}
++            style={{ 
++              backgroundColor: color, 
++              // Fallback if shadowColor class is not enough or specific custom color needed
++              // boxShadow: `0 0 5px ${color}, 0 0 10px ${color}` 
++            }}
++        ></div>
++      </div>
++    </div>
++  );
++};
+diff --git a/src/components/chrono-fader/shared/VUMeter.tsx b/src/components/chrono-fader/shared/VUMeter.tsx
+new file mode 100644
+index 0000000..bcd92e6
+--- /dev/null
++++ b/src/components/chrono-fader/shared/VUMeter.tsx
+@@ -0,0 +1,53 @@
++import React from 'react';
++import { twMerge } from 'tailwind-merge';
++
++interface VUMeterProps {
++  value: number; // 0-100
++  color: string; // The main color (e.g. primary, magenta)
++  shadowColor: string;
++}
++
++export const VUMeter: React.FC<VUMeterProps> = ({ value, color, shadowColor }) => {
++  // 8 segments
++  // Top -> Bottom DOM order
++  // 0: Red (>87.5%)
++  // 1: Red (>75%)
++  // 2: Yellow (>62.5%)
++  // 3: Color (>50%)
++  // 4: Color (>37.5%)
++  // 5: Color (>25%)
++  // 6: Color (>12.5%)
++  // 7: Color (>0%)
++
++  const segments = [
++    { threshold: 87.5, color: '#ef4444', shadow: 'shadow-neon-red' }, // Red
++    { threshold: 75,   color: '#ef4444', shadow: 'shadow-neon-red' }, // Red
++    { threshold: 62.5, color: '#facc15', shadow: 'shadow-neon-amber' }, // Yellow
++    { threshold: 50,   color: color,     shadow: shadowColor },
++    { threshold: 37.5, color: color,     shadow: shadowColor },
++    { threshold: 25,   color: color,     shadow: shadowColor },
++    { threshold: 12.5, color: color,     shadow: shadowColor },
++    { threshold: 0,    color: color,     shadow: shadowColor },
++  ];
++
++  return (
++    <div className="w-1.5 h-full bg-black/50 rounded-full overflow-hidden flex flex-col justify-end gap-[1px] py-1">
++      {segments.map((seg, i) => {
++        const isActive = value > seg.threshold;
++        return (
++          <div
++            key={i}
++            className={twMerge(
++              "h-1 w-full led-segment transition-all duration-75",
++              isActive ? `led-active opacity-100 ${seg.shadow}` : "opacity-20"
++            )}
++            style={{ 
++                backgroundColor: seg.color,
++                boxShadow: isActive ? undefined : 'inset 0 0 2px rgba(0,0,0,0.5)' // default shadow for inactive
++            }}
++          ></div>
++        );
++      })}
++    </div>
++  );
++};
 diff --git a/src/index.css b/src/index.css
-index 91480ed..350ad27 100644
+index 350ad27..913d024 100644
 --- a/src/index.css
 +++ b/src/index.css
-@@ -3,52 +3,100 @@
+@@ -2,103 +2,41 @@
+ 
  @custom-variant dark (&:where(.dark, .dark *));
  
- @theme {
--  --color-mono-bg: #1c1c1e;
--  --color-mono-surface: #2c2c2e;
--  --color-mono-border: rgba(255, 255, 255, 0.2);
--  --color-mono-text-primary: #f2f2f7;
--  --color-mono-text-secondary: #aeaeb2;
-+  --color-brut-bg: #0a0a0f;
-+  --color-brut-panel: #111116;
-+  --color-brut-border: #333333;
-+  --color-brut-accent: #eab308;
-+  --color-brut-text: #ffffff;
-+  --color-brut-text-muted: #888888;
-+  --color-brut-red: #ef4444;
-+  --color-brut-blue: #3b82f6;
- 
--  --font-serif: "Playfair Display", serif;
--  --font-sans: "Inter", sans-serif;
-+  --font-sans: "Inter", "Helvetica", "Arial", sans-serif;
-+}
-+
-+/* Custom Utilities */
-+@utility no-scrollbar {
-+  -ms-overflow-style: none;
-+  scrollbar-width: none;
-+  &::-webkit-scrollbar {
-+    display: none;
+-@theme {
+-  --color-brut-bg: #0a0a0f;
+-  --color-brut-panel: #111116;
+-  --color-brut-border: #333333;
+-  --color-brut-accent: #eab308;
+-  --color-brut-text: #ffffff;
+-  --color-brut-text-muted: #888888;
+-  --color-brut-red: #ef4444;
+-  --color-brut-blue: #3b82f6;
+-
+-  --font-sans: "Inter", "Helvetica", "Arial", sans-serif;
+-}
+-
+-/* Custom Utilities */
+-@utility no-scrollbar {
+-  -ms-overflow-style: none;
+-  scrollbar-width: none;
+-  &::-webkit-scrollbar {
++@layer utilities {
++  .no-scrollbar::-webkit-scrollbar {
+     display: none;
+   }
+-}
+-
+-@utility brut-border {
+-  border: 2px solid #333;
+-}
+-
+-@utility brut-border-r {
+-  border-right: 2px solid #333;
+-}
+-
+-@utility brut-border-b {
+-  border-bottom: 2px solid #333;
+-}
+-
+-@utility brut-border-l {
+-  border-left: 2px solid #333;
+-}
+-
+-@utility brut-border-t {
+-  border-top: 2px solid #333;
+-}
+-
+-@utility connector-line {
+-  stroke-dasharray: 8, 8;
+-  stroke-width: 2px;
+-}
+-
+-@utility drag-thread {
+-  stroke-dasharray: 10, 10;
+-  stroke-width: 4px;
+-  animation: flow 20s linear infinite;
+-}
+-
+-@keyframes flow {
+-  from { stroke-dashoffset: 200; }
+-  to { stroke-dashoffset: 0; }
+-}
+-
+-/* Tiptap Editor Styles */
+-.tiptap-editor p {
+-  margin-bottom: 1em;
+-  line-height: 1.4;
+-  color: #d4d4d4;
+-  font-weight: 400;
+-  font-size: 1.1rem;
+-}
+-
+-.tiptap-editor h2 {
+-  font-weight: 800;
+-  font-size: 1.75rem;
+-  margin-top: 1.5em;
+-  margin-bottom: 0.5em;
+-  color: #fff;
+-  text-transform: uppercase;
+-  letter-spacing: -0.02em;
+-  border-bottom: 2px solid #333;
+-  padding-bottom: 0.25em;
+-}
++  .no-scrollbar {
++    -ms-overflow-style: none;
++    scrollbar-width: none;
 +  }
-+}
-+
-+@utility brut-border {
-+  border: 2px solid #333;
-+}
-+
-+@utility brut-border-r {
-+  border-right: 2px solid #333;
-+}
  
--  --background-image-soft-gradient: radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, transparent 70%);
-+@utility brut-border-b {
-+  border-bottom: 2px solid #333;
+-.tiptap-editor blockquote {
+-  border-left: 4px solid #eab308;
+-  background: #1a1a1e;
+-  padding: 1rem;
+-  font-style: italic;
+-  color: #fff;
+-  margin-bottom: 1.5em;
+-  font-weight: 500;
++  .knob-shadow {
++    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
++  }
++  .fader-track {
++    background: #0f1515;
++    box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), inset 0 0 2px rgba(0,0,0,1); 
++  }
++  .fader-handle {
++    background: linear-gradient(180deg, #3a4b4b 0%, #222e2e 100%);
++    box-shadow: 0 4px 6px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.15);
++  }
++  .led-segment {
++    box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
++  }
++  .led-active {
++    box-shadow: 0 0 4px currentColor;
++  }
++  .lcd-screen {
++    background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
++    background-size: 100% 2px, 3px 100%;
++  }
  }
  
--@utility glass-panel {
--  background: rgba(30, 30, 32, 0.85);
--  backdrop-filter: blur(16px);
--  -webkit-backdrop-filter: blur(16px);
--  border: 1px solid rgba(255, 255, 255, 0.15);
--  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-+@utility brut-border-l {
-+  border-left: 2px solid #333;
- }
- 
--@utility active-node-glow {
--  position: absolute;
--  z-index: -1;
--  width: 140%;
--  height: 140%;
--  top: -20%;
--  left: -20%;
--  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0) 60%);
--  pointer-events: none;
-+@utility brut-border-t {
-+  border-top: 2px solid #333;
- }
- 
- @utility connector-line {
--  stroke-dasharray: 2, 4;
--  stroke-width: 0.8px;
-+  stroke-dasharray: 8, 8;
-+  stroke-width: 2px;
-+}
-+
-+@utility drag-thread {
-+  stroke-dasharray: 10, 10;
-+  stroke-width: 4px;
-+  animation: flow 20s linear infinite;
-+}
-+
-+@keyframes flow {
-+  from { stroke-dashoffset: 200; }
-+  to { stroke-dashoffset: 0; }
-+}
-+
-+/* Tiptap Editor Styles */
-+.tiptap-editor p {
-+  margin-bottom: 1em;
-+  line-height: 1.4;
-+  color: #d4d4d4;
-+  font-weight: 400;
-+  font-size: 1.1rem;
-+}
-+
-+.tiptap-editor h2 {
-+  font-weight: 800;
-+  font-size: 1.75rem;
-+  margin-top: 1.5em;
-+  margin-bottom: 0.5em;
-+  color: #fff;
-+  text-transform: uppercase;
-+  letter-spacing: -0.02em;
-+  border-bottom: 2px solid #333;
-+  padding-bottom: 0.25em;
- }
- 
--/* Custom scrollbar */
--::-webkit-scrollbar {
--  display: none;
-+.tiptap-editor blockquote {
-+  border-left: 4px solid #eab308;
-+  background: #1a1a1e;
-+  padding: 1rem;
-+  font-style: italic;
-+  color: #fff;
-+  margin-bottom: 1.5em;
-+  font-weight: 500;
- }
- 
--/* Base styles */
-+/* Base Styles */
+-/* Base Styles */
  body {
-   font-family: var(--font-sans);
--  @apply bg-mono-bg text-mono-text-primary h-screen w-full overflow-hidden flex flex-col relative antialiased selection:bg-white selection:text-mono-bg;
--  min-height: max(884px, 100dvh);
-+  background-color: #050508;
-+  color: var(--color-brut-text);
-+  @apply h-screen w-full overflow-hidden flex relative antialiased selection:bg-yellow-500 selection:text-black;
+-  font-family: var(--font-sans);
+-  background-color: #050508;
+-  color: var(--color-brut-text);
+-  @apply h-screen w-full overflow-hidden flex relative antialiased selection:bg-yellow-500 selection:text-black;
+-}
+-
+-#root {
+-  @apply h-full w-full;
++  background-color: #111818;
++  color: #ffffff;
++  font-family: 'Space Grotesk', sans-serif;
++  min-height: max(884px, 100dvh);
  }
- 
- #root {
+diff --git a/src/store/useMixerStore.ts b/src/store/useMixerStore.ts
+new file mode 100644
+index 0000000..8d98292
+--- /dev/null
++++ b/src/store/useMixerStore.ts
+@@ -0,0 +1,202 @@
++import { create } from 'zustand';
++
++export type AutomationPoint = {
++  time: number; // in milliseconds
++  value: number; // 0-100
++};
++
++export type Channel = {
++  id: string;
++  name: string;
++  color: string;
++  shadowColor: string;
++  currentLevel: number;
++  automation: AutomationPoint[];
++};
++
++interface MixerState {
++  isPlaying: boolean;
++  isRecording: boolean;
++  currentTime: number;
++  duration: number; // in milliseconds
++  channels: Channel[];
++
++  togglePlay: () => void;
++  toggleRecord: () => void;
++  stop: () => void;
++  setChannelLevel: (channelId: string, level: number) => void;
++  setDuration: (duration: number) => void;
++  tick: (deltaTime: number) => void;
++  scrub: (time: number) => void;
++}
++
++const INITIAL_CHANNELS: Channel[] = [
++  {
++    id: 'action',
++    name: 'Action',
++    color: '#1ff9f9', // primary cyan
++    shadowColor: 'shadow-neon',
++    currentLevel: 75,
++    automation: [{ time: 0, value: 75 }],
++  },
++  {
++    id: 'romance',
++    name: 'Romance',
++    color: '#ff00ff', // magenta
++    shadowColor: 'shadow-neon-magenta',
++    currentLevel: 40,
++    automation: [{ time: 0, value: 40 }],
++  },
++  {
++    id: 'expo',
++    name: 'Expo',
++    color: '#ffbf00', // amber
++    shadowColor: 'shadow-neon-amber',
++    currentLevel: 95,
++    automation: [{ time: 0, value: 95 }],
++  },
++  {
++    id: 'threat',
++    name: 'Threat',
++    color: '#ff3b30', // red
++    shadowColor: 'shadow-neon-red',
++    currentLevel: 20,
++    automation: [{ time: 0, value: 20 }],
++  },
++];
++
++export const useMixerStore = create<MixerState>((set, get) => ({
++  isPlaying: false,
++  isRecording: false,
++  currentTime: 0,
++  duration: 60000, // 60 seconds default
++  channels: INITIAL_CHANNELS,
++
++  togglePlay: () => {
++    const { isPlaying } = get();
++    if (isPlaying) {
++      set({ isPlaying: false, isRecording: false });
++    } else {
++      // If we are at the end, restart
++      if (get().currentTime >= get().duration) {
++        set({ currentTime: 0 });
++      }
++      set({ isPlaying: true });
++    }
++  },
++
++  toggleRecord: () => {
++    // Can only record while playing? Or toggle record mode then play?
++    // Let's toggle record mode. If playing, it starts recording immediately.
++    set((state) => ({ isRecording: !state.isRecording }));
++  },
++
++  stop: () => {
++    set({ isPlaying: false, isRecording: false, currentTime: 0 });
++    // Reset levels to initial state or time 0?
++    // For now, let's reset levels to their values at time 0
++    const { channels } = get();
++    const newChannels = channels.map(ch => {
++        // Find value at time 0 or use current if none
++        const initial = ch.automation.find(p => p.time === 0)?.value ?? ch.currentLevel;
++        return { ...ch, currentLevel: initial };
++    });
++    set({ channels: newChannels });
++  },
++
++  setChannelLevel: (channelId, level) => {
++    set((state) => {
++      const { isPlaying, isRecording, currentTime } = state;
++      const newChannels = state.channels.map((ch) => {
++        if (ch.id === channelId) {
++          const newCh = { ...ch, currentLevel: level };
++          // If recording and playing, add automation point
++          if (isRecording && isPlaying) {
++             // Basic optimization: if the last point is very close in time, maybe replace it?
++             // For now, just append.
++             newCh.automation = [...ch.automation, { time: currentTime, value: level }].sort((a, b) => a.time - b.time);
++          }
++          return newCh;
++        }
++        return ch;
++      });
++      return { channels: newChannels };
++    });
++  },
++
++  setDuration: (duration) => set({ duration }),
++
++  tick: (deltaTime) => {
++    const { isPlaying, currentTime, duration, stop, isRecording, channels } = get();
++    if (!isPlaying) return;
++
++    let nextTime = currentTime + deltaTime;
++    if (nextTime >= duration) {
++      nextTime = duration;
++      stop(); // Auto stop at end
++      return;
++    }
++
++    // If NOT recording, update levels based on automation
++    let nextChannels = channels;
++    if (!isRecording) {
++      nextChannels = channels.map((ch) => {
++        // Find automation value for nextTime
++        // Simple linear interpolation
++        if (ch.automation.length === 0) return ch;
++
++        // Find points surrounding nextTime
++        // Automation is sorted by time
++        const nextIdx = ch.automation.findIndex(p => p.time >= nextTime);
++        
++        let newLevel = ch.currentLevel;
++
++        if (nextIdx === -1) {
++            // Past the last point, use the last point's value
++            newLevel = ch.automation[ch.automation.length - 1].value;
++        } else if (nextIdx === 0) {
++            // Before the first point, use first point
++            newLevel = ch.automation[0].value;
++        } else {
++            const p1 = ch.automation[nextIdx - 1];
++            const p2 = ch.automation[nextIdx];
++            const range = p2.time - p1.time;
++            const progress = (nextTime - p1.time) / range;
++            newLevel = p1.value + (p2.value - p1.value) * progress;
++        }
++
++        return { ...ch, currentLevel: newLevel };
++      });
++    }
++
++    set({ currentTime: nextTime, channels: nextChannels });
++  },
++
++  scrub: (time) => {
++      // When scrubbing, we should update the channel levels to reflect the automation at that time
++      const { channels, duration } = get();
++      const clampedTime = Math.max(0, Math.min(time, duration));
++      
++      const nextChannels = channels.map((ch) => {
++        if (ch.automation.length === 0) return ch;
++
++        const nextIdx = ch.automation.findIndex(p => p.time >= clampedTime);
++        let newLevel = ch.currentLevel;
++
++        if (nextIdx === -1) {
++            newLevel = ch.automation[ch.automation.length - 1].value;
++        } else if (nextIdx === 0) {
++            newLevel = ch.automation[0].value;
++        } else {
++            const p1 = ch.automation[nextIdx - 1];
++            const p2 = ch.automation[nextIdx];
++            const range = p2.time - p1.time;
++            const progress = (clampedTime - p1.time) / range;
++            newLevel = p1.value + (p2.value - p1.value) * progress;
++        }
++        return { ...ch, currentLevel: newLevel };
++      });
++
++      set({ currentTime: clampedTime, channels: nextChannels });
++  }
++}));
+diff --git a/tailwind.config.js b/tailwind.config.js
+index 89a305e..33ae00a 100644
+--- a/tailwind.config.js
++++ b/tailwind.config.js
+@@ -4,8 +4,31 @@ export default {
+     "./index.html",
+     "./src/**/*.{js,ts,jsx,tsx}",
+   ],
++  darkMode: "class",
+   theme: {
+-    extend: {},
++      extend: {
++          colors: {
++              "primary": "#1ff9f9",
++              "background-light": "#f5f8f8",
++              "background-dark": "#111818", 
++              "surface-dark": "#1b2727",
++              "surface-light": "#273a3a",
++          },
++          fontFamily: {
++              "display": ["Space Grotesk", "sans-serif"],
++              "mono": ["monospace"]
++          },
++          boxShadow: {
++              'neon': '0 0 5px theme("colors.primary"), 0 0 10px theme("colors.primary")',
++              'neon-magenta': '0 0 5px #ff00ff, 0 0 10px #ff00ff',
++              'neon-amber': '0 0 5px #ffbf00, 0 0 10px #ffbf00',
++              'neon-red': '0 0 5px #ff3b30, 0 0 10px #ff3b30',
++              'inset-slot': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.6)',
++          },
++          backgroundImage: {
++              'brushed-metal': "linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%), repeating-linear-gradient(90deg, transparent 0, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)",
++          }
++      },
+   },
+   plugins: [],
+-}
+\ No newline at end of file
++}
