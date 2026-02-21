@@ -2,272 +2,430 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Chronos Canvas: Cyber HUD Variant</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<title>ChronoFader: Industrial Variant</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        primary: "#00f0ff",secondary: "#bd00ff","background-dark": "#000000","surface-dark": "#0a0a0a",
-                        "grid-line": "#1a1a2e",
+                        "toxic-green": "#39ff14",
+                        "toxic-green-dim": "#1a4d0b",
+                        "amber-signal": "#ffb000",
+                        "amber-dim": "#4d3600",
+                        "steel-dark": "#1a1a1a",
+                        "steel-light": "#2d2d2d",
+                        "industrial-black": "#0a0a0a",
+                        "crt-bg": "#051105",
                     },
                     fontFamily: {
-                        display: ["Space Grotesk", "sans-serif"],
-                        mono: ["JetBrains Mono", "monospace"],
-                        body: ["Space Grotesk", "sans-serif"],
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "mono": ["Share Tech Mono", "monospace"]
+                    },
+                    boxShadow: {
+                        'neon-green': '0 0 5px #39ff14, 0 0 10px #39ff14',
+                        'neon-amber': '0 0 5px #ffb000, 0 0 10px #ffb000',
+                        'neon-red': '0 0 5px #ff3b30, 0 0 10px #ff3b30',
+                        'inset-heavy': 'inset 2px 2px 5px rgba(0,0,0,0.8), inset -1px -1px 2px rgba(255,255,255,0.1)',
+                        'knob': '4px 4px 8px #000, -2px -2px 4px #333',
                     },
                     backgroundImage: {
-                        'grid-pattern': "linear-gradient(to right, #2a2a40 1px, transparent 1px), linear-gradient(to bottom, #2a2a40 1px, transparent 1px)",
-                    },
-                    animation: {
-                        'flow': 'flow 20s linear infinite',
-                        'pulse-glow': 'pulse-glow 3s infinite',
-                    },
-                    keyframes: {
-                        flow: {
-                            '0%': { strokeDashoffset: '100' },
-                            '100%': { strokeDashoffset: '0' },
-                        },
-                        'pulse-glow': {
-                            '0%, 100%': { boxShadow: '0 0 5px #00f0ff, 0 0 10px #00f0ff' },
-                            '50%': { boxShadow: '0 0 2px #00f0ff, 0 0 5px #00f0ff' },
-                        }
+                        'steel-texture': "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMmQyZDJkIi8+CjxwYXRoIGQ9Ik0wIDBMMiAyTTQgNEwyIDIiIHN0cm9rZT0iIzIyMiIgc3Ryb2tlLXdpZHRoPSIxIi8+Cjwvc3ZnPg==')", 
+                        'metal-grain': "linear-gradient(0deg, rgba(0,0,0,0.2) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.2) 100%)",
                     }
                 },
             },
         }
     </script>
 <style>
+        body {
+            background-color: #0a0a0a;
+            color: #d1d5db;
+            font-family: 'Space Grotesk', sans-serif;
+        }::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+            background: #111;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border: 1px solid #000;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444;
+        }
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
         .no-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;
-        }.cyber-panel {
-            background: rgba(0, 0, 0, 0.85);
-            border: 1px solid #00f0ff;
-            box-shadow: 0 0 8px rgba(0, 240, 255, 0.2), inset 0 0 20px rgba(0, 240, 255, 0.05);
-            backdrop-filter: blur(4px);
-        }
-        .cyber-panel-secondary {
-            background: rgba(0, 0, 0, 0.85);
-            border: 1px solid #bd00ff;
-            box-shadow: 0 0 8px rgba(189, 0, 255, 0.2), inset 0 0 20px rgba(189, 0, 255, 0.05);
-            backdrop-filter: blur(4px);
-        }
-        .infinite-grid {
-            background-size: 60px 60px;mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
-            -webkit-mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
-        }
-        .corner-accent {
+        }.crt-monitor {
+            background: radial-gradient(circle at center, #0a1f0a 0%, #000000 100%);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.9);
+            position: relative;
+            overflow: hidden;
+            border-radius: 40px / 20px;}
+        .crt-monitor::before {
+            content: " ";
+            display: block;
             position: absolute;
-            width: 8px;
-            height: 8px;
-            border-style: solid;
-            border-color: #00f0ff;
-            border-width: 0;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
             pointer-events: none;
         }
-        .corner-tl { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; }
-        .corner-tr { top: -1px; right: -1px; border-top-width: 2px; border-right-width: 2px; }
-        .corner-bl { bottom: -1px; left: -1px; border-bottom-width: 2px; border-left-width: 2px; }
-        .corner-br { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; }
-        .flowing-dash {
-            stroke-dasharray: 10, 10;
-            animation: flow 1s linear infinite;
+        .crt-monitor::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: rgba(18, 16, 16, 0.1);
+            opacity: 0;
+            z-index: 2;
+            pointer-events: none;
+            animation: flicker 0.15s infinite;
+        }
+        @keyframes flicker {
+            0% { opacity: 0.02; }
+            5% { opacity: 0.05; }
+            10% { opacity: 0.02; }
+            100% { opacity: 0.02; }
+        }.fader-slot {
+            background: #000;
+            border-radius: 4px;
+            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.9), inset -1px -1px 0 rgba(255,255,255,0.1);
+            position: relative;
+        }
+        .fader-cap {
+            background: linear-gradient(90deg, #222 0%, #444 40%, #555 50%, #444 60%, #222 100%);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.8), 0 0 1px rgba(255,255,255,0.3);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(0,0,0,0.8);
+            cursor: ns-resize;
+            width: 40px;height: 60px;border-radius: 4px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .fader-cap::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: #000;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.2);
+            transform: translateY(-50%);
+        }
+        .screw-head {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #555 0%, #222 100%);
+            box-shadow: inset 1px 1px 1px rgba(0,0,0,0.8), 1px 1px 2px rgba(255,255,255,0.1);
+            position: relative;
+        }
+        .screw-head::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80%;
+            height: 1px;
+            background: #111;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+        .screw-head::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80%;
+            height: 1px;
+            background: #111;
+            transform: translate(-50%, -50%) rotate(-45deg);
         }
     </style>
-<style>
-        body {
-            min-height: max(884px, 100dvh);
-        }
-    </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-  </head>
-<body class="bg-background-dark text-slate-100 font-display h-screen w-full overflow-hidden flex flex-col relative selection:bg-primary selection:text-black">
-<div class="absolute inset-0 z-0 pointer-events-none opacity-40 infinite-grid bg-grid-pattern shadow-[inset_0_0_100px_rgba(0,0,0,1)]"></div>
-<div class="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_50%_50%,rgba(0,240,255,0.03),transparent_70%)]"></div>
-<header class="absolute top-0 left-0 right-0 z-50 pt-12 pb-4 px-4 flex justify-between items-center bg-gradient-to-b from-black/90 to-transparent">
-<div class="flex items-center gap-0 cyber-panel rounded-none px-2 py-1 clip-path-polygon">
-<div class="flex items-center gap-2 px-2 border-r border-primary/30 h-full">
-<span class="material-symbols-outlined text-primary text-sm">terminal</span>
+</head>
+<body class="bg-[#111] text-gray-300 flex h-screen overflow-hidden">
+<aside class="flex-none w-20 bg-[#0f0f0f] border-r border-[#222] flex flex-col items-center py-6 z-30 shadow-[4px_0_10px_rgba(0,0,0,0.5)]">
+<div class="mb-8">
+<span class="material-symbols-outlined text-toxic-green text-3xl drop-shadow-[0_0_8px_rgba(57,255,20,0.4)]">grid_view</span>
 </div>
-<div class="flex items-center gap-1 px-3 font-mono text-[10px] tracking-widest uppercase">
-<span class="text-slate-500">SYS</span>
-<span class="text-primary">&gt;</span>
-<button class="text-slate-300 hover:text-primary transition-colors">ELDORIA</button>
-<span class="text-primary">&gt;</span>
-<button class="text-slate-300 hover:text-primary transition-colors">SEC_01</button>
-<span class="text-primary">&gt;</span>
-<span class="text-white font-bold drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]">WHISPERING_WOODS</span>
+<nav class="flex flex-col gap-8 w-full">
+<a class="flex flex-col items-center gap-1 group relative w-full py-2" href="#">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-toxic-green shadow-neon-green"></div>
+<div class="p-2 rounded-lg bg-[#1a1a1a] shadow-inner group-hover:bg-[#222] transition-colors border border-[#333]">
+<span class="material-symbols-outlined text-toxic-green">tune</span>
+</div>
+<span class="text-[9px] uppercase tracking-widest font-bold text-toxic-green">Mixer</span>
+</a>
+<a class="flex flex-col items-center gap-1 group w-full py-2 opacity-60 hover:opacity-100 transition-opacity" href="#">
+<div class="p-2 rounded-lg group-hover:bg-[#1a1a1a] transition-colors">
+<span class="material-symbols-outlined text-gray-400">description</span>
+</div>
+<span class="text-[9px] uppercase tracking-widest font-bold text-gray-500">Script</span>
+</a>
+<a class="flex flex-col items-center gap-1 group w-full py-2 opacity-60 hover:opacity-100 transition-opacity" href="#">
+<div class="p-2 rounded-lg group-hover:bg-[#1a1a1a] transition-colors">
+<span class="material-symbols-outlined text-gray-400">library_books</span>
+</div>
+<span class="text-[9px] uppercase tracking-widest font-bold text-gray-500">Lib</span>
+</a>
+<a class="flex flex-col items-center gap-1 group w-full py-2 opacity-60 hover:opacity-100 transition-opacity" href="#">
+<div class="p-2 rounded-lg group-hover:bg-[#1a1a1a] transition-colors">
+<span class="material-symbols-outlined text-gray-400">ios_share</span>
+</div>
+<span class="text-[9px] uppercase tracking-widest font-bold text-gray-500">Exp</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-4">
+<div class="w-10 h-10 rounded-full border-2 border-[#333] flex items-center justify-center bg-[#050505]">
+<span class="material-symbols-outlined text-gray-600 text-sm">settings</span>
 </div>
 </div>
-<button class="cyber-panel p-2 rounded-none text-primary hover:bg-primary/10 transition-colors">
-<span class="material-symbols-outlined text-lg">settings_suggest</span>
-</button>
+</aside>
+<main class="flex-1 flex flex-col bg-steel-dark bg-steel-texture relative">
+<header class="h-16 bg-[#151515] border-b border-[#2a2a2a] flex items-center justify-between px-6 shadow-lg z-20">
+<div class="flex items-center gap-4">
+<h1 class="font-display font-bold text-xl tracking-[0.2em] text-gray-200 uppercase" style="text-shadow: 0 2px 4px black;">
+                    ChronoFader <span class="text-toxic-green text-xs align-top opacity-80">v1.0.IND</span>
+</h1>
+<div class="h-6 w-[1px] bg-[#333]"></div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 bg-red-900 rounded-full border border-red-950 shadow-inner overflow-hidden relative">
+<div class="absolute inset-0 bg-red-500 animate-pulse opacity-50"></div>
+</div>
+<span class="text-xs font-mono text-red-500/70 tracking-wider">REC STANDBY</span>
+</div>
+</div>
+<div class="bg-black border border-[#333] px-6 py-2 rounded-sm shadow-inset-heavy">
+<span class="font-mono text-3xl text-toxic-green tracking-widest drop-shadow-[0_0_5px_rgba(57,255,20,0.6)]">00:04:15:12</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex flex-col items-end">
+<span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Master Out</span>
+<div class="flex gap-1">
+<div class="w-2 h-4 bg-toxic-green shadow-neon-green"></div>
+<div class="w-2 h-4 bg-toxic-green shadow-neon-green"></div>
+<div class="w-2 h-4 bg-toxic-green shadow-neon-green"></div>
+<div class="w-2 h-4 bg-amber-signal shadow-neon-amber"></div>
+<div class="w-2 h-4 bg-amber-dim opacity-40"></div>
+</div>
+</div>
+<div class="w-10 h-10 rounded bg-[#222] shadow-[0_4px_0_#111] active:translate-y-1 active:shadow-none border border-[#333] flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-gray-400">power_settings_new</span>
+</div>
+</div>
 </header>
-<main class="flex-1 relative w-full h-full overflow-hidden z-10 touch-none">
-<svg class="absolute inset-0 w-full h-full pointer-events-none z-0 filter drop-shadow-[0_0_3px_#00f0ff]">
-<defs>
-<linearGradient id="gradientLine" x1="0%" x2="100%" y1="0%" y2="0%">
-<stop offset="0%" style="stop-color:#00f0ff;stop-opacity:0"></stop>
-<stop offset="50%" style="stop-color:#00f0ff;stop-opacity:1"></stop>
-<stop offset="100%" style="stop-color:#bd00ff;stop-opacity:1"></stop>
-</linearGradient>
-</defs>
-<path class="flowing-dash" d="M180,300 C250,300 150,520 220,520" fill="none" stroke="#00f0ff" stroke-width="2"></path>
-<path d="M220,520 C280,520 300,450 340,400" fill="none" stroke="#bd00ff" stroke-dasharray="2,4" stroke-opacity="0.8" stroke-width="2"></path>
-<g transform="translate(180, 375)">
-<rect fill="#000" height="24" stroke="#00f0ff" stroke-width="1" width="140" x="0" y="0"></rect>
-<text fill="#00f0ff" font-family="JetBrains Mono" font-size="9" font-weight="bold" letter-spacing="1px" text-anchor="middle" x="70" y="16">DATA_LINK::CORRUPT</text>
-<rect fill="#00f0ff" height="4" width="4" x="-2" y="-2"></rect>
-<rect fill="#00f0ff" height="4" width="4" x="138" y="22"></rect>
-</g>
-</svg>
-<div class="absolute top-[220px] left-6 w-64 cyber-panel-secondary p-0 group hover:shadow-[0_0_15px_rgba(189,0,255,0.4)] transition-all duration-300">
-<div class="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-secondary"></div>
-<div class="absolute -top-1 -right-1 w-3 h-3 border-t-2 border-r-2 border-secondary"></div>
-<div class="absolute -bottom-1 -left-1 w-3 h-3 border-b-2 border-l-2 border-secondary"></div>
-<div class="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-secondary"></div>
-<div class="p-4 relative bg-black/40">
-<div class="flex items-start justify-between mb-3">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 border border-secondary bg-secondary/10 flex items-center justify-center text-secondary shadow-[0_0_10px_rgba(189,0,255,0.3)]">
-<span class="material-symbols-outlined text-lg">fort</span>
-</div>
-<div>
-<h3 class="text-white font-mono font-bold text-sm tracking-wider uppercase leading-tight text-shadow-[0_0_5px_rgba(255,255,255,0.5)]">Obsidian_Spire</h3>
-<p class="text-[10px] text-secondary font-mono mt-0.5">LOC::MAGIC_FOCUS</p>
-</div>
-</div>
-<button class="text-secondary/50 hover:text-secondary"><span class="material-symbols-outlined text-lg">drag_handle</span></button>
-</div>
-<div class="h-24 w-full border border-secondary/30 mb-3 overflow-hidden relative group-hover:border-secondary transition-colors">
-<img alt="Dark gothic spire silhouette against a purple night sky" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity grayscale hover:grayscale-0" data-alt="Dark gothic spire silhouette against a purple night sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"/>
-<div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-<div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-10 bg-[length:100%_2px,3px_100%] pointer-events-none"></div>
-</div>
-<div class="flex gap-2 text-[9px] font-mono uppercase tracking-widest">
-<span class="px-2 py-1 bg-secondary/20 text-secondary border border-secondary/50">Ancient</span>
-<span class="px-2 py-1 bg-red-900/40 text-red-500 border border-red-500/50">Danger_Lvl:High</span>
+<div class="flex-1 flex flex-col overflow-hidden">
+<div class="flex h-[35%] border-b border-[#2a2a2a] bg-[#0c0c0c]">
+<div class="flex-[2] border-r border-[#222] relative flex flex-col group">
+<div class="absolute top-2 left-2 z-10 bg-black/60 px-2 py-1 border border-toxic-green/30 rounded text-[9px] text-toxic-green font-mono">CHRONOLINE_SEQ_01</div>
+<div class="absolute inset-y-0 left-1/2 w-0.5 bg-toxic-green shadow-neon-green z-10"></div>
+<div class="flex-1 flex items-end pb-0 overflow-hidden relative bg-[#080808]">
+<div class="absolute inset-0 bg-[linear-gradient(rgba(57,255,20,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(57,255,20,0.03)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+<div class="flex items-end h-[80%] w-full px-[50%] gap-[2px] opacity-80">
+<div class="w-3 bg-[#222] h-[30%] border-t border-[#444]"></div>
+<div class="w-3 bg-[#222] h-[50%] border-t border-[#444]"></div>
+<div class="w-3 bg-[#252525] h-[40%] border-t border-[#555]"></div>
+<div class="w-3 bg-[#333] h-[70%] border-t border-[#666]"></div>
+<div class="w-3 bg-[#333] h-[60%] border-t border-[#666]"></div>
+<div class="w-1 bg-amber-signal h-full shadow-neon-amber mx-1"></div>
+<div class="w-3 bg-[#222] h-[20%] border-t border-[#444]"></div>
+<div class="w-3 bg-[#222] h-[90%] border-t border-[#444]"></div>
+<div class="w-4 bg-toxic-green h-[100%] border-t border-white shadow-neon-green"></div>
+<div class="w-3 bg-[#222] h-[80%] border-t border-[#444]"></div>
+<div class="w-3 bg-[#222] h-[40%] border-t border-[#444]"></div>
+<div class="w-3 bg-[#222] h-[30%] border-t border-[#444]"></div>
+<div class="w-3 bg-[#222] h-[60%] border-t border-[#444]"></div>
 </div>
 </div>
 </div>
-<div class="absolute top-[480px] left-1/2 -translate-x-1/2 w-72 cyber-panel p-0 group transition-all z-20 hover:scale-[1.02]">
-<div class="corner-accent corner-tl"></div>
-<div class="corner-accent corner-tr"></div>
-<div class="corner-accent corner-bl"></div>
-<div class="corner-accent corner-br"></div>
-<div class="absolute -top-3 -right-3 w-6 h-6 bg-black border border-primary text-primary flex items-center justify-center text-[10px] font-mono font-bold shadow-[0_0_10px_#00f0ff] z-10">02</div>
-<div class="p-5 bg-black/60 relative overflow-hidden">
-<div class="absolute top-0 left-0 w-full h-[1px] bg-primary/50 shadow-[0_0_10px_#00f0ff] animate-[scan_3s_ease-in-out_infinite]"></div>
-<div class="flex items-start justify-between mb-3">
-<div class="flex items-center gap-3">
-<div class="w-10 h-10 border border-primary bg-primary/10 flex items-center justify-center text-primary shadow-[0_0_15px_rgba(0,240,255,0.3)]">
-<span class="material-symbols-outlined text-xl">token</span>
+<div class="flex-1 p-6 bg-[#111] flex flex-col justify-center">
+<div class="w-full h-full p-4 crt-monitor border-[6px] border-[#222] shadow-[0_0_0_1px_rgba(0,0,0,1),0_10px_20px_rgba(0,0,0,0.8)]">
+<div class="flex justify-between items-start mb-4 relative z-10">
+<span class="text-[10px] font-mono text-toxic-green opacity-70 border border-toxic-green px-1">SYS.MSG.884</span>
+<span class="text-[10px] font-mono text-red-500 animate-pulse">â LIVE BROADCAST</span>
 </div>
-<div>
-<h3 class="text-white font-mono font-bold text-base tracking-widest uppercase leading-tight drop-shadow-md">Whispering<br/>Woods</h3>
-<p class="text-[10px] text-primary font-mono mt-1">TERRITORY::FAE</p>
+<div class="relative z-10 h-full flex flex-col justify-center">
+<h2 class="font-mono text-2xl text-toxic-green uppercase leading-tight tracking-wider" style="text-shadow: 2px 0 0px rgba(255,0,0,0.5), -2px 0 0px rgba(0,0,255,0.5);">
+                                &gt; Escalate the Threat
+                            </h2>
+<p class="font-mono text-lg text-toxic-green/60 mt-2 typing-effect">
+                                &gt; Introduce clear danger..._
+                            </p>
 </div>
-</div>
-<button class="text-primary/50 hover:text-primary"><span class="material-symbols-outlined">drag_handle</span></button>
-</div>
-<p class="text-xs font-mono text-slate-300 mb-4 leading-relaxed border-l-2 border-primary/30 pl-3">
-                &gt; ALERT: Reality shift detected.<br/>
-                &gt; Flora exhibits quantum instability when unobserved.
-            </p>
-<div class="flex items-center justify-between mt-2 pt-3 border-t border-primary/20">
-<div class="flex -space-x-3">
-<div class="w-6 h-6 border border-primary bg-black flex items-center justify-center text-[8px] text-primary font-mono">A</div>
-<div class="w-6 h-6 border border-primary bg-black flex items-center justify-center text-[8px] text-primary font-mono">B</div>
-<div class="w-6 h-6 border border-primary bg-primary/20 flex items-center justify-center text-[8px] text-primary font-mono">+3</div>
-</div>
-<button class="text-primary text-[10px] font-mono font-bold uppercase tracking-widest hover:bg-primary hover:text-black px-2 py-1 transition-colors border border-transparent hover:border-primary">
-                    [ EXPAND_DATA ]
-                </button>
+<div class="absolute top-4 left-4 right-10 h-10 bg-gradient-to-b from-white to-transparent opacity-[0.03] rounded-[50%] z-20 pointer-events-none"></div>
 </div>
 </div>
 </div>
-<div class="absolute top-[350px] left-[320px] w-48 border border-slate-700 bg-black/80 p-3 opacity-60 hover:opacity-100 transition-opacity scale-90">
-<div class="flex items-center gap-2 mb-2">
-<div class="w-6 h-6 border border-slate-600 flex items-center justify-center">
-<span class="material-symbols-outlined text-xs text-slate-400">water</span>
+<div class="flex-1 p-8 bg-[#151515] relative shadow-inner overflow-x-auto">
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: repeating-linear-gradient(45deg, #000 0, #000 1px, transparent 0, transparent 50%); background-size: 10px 10px;"></div>
+<div class="flex gap-6 h-full items-stretch justify-center min-w-[800px]">
+<div class="w-32 bg-[#1c1c1c] border border-[#2a2a2a] rounded-sm p-2 flex flex-col shadow-[5px_5px_15px_rgba(0,0,0,0.5)] relative">
+<div class="absolute top-2 left-2 screw-head"></div>
+<div class="absolute top-2 right-2 screw-head"></div>
+<div class="absolute bottom-2 left-2 screw-head"></div>
+<div class="absolute bottom-2 right-2 screw-head"></div>
+<div class="bg-[#0a0a0a] border border-[#333] p-1 mb-4 text-center mt-4 mx-2">
+<span class="text-xs font-bold text-gray-400 tracking-widest uppercase block">Action</span>
 </div>
-<h4 class="text-slate-400 font-mono font-bold text-xs uppercase tracking-wider">Sunken_Grotto</h4>
+<div class="flex justify-center mb-4">
+<div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#333] to-[#111] shadow-knob border border-[#444] relative flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border border-black opacity-50"></div>
+<div class="w-1 h-5 bg-toxic-green absolute top-1 rounded-sm shadow-neon-green transform rotate-45 origin-bottom"></div>
 </div>
-<div class="h-1 w-full bg-slate-900 overflow-hidden border border-slate-800">
-<div class="h-full bg-slate-500 w-1/3"></div>
 </div>
-<p class="text-[9px] font-mono text-slate-600 mt-1 uppercase">Loading_Assets...</p>
+<div class="flex-1 px-4 py-2 relative flex justify-center bg-[#111] mx-2 mb-2 rounded border-t border-l border-black border-b border-r border-[#333] shadow-inner">
+<div class="absolute left-2 top-4 bottom-4 w-[2px] flex flex-col justify-between text-[6px] text-gray-600 font-mono">
+<span>+10</span>
+<span>0</span>
+<span>-10</span>
+<span>-20</span>
+<span>-â</span>
+</div>
+<div class="w-3 bg-[#050505] h-full rounded-full shadow-[inset_1px_1px_3px_#000,inset_-1px_-1px_1px_#333] relative">
+<div class="absolute top-[20%] left-1/2 -translate-x-1/2 w-16 h-10 bg-gradient-to-b from-[#444] to-[#222] rounded shadow-[0_4px_8px_rgba(0,0,0,0.8)] cursor-ns-resize border-t border-[#555] border-b border-black flex items-center justify-center group z-10">
+<div class="w-full h-[2px] bg-black absolute top-1/2 -translate-y-1/2 shadow-[0_1px_0_rgba(255,255,255,0.2)]"></div>
+<div class="w-8 h-1 bg-toxic-green shadow-neon-green rounded-full z-20"></div>
+</div>
+</div>
+</div>
+<div class="mx-2 mb-2 bg-[#051105] border border-[#333] p-1 text-center">
+<span class="font-mono text-toxic-green text-sm">75%</span>
+</div>
+</div>
+<div class="w-32 bg-[#1c1c1c] border border-[#2a2a2a] rounded-sm p-2 flex flex-col shadow-[5px_5px_15px_rgba(0,0,0,0.5)] relative">
+<div class="absolute top-2 left-2 screw-head"></div>
+<div class="absolute top-2 right-2 screw-head"></div>
+<div class="absolute bottom-2 left-2 screw-head"></div>
+<div class="absolute bottom-2 right-2 screw-head"></div>
+<div class="bg-[#0a0a0a] border border-[#333] p-1 mb-4 text-center mt-4 mx-2">
+<span class="text-xs font-bold text-gray-400 tracking-widest uppercase block">Romance</span>
+</div>
+<div class="flex justify-center mb-4">
+<div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#333] to-[#111] shadow-knob border border-[#444] relative flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border border-black opacity-50"></div>
+<div class="w-1 h-5 bg-amber-signal absolute top-1 rounded-sm shadow-neon-amber transform -rotate-45 origin-bottom"></div>
+</div>
+</div>
+<div class="flex-1 px-4 py-2 relative flex justify-center bg-[#111] mx-2 mb-2 rounded border-t border-l border-black border-b border-r border-[#333] shadow-inner">
+<div class="absolute left-2 top-4 bottom-4 w-[2px] flex flex-col justify-between text-[6px] text-gray-600 font-mono">
+<span>+10</span>
+<span>0</span>
+<span>-10</span>
+<span>-20</span>
+<span>-â</span>
+</div>
+<div class="w-3 bg-[#050505] h-full rounded-full shadow-[inset_1px_1px_3px_#000,inset_-1px_-1px_1px_#333] relative">
+<div class="absolute top-[50%] left-1/2 -translate-x-1/2 w-16 h-10 bg-gradient-to-b from-[#444] to-[#222] rounded shadow-[0_4px_8px_rgba(0,0,0,0.8)] cursor-ns-resize border-t border-[#555] border-b border-black flex items-center justify-center group z-10">
+<div class="w-full h-[2px] bg-black absolute top-1/2 -translate-y-1/2 shadow-[0_1px_0_rgba(255,255,255,0.2)]"></div>
+<div class="w-8 h-1 bg-amber-signal shadow-neon-amber rounded-full z-20"></div>
+</div>
+</div>
+</div>
+<div class="mx-2 mb-2 bg-[#110a00] border border-[#333] p-1 text-center">
+<span class="font-mono text-amber-signal text-sm">40%</span>
+</div>
+</div>
+<div class="w-32 bg-[#1c1c1c] border border-[#2a2a2a] rounded-sm p-2 flex flex-col shadow-[5px_5px_15px_rgba(0,0,0,0.5)] relative">
+<div class="absolute top-2 left-2 screw-head"></div>
+<div class="absolute top-2 right-2 screw-head"></div>
+<div class="absolute bottom-2 left-2 screw-head"></div>
+<div class="absolute bottom-2 right-2 screw-head"></div>
+<div class="bg-[#0a0a0a] border border-[#333] p-1 mb-4 text-center mt-4 mx-2">
+<span class="text-xs font-bold text-gray-400 tracking-widest uppercase block">Expo</span>
+</div>
+<div class="flex justify-center mb-4">
+<div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#333] to-[#111] shadow-knob border border-[#444] relative flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border border-black opacity-50"></div>
+<div class="w-1 h-5 bg-amber-signal absolute top-1 rounded-sm shadow-neon-amber transform rotate-90 origin-bottom"></div>
+</div>
+</div>
+<div class="flex-1 px-4 py-2 relative flex justify-center bg-[#111] mx-2 mb-2 rounded border-t border-l border-black border-b border-r border-[#333] shadow-inner">
+<div class="absolute left-2 top-4 bottom-4 w-[2px] flex flex-col justify-between text-[6px] text-gray-600 font-mono">
+<span>+10</span>
+<span>0</span>
+<span>-10</span>
+<span>-20</span>
+<span>-â</span>
+</div>
+<div class="w-3 bg-[#050505] h-full rounded-full shadow-[inset_1px_1px_3px_#000,inset_-1px_-1px_1px_#333] relative">
+<div class="absolute top-[10%] left-1/2 -translate-x-1/2 w-16 h-10 bg-gradient-to-b from-[#444] to-[#222] rounded shadow-[0_4px_8px_rgba(0,0,0,0.8)] cursor-ns-resize border-t border-[#555] border-b border-black flex items-center justify-center group z-10">
+<div class="w-full h-[2px] bg-black absolute top-1/2 -translate-y-1/2 shadow-[0_1px_0_rgba(255,255,255,0.2)]"></div>
+<div class="w-8 h-1 bg-amber-signal shadow-neon-amber rounded-full z-20"></div>
+</div>
+</div>
+</div>
+<div class="mx-2 mb-2 bg-[#110a00] border border-[#333] p-1 text-center">
+<span class="font-mono text-amber-signal text-sm">95%</span>
+</div>
+</div>
+<div class="w-32 bg-[#1c1c1c] border border-[#2a2a2a] rounded-sm p-2 flex flex-col shadow-[5px_5px_15px_rgba(0,0,0,0.5)] relative">
+<div class="absolute top-2 left-2 screw-head"></div>
+<div class="absolute top-2 right-2 screw-head"></div>
+<div class="absolute bottom-2 left-2 screw-head"></div>
+<div class="absolute bottom-2 right-2 screw-head"></div>
+<div class="bg-[#0a0a0a] border border-[#333] p-1 mb-4 text-center mt-4 mx-2">
+<span class="text-xs font-bold text-gray-400 tracking-widest uppercase block">Threat</span>
+</div>
+<div class="flex justify-center mb-4">
+<div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#333] to-[#111] shadow-knob border border-[#444] relative flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border border-black opacity-50"></div>
+<div class="w-1 h-5 bg-toxic-green absolute top-1 rounded-sm shadow-neon-green transform rotate-[160deg] origin-bottom"></div>
+</div>
+</div>
+<div class="flex-1 px-4 py-2 relative flex justify-center bg-[#111] mx-2 mb-2 rounded border-t border-l border-black border-b border-r border-[#333] shadow-inner">
+<div class="absolute left-2 top-4 bottom-4 w-[2px] flex flex-col justify-between text-[6px] text-gray-600 font-mono">
+<span>+10</span>
+<span>0</span>
+<span>-10</span>
+<span>-20</span>
+<span>-â</span>
+</div>
+<div class="w-3 bg-[#050505] h-full rounded-full shadow-[inset_1px_1px_3px_#000,inset_-1px_-1px_1px_#333] relative">
+<div class="absolute top-[80%] left-1/2 -translate-x-1/2 w-16 h-10 bg-gradient-to-b from-[#444] to-[#222] rounded shadow-[0_4px_8px_rgba(0,0,0,0.8)] cursor-ns-resize border-t border-[#555] border-b border-black flex items-center justify-center group z-10">
+<div class="w-full h-[2px] bg-black absolute top-1/2 -translate-y-1/2 shadow-[0_1px_0_rgba(255,255,255,0.2)]"></div>
+<div class="w-8 h-1 bg-toxic-green shadow-neon-green rounded-full z-20"></div>
+</div>
+</div>
+</div>
+<div class="mx-2 mb-2 bg-[#051105] border border-[#333] p-1 text-center">
+<span class="font-mono text-toxic-green text-sm">20%</span>
+</div>
+</div>
+<div class="w-32 flex flex-col justify-end pb-2 ml-4">
+<div class="bg-[#1c1c1c] p-3 rounded shadow-[inset_0_0_10px_rgba(0,0,0,0.8)] border border-[#333] flex flex-col gap-4">
+<button class="w-full aspect-square rounded bg-[#222] shadow-[0_4px_0_#111,0_6px_10px_rgba(0,0,0,0.5)] active:shadow-none active:translate-y-1 border-t border-[#444] flex items-center justify-center group relative overflow-hidden">
+<span class="material-symbols-outlined text-toxic-green text-4xl group-active:text-white drop-shadow-[0_0_8px_rgba(57,255,20,0.6)]">play_arrow</span>
+</button>
+<div class="flex gap-2">
+<button class="flex-1 aspect-square rounded bg-[#222] shadow-[0_4px_0_#111,0_6px_10px_rgba(0,0,0,0.5)] active:shadow-none active:translate-y-1 border-t border-[#444] flex items-center justify-center">
+<span class="material-symbols-outlined text-gray-500">stop</span>
+</button>
+<button class="flex-1 aspect-square rounded bg-[#222] shadow-[0_4px_0_#111,0_6px_10px_rgba(0,0,0,0.5)] active:shadow-none active:translate-y-1 border-t border-[#444] flex items-center justify-center">
+<div class="w-4 h-4 bg-red-800 rounded-full shadow-inner"></div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </main>
-<div class="absolute bottom-28 right-4 flex flex-col gap-3 z-20">
-<div class="bg-black border border-primary/30 p-1 flex flex-col gap-1 shadow-[0_0_10px_rgba(0,0,0,0.8)]">
-<button class="w-8 h-8 flex items-center justify-center text-primary hover:bg-primary hover:text-black transition-colors border border-transparent hover:border-primary/50">
-<span class="material-symbols-outlined text-lg">add</span>
-</button>
-<div class="h-[1px] w-full bg-primary/20"></div>
-<button class="w-8 h-8 flex items-center justify-center text-primary hover:bg-primary hover:text-black transition-colors border border-transparent hover:border-primary/50">
-<span class="material-symbols-outlined text-lg">remove</span>
-</button>
-</div>
-<button class="w-10 h-10 bg-black border border-primary text-primary hover:bg-primary hover:text-black transition-all shadow-[0_0_15px_rgba(0,240,255,0.2)] flex items-center justify-center group">
-<span class="material-symbols-outlined text-lg group-hover:scale-110 transition-transform">center_focus_weak</span>
-</button>
-</div>
-<div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-30">
-<button class="group relative flex items-center justify-center h-14 pl-6 pr-8 bg-black border-2 border-primary shadow-[0_0_20px_rgba(0,240,255,0.4)] hover:shadow-[0_0_30px_rgba(0,240,255,0.7)] transition-all active:scale-95 text-primary overflow-hidden clip-path-polygon">
-<div class="absolute inset-0 bg-primary/10 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300"></div>
-<span class="material-symbols-outlined mr-3 text-2xl group-hover:rotate-90 transition-transform duration-500">add_circle</span>
-<div class="flex flex-col items-start">
-<span class="font-mono font-bold tracking-widest text-sm">CREATE_NODE</span>
-<span class="text-[9px] font-mono opacity-60">INIT_SEQUENCE</span>
-</div>
-<div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary"></div>
-<div class="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary"></div>
-</button>
-</div>
-<nav class="absolute bottom-0 w-full z-40 pointer-events-none">
-<div class="w-full flex justify-center pointer-events-auto">
-<div class="flex gap-8 border-t border-l border-r border-primary/50 bg-black/90 px-8 pb-8 pt-4 clip-path-polygon backdrop-blur-md shadow-[0_-5px_20px_rgba(0,0,0,0.8)] rounded-t-lg relative">
-<div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_0_10px_#00f0ff]"></div>
-<a class="flex flex-col items-center justify-end gap-1 text-primary group" href="#">
-<div class="relative">
-<span class="material-symbols-outlined text-[24px] group-hover:text-white transition-colors z-10 relative">grid_view</span>
-<div class="absolute inset-0 bg-primary blur-md opacity-40 group-hover:opacity-80 transition-opacity"></div>
-</div>
-<span class="text-[9px] font-mono font-bold tracking-widest uppercase mt-1">Canvas</span>
-</a>
-<a class="flex flex-col items-center justify-end gap-1 text-slate-500 hover:text-primary transition-colors group" href="#">
-<span class="material-symbols-outlined text-[24px]">account_tree</span>
-<span class="text-[9px] font-mono font-bold tracking-widest uppercase mt-1">Timeline</span>
-</a>
-<a class="flex flex-col items-center justify-end gap-1 text-slate-500 hover:text-primary transition-colors group" href="#">
-<span class="material-symbols-outlined text-[24px]">group</span>
-<span class="text-[9px] font-mono font-bold tracking-widest uppercase mt-1">Entities</span>
-</a>
-<a class="flex flex-col items-center justify-end gap-1 text-slate-500 hover:text-primary transition-colors group" href="#">
-<span class="material-symbols-outlined text-[24px]">settings_system_daydream</span>
-<span class="text-[9px] font-mono font-bold tracking-widest uppercase mt-1">Config</span>
-</a>
-</div>
-</div>
-</nav>
-<div class="absolute top-20 right-4 z-20">
-<button class="w-10 h-10 bg-black border border-primary/40 rounded-none flex items-center justify-center text-primary/70 hover:text-primary hover:border-primary hover:shadow-[0_0_10px_rgba(0,240,255,0.3)] transition-all">
-<span class="material-symbols-outlined text-xl">search</span>
-</button>
-</div>
 
 </body></html>

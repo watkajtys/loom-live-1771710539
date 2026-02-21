@@ -1,35 +1,51 @@
 <!DOCTYPE html>
+
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Chronos Canvas: Monastic Minimal Variant</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<title>ChronoFader Master Console</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        "mono-bg": "#1c1c1e",
-                        "mono-surface": "#2c2c2e",
-                        "mono-border": "rgba(255, 255, 255, 0.2)",
-                        "mono-text-primary": "#f2f2f7",
-                        "mono-text-secondary": "#aeaeb2",
+                        "primary": "#1ff9f9",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#111818", 
+                        "surface-dark": "#1b2727",
+                        "surface-light": "#273a3a",
                     },
                     fontFamily: {
-                        serif: ["Playfair Display", "serif"],
-                        sans: ["Inter", "sans-serif"],
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "mono": ["monospace"]
+                    },
+                    boxShadow: {
+                        'neon': '0 0 5px theme("colors.primary"), 0 0 10px theme("colors.primary")',
+                        'neon-magenta': '0 0 5px #ff00ff, 0 0 10px #ff00ff',
+                        'neon-amber': '0 0 5px #ffbf00, 0 0 10px #ffbf00',
+                        'neon-red': '0 0 5px #ff3b30, 0 0 10px #ff3b30',
+                        'inset-slot': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.6)',
                     },
                     backgroundImage: {
-                        'soft-gradient': "radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, transparent 70%)",
+                        'brushed-metal': "linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%), repeating-linear-gradient(90deg, transparent 0, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)",
                     }
                 },
             },
         }
     </script>
 <style>
+        body {
+            background-color: #111818;
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        /* Custom Scrollbar for Chronoline */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -37,26 +53,28 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-        .glass-panel {
-            background: rgba(30, 30, 32, 0.85);backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.15);box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+
+        /* Skeuomorphic touches */
+        .knob-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
-        .active-node-glow {
-            position: absolute;
-            z-index: -1;
-            width: 140%;
-            height: 140%;
-            top: -20%;
-            left: -20%;
-            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0) 60%);
-            pointer-events: none;
-        }.connector-line {
-            stroke-dasharray: 2, 4;stroke-width: 0.8px;}
-    </style>
-<style>
-        body {
-          min-height: max(884px, 100dvh);
+        .fader-track {
+            background: #0f1515;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), inset 0 0 2px rgba(0,0,0,1); 
+        }
+        .fader-handle {
+            background: linear-gradient(180deg, #3a4b4b 0%, #222e2e 100%);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.15);
+        }
+        .led-segment {
+            box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
+        }
+        .led-active {
+            box-shadow: 0 0 4px currentColor;
+        }
+        .lcd-screen {
+            background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
         }
     </style>
 <style>
@@ -65,104 +83,287 @@
     }
   </style>
   </head>
-<body class="bg-mono-bg text-mono-text-primary font-sans h-screen w-full overflow-hidden flex flex-col relative antialiased selection:bg-white selection:text-mono-bg">
-<header class="absolute top-0 left-0 right-0 z-50 pt-12 pb-4 px-6 flex justify-between items-center bg-gradient-to-b from-mono-bg/90 to-transparent">
-<div class="flex items-center gap-3 text-mono-text-secondary">
-<span class="material-symbols-outlined text-sm opacity-70">menu_book</span>
-<div class="flex items-center gap-2 text-xs tracking-widest uppercase font-medium">
-<span class="opacity-50">Eldoria</span>
-<span class="opacity-30">/</span>
-<span class="opacity-50">Fractured Lands</span>
-<span class="opacity-30">/</span>
-<span class="text-white border-b border-white/20 pb-0.5">Whispering Woods</span>
+<body class="bg-background-dark text-slate-100 flex flex-col h-screen overflow-hidden">
+<!-- Header / Top Bar -->
+<header class="flex-none bg-surface-dark border-b border-surface-light px-4 py-3 flex items-center justify-between z-20 shadow-lg relative">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400">menu</span>
+<h1 class="font-bold text-lg tracking-widest text-slate-200 uppercase" style="text-shadow: 0 1px 2px black;">ChronoFader</h1>
 </div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1 bg-black/40 px-3 py-1 rounded border border-surface-light shadow-inset-slot">
+<span class="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-neon-red"></span>
+<span class="text-xs font-mono text-red-400 tracking-wider">REC</span>
 </div>
-<button class="w-8 h-8 flex items-center justify-center rounded-full border border-mono-border hover:bg-white/5 transition-colors text-mono-text-primary">
-<span class="material-symbols-outlined text-sm">settings</span>
-</button>
+<span class="material-symbols-outlined text-slate-400">settings</span>
+</div>
 </header>
-<main class="flex-1 relative w-full h-full overflow-hidden z-10 touch-none">
-<svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
-<path class="connector-line" d="M180,300 C250,300 150,520 220,520" fill="none" stroke="#888"></path>
-<path class="connector-line" d="M220,520 C280,520 300,450 340,400" fill="none" stroke="#888" stroke-opacity="0.5"></path>
-<rect fill="#1c1c1e" height="18" rx="4" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" width="90" x="185" y="383"></rect>
-<text fill="#ccc" font-family="Inter" font-size="9" letter-spacing="0.5" text-anchor="middle" x="230" y="396">CORRUPTION</text>
-</svg>
-<div class="absolute top-[220px] left-6 w-64 glass-panel rounded-sm p-5 cursor-grab active:cursor-grabbing hover:border-white/30 transition-colors group">
-<div class="active-node-glow opacity-0 group-hover:opacity-100 transition-opacity"></div>
-<div class="flex items-start justify-between mb-4">
-<div class="flex flex-col gap-1">
-<span class="text-[10px] uppercase tracking-wider text-mono-text-secondary">Location</span>
-<h3 class="text-white font-serif font-normal text-xl leading-tight italic">The Obsidian Spire</h3>
+<!-- Main Console Area -->
+<main class="flex-1 overflow-y-auto flex flex-col relative bg-background-dark bg-brushed-metal">
+<!-- Chronoline Timeline -->
+<section class="flex-none h-24 bg-[#0a0f0f] border-b border-surface-light relative overflow-hidden group">
+<div class="absolute inset-y-0 left-1/2 w-0.5 bg-primary shadow-neon z-10 transform -translate-x-1/2"></div>
+<div class="absolute top-2 left-1/2 transform -translate-x-1/2 z-20 bg-primary text-black text-[10px] font-bold px-1 rounded-sm">PLAYHEAD</div>
+<!-- Scrolling Waveform/Timeline Content -->
+<div class="flex items-center h-full overflow-x-auto no-scrollbar px-[50vw]">
+<div class="flex gap-1 h-12 items-end opacity-60">
+<!-- Generating fake waveform bars -->
+<div class="w-1 bg-slate-600 h-[30%] rounded-sm"></div>
+<div class="w-1 bg-slate-600 h-[50%] rounded-sm"></div>
+<div class="w-1 bg-slate-600 h-[40%] rounded-sm"></div>
+<div class="w-1 bg-slate-600 h-[70%] rounded-sm"></div>
+<div class="w-1 bg-slate-600 h-[60%] rounded-sm"></div>
+<div class="w-1 bg-slate-500 h-[20%] rounded-sm"></div>
+<div class="w-1 bg-slate-500 h-[90%] rounded-sm"></div>
+<div class="w-1 bg-primary h-[100%] rounded-sm shadow-neon"></div> <!-- Active looking beat -->
+<div class="w-1 bg-slate-500 h-[80%] rounded-sm"></div>
+<div class="w-1 bg-slate-600 h-[40%] rounded-sm"></div>
+<div class="w-1 bg-slate-600 h-[30%] rounded-sm"></div>
+<div class="w-1 bg-slate-600 h-[60%] rounded-sm"></div>
+<div class="w-1 bg-slate-600 h-[50%] rounded-sm"></div>
+<div class="w-1 bg-slate-600 h-[40%] rounded-sm"></div>
+<div class="w-1 bg-slate-600 h-[20%] rounded-sm"></div>
+<!-- Scene Marker -->
+<div class="flex flex-col items-center justify-end h-full w-24 mx-2">
+<div class="text-[10px] text-slate-400 mb-1 whitespace-nowrap uppercase tracking-wider">Scene 3</div>
+<div class="w-full h-full bg-surface-light/30 border-l border-r border-slate-600"></div>
 </div>
-<span class="material-symbols-outlined text-mono-text-secondary text-base opacity-50">castle</span>
-</div>
-<div class="h-20 w-full bg-black/40 mb-4 overflow-hidden relative border border-white/5 grayscale hover:grayscale-0 transition-all duration-500">
-<img alt="Dark gothic spire silhouette against a purple night sky" class="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"/>
-</div>
-<div class="border-t border-white/10 pt-3 mt-1 flex justify-between items-center">
-<span class="text-[10px] text-mono-text-secondary">Magical Focus Point</span>
-<div class="w-1.5 h-1.5 rounded-full bg-white/20"></div>
-</div>
-</div>
-<div class="absolute top-[480px] left-1/2 -translate-x-1/2 w-72 glass-panel rounded-sm p-6 cursor-grab active:cursor-grabbing hover:border-white/40 transition-colors group z-20">
-<div class="active-node-glow opacity-100"></div>
-<div class="flex items-start justify-between mb-4">
-<div class="flex flex-col gap-1">
-<span class="text-[10px] uppercase tracking-wider text-mono-text-secondary">Territory</span>
-<h3 class="text-white font-serif font-semibold text-2xl leading-tight">Whispering Woods</h3>
-</div>
-<div class="w-6 h-6 border border-white/20 flex items-center justify-center text-white/70 rounded-full">
-<span class="material-symbols-outlined text-sm">forest</span>
-</div>
-</div>
-<p class="text-sm font-serif italic text-mono-text-secondary mb-5 leading-relaxed border-l-2 border-white/20 pl-3">
-            "Home of the unseen fae. The trees themselves seem to shift when not observed directly."
-        </p>
-<div class="flex items-center justify-between pt-2 border-t border-white/10">
-<div class="flex -space-x-3 opacity-70 grayscale group-hover:grayscale-0 transition-all">
-<div class="w-6 h-6 rounded-full bg-gray-600 border border-mono-bg"></div>
-<div class="w-6 h-6 rounded-full bg-gray-500 border border-mono-bg"></div>
-<div class="w-6 h-6 rounded-full bg-gray-800 border border-mono-bg flex items-center justify-center text-[8px] text-white">+3</div>
-</div>
-<button class="text-[10px] uppercase tracking-widest text-white hover:text-white/70 transition-colors border border-white/20 px-3 py-1 rounded-full hover:bg-white/5">
-                Inspect
-            </button>
+<div class="w-1 bg-slate-600 h-[30%] rounded-sm"></div>
+<div class="w-1 bg-slate-600 h-[50%] rounded-sm"></div>
+<div class="w-1 bg-slate-600 h-[40%] rounded-sm"></div>
+<div class="w-1 bg-slate-600 h-[70%] rounded-sm"></div>
 </div>
 </div>
-<div class="absolute top-[350px] left-[320px] w-48 glass-panel rounded-sm p-4 opacity-40 hover:opacity-100 transition-opacity scale-95 border-dashed border-white/20">
-<div class="flex items-center justify-between mb-2">
-<h4 class="text-slate-200 font-serif text-lg italic">Sunken Grotto</h4>
-<span class="material-symbols-outlined text-xs text-mono-text-secondary">water_drop</span>
+</section>
+<!-- Teleprompter Display -->
+<section class="flex-none p-4 pb-2">
+<div class="bg-black border-2 border-surface-light rounded-lg p-3 shadow-inset-slot relative overflow-hidden lcd-screen">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">System Prompt</span>
+<span class="text-[10px] font-mono text-primary animate-pulse">â LIVE</span>
 </div>
-<div class="h-[1px] w-full bg-white/10 mt-2 mb-2">
-<div class="h-full bg-white w-1/3"></div>
+<div class="font-mono text-lg leading-tight text-primary/90 uppercase tracking-wide" style="text-shadow: 0 0 4px rgba(31, 249, 249, 0.5);">
+                    &gt; Escalate the Threat<br/>
+<span class="opacity-50 text-sm">&gt; Introduce clear danger...</span>
 </div>
-<p class="text-[9px] uppercase tracking-widest text-mono-text-secondary text-right">Draft</p>
+<!-- Scanline effect overlay -->
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent h-full w-full pointer-events-none opacity-20 animate-pulse"></div>
+</div>
+</section>
+<!-- Mixer Section -->
+<section class="flex-1 px-4 py-2 min-h-0 overflow-y-auto">
+<div class="grid grid-cols-4 gap-3 h-full pb-4">
+<!-- Channel 1: ACTION (Primary) -->
+<div class="flex flex-col h-full bg-[#161e1e] rounded border border-surface-light shadow-lg p-1 relative">
+<!-- Screw heads for skeuomorphism -->
+<div class="absolute top-1 left-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner"></div>
+<div class="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner"></div>
+<div class="absolute bottom-1 left-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner"></div>
+<div class="absolute bottom-1 right-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner"></div>
+<div class="text-center mt-2 mb-2">
+<span class="block text-[10px] font-bold text-slate-400 tracking-widest uppercase">Action</span>
+<div class="w-full h-8 flex justify-center items-center my-1">
+<!-- Rotary Knob Mini -->
+<div class="w-6 h-6 rounded-full bg-gradient-to-br from-[#3a4b4b] to-[#1a2525] knob-shadow border border-[#2a3838] relative flex items-center justify-center">
+<div class="w-0.5 h-2 bg-primary absolute top-0.5 shadow-neon"></div>
+</div>
+</div>
+</div>
+<div class="flex-1 flex justify-center gap-1 relative px-1">
+<!-- VU Meter -->
+<div class="w-1.5 h-full bg-black/50 rounded-full overflow-hidden flex flex-col justify-end gap-[1px] py-1">
+<div class="h-1 w-full bg-red-500 led-segment opacity-20"></div>
+<div class="h-1 w-full bg-red-500 led-segment opacity-20"></div>
+<div class="h-1 w-full bg-yellow-400 led-segment opacity-20"></div>
+<div class="h-1 w-full bg-primary led-segment led-active shadow-neon"></div>
+<div class="h-1 w-full bg-primary led-segment led-active shadow-neon"></div>
+<div class="h-1 w-full bg-primary led-segment led-active shadow-neon"></div>
+<div class="h-1 w-full bg-primary led-segment led-active shadow-neon"></div>
+<div class="h-1 w-full bg-primary led-segment led-active shadow-neon"></div>
+</div>
+<!-- Fader Track -->
+<div class="w-6 relative fader-track rounded-full h-full">
+<div class="absolute top-[30%] left-[-4px] right-[-4px] h-10 fader-handle rounded flex items-center justify-center cursor-pointer group">
+<div class="w-full h-[1px] bg-black/50 absolute top-1/2"></div>
+<div class="w-4 h-0.5 bg-primary shadow-neon"></div>
+</div>
+</div>
+</div>
+<div class="text-center mt-2 mb-1">
+<span class="text-[9px] font-mono text-primary">75%</span>
+</div>
+</div>
+<!-- Channel 2: ROMANCE (Magenta) -->
+<div class="flex flex-col h-full bg-[#161e1e] rounded border border-surface-light shadow-lg p-1 relative">
+<!-- Screws -->
+<div class="absolute top-1 left-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner"></div>
+<div class="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner"></div>
+<div class="absolute bottom-1 left-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner"></div>
+<div class="absolute bottom-1 right-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner"></div>
+<div class="text-center mt-2 mb-2">
+<span class="block text-[10px] font-bold text-slate-400 tracking-widest uppercase scale-x-90">Romance</span>
+<div class="w-full h-8 flex justify-center items-center my-1">
+<!-- Rotary Knob Mini -->
+<div class="w-6 h-6 rounded-full bg-gradient-to-br from-[#3a4b4b] to-[#1a2525] knob-shadow border border-[#2a3838] relative flex items-center justify-center transform rotate-[-45deg]">
+<div class="w-0.5 h-2 bg-[#ff00ff] absolute top-0.5 shadow-neon-magenta"></div>
+</div>
+</div>
+</div>
+<div class="flex-1 flex justify-center gap-1 relative px-1">
+<!-- VU Meter -->
+<div class="w-1.5 h-full bg-black/50 rounded-full overflow-hidden flex flex-col justify-end gap-[1px] py-1">
+<div class="h-1 w-full bg-red-500 led-segment opacity-20"></div>
+<div class="h-1 w-full bg-red-500 led-segment opacity-20"></div>
+<div class="h-1 w-full bg-yellow-400 led-segment opacity-20"></div>
+<div class="h-1 w-full bg-[#ff00ff] led-segment led-active shadow-neon-magenta"></div>
+<div class="h-1 w-full bg-[#ff00ff] led-segment led-active shadow-neon-magenta"></div>
+<div class="h-1 w-full bg-[#ff00ff] led-segment opacity-20"></div>
+<div class="h-1 w-full bg-[#ff00ff] led-segment opacity-20"></div>
+<div class="h-1 w-full bg-[#ff00ff] led-segment opacity-20"></div>
+</div>
+<!-- Fader Track -->
+<div class="w-6 relative fader-track rounded-full h-full">
+<div class="absolute top-[60%] left-[-4px] right-[-4px] h-10 fader-handle rounded flex items-center justify-center cursor-pointer group">
+<div class="w-full h-[1px] bg-black/50 absolute top-1/2"></div>
+<div class="w-4 h-0.5 bg-[#ff00ff] shadow-neon-magenta"></div>
+</div>
+</div>
+</div>
+<div class="text-center mt-2 mb-1">
+<span class="text-[9px] font-mono text-[#ff00ff]">40%</span>
+</div>
+</div>
+<!-- Channel 3: EXPO (Amber) -->
+<div class="flex flex-col h-full bg-[#161e1e] rounded border border-surface-light shadow-lg p-1 relative">
+<!-- Screws -->
+<div class="absolute top-1 left-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner"></div>
+<div class="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner"></div>
+<div class="absolute bottom-1 left-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner"></div>
+<div class="absolute bottom-1 right-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner"></div>
+<div class="text-center mt-2 mb-2">
+<span class="block text-[10px] font-bold text-slate-400 tracking-widest uppercase">Expo</span>
+<div class="w-full h-8 flex justify-center items-center my-1">
+<!-- Rotary Knob Mini -->
+<div class="w-6 h-6 rounded-full bg-gradient-to-br from-[#3a4b4b] to-[#1a2525] knob-shadow border border-[#2a3838] relative flex items-center justify-center transform rotate-[90deg]">
+<div class="w-0.5 h-2 bg-[#ffbf00] absolute top-0.5 shadow-neon-amber"></div>
+</div>
+</div>
+</div>
+<div class="flex-1 flex justify-center gap-1 relative px-1">
+<!-- VU Meter -->
+<div class="w-1.5 h-full bg-black/50 rounded-full overflow-hidden flex flex-col justify-end gap-[1px] py-1">
+<div class="h-1 w-full bg-red-500 led-segment led-active shadow-neon-red"></div>
+<div class="h-1 w-full bg-red-500 led-segment led-active shadow-neon-red"></div>
+<div class="h-1 w-full bg-yellow-400 led-segment led-active shadow-neon-amber"></div>
+<div class="h-1 w-full bg-[#ffbf00] led-segment led-active shadow-neon-amber"></div>
+<div class="h-1 w-full bg-[#ffbf00] led-segment led-active shadow-neon-amber"></div>
+<div class="h-1 w-full bg-[#ffbf00] led-segment led-active shadow-neon-amber"></div>
+<div class="h-1 w-full bg-[#ffbf00] led-segment led-active shadow-neon-amber"></div>
+<div class="h-1 w-full bg-[#ffbf00] led-segment led-active shadow-neon-amber"></div>
+</div>
+<!-- Fader Track -->
+<div class="w-6 relative fader-track rounded-full h-full">
+<div class="absolute top-[10%] left-[-4px] right-[-4px] h-10 fader-handle rounded flex items-center justify-center cursor-pointer group">
+<div class="w-full h-[1px] bg-black/50 absolute top-1/2"></div>
+<div class="w-4 h-0.5 bg-[#ffbf00] shadow-neon-amber"></div>
+</div>
+</div>
+</div>
+<div class="text-center mt-2 mb-1">
+<span class="text-[9px] font-mono text-[#ffbf00]">95%</span>
+</div>
+</div>
+<!-- Channel 4: THREAT (Red/Danger) -->
+<div class="flex flex-col h-full bg-[#161e1e] rounded border border-surface-light shadow-lg p-1 relative">
+<!-- Screws -->
+<div class="absolute top-1 left-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner"></div>
+<div class="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner"></div>
+<div class="absolute bottom-1 left-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner"></div>
+<div class="absolute bottom-1 right-1 w-1.5 h-1.5 rounded-full bg-[#2a3838] shadow-inner"></div>
+<div class="text-center mt-2 mb-2">
+<span class="block text-[10px] font-bold text-slate-400 tracking-widest uppercase">Threat</span>
+<div class="w-full h-8 flex justify-center items-center my-1">
+<!-- Rotary Knob Mini -->
+<div class="w-6 h-6 rounded-full bg-gradient-to-br from-[#3a4b4b] to-[#1a2525] knob-shadow border border-[#2a3838] relative flex items-center justify-center transform rotate-[-120deg]">
+<div class="w-0.5 h-2 bg-red-500 absolute top-0.5 shadow-neon-red"></div>
+</div>
+</div>
+</div>
+<div class="flex-1 flex justify-center gap-1 relative px-1">
+<!-- VU Meter -->
+<div class="w-1.5 h-full bg-black/50 rounded-full overflow-hidden flex flex-col justify-end gap-[1px] py-1">
+<div class="h-1 w-full bg-red-500 led-segment opacity-20"></div>
+<div class="h-1 w-full bg-red-500 led-segment opacity-20"></div>
+<div class="h-1 w-full bg-yellow-400 led-segment opacity-20"></div>
+<div class="h-1 w-full bg-red-500 led-segment opacity-20"></div>
+<div class="h-1 w-full bg-red-500 led-segment opacity-20"></div>
+<div class="h-1 w-full bg-red-500 led-segment opacity-20"></div>
+<div class="h-1 w-full bg-red-500 led-segment led-active shadow-neon-red"></div>
+<div class="h-1 w-full bg-red-500 led-segment led-active shadow-neon-red"></div>
+</div>
+<!-- Fader Track -->
+<div class="w-6 relative fader-track rounded-full h-full">
+<div class="absolute top-[80%] left-[-4px] right-[-4px] h-10 fader-handle rounded flex items-center justify-center cursor-pointer group">
+<div class="w-full h-[1px] bg-black/50 absolute top-1/2"></div>
+<div class="w-4 h-0.5 bg-red-500 shadow-neon-red"></div>
+</div>
+</div>
+</div>
+<div class="text-center mt-2 mb-1">
+<span class="text-[9px] font-mono text-red-500">20%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Transport / Bottom Section -->
+<section class="flex-none bg-[#111616] border-t border-surface-light px-4 py-4 flex flex-col gap-4">
+<!-- Timecode & Status -->
+<div class="flex justify-between items-end">
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Timecode</span>
+<span class="text-2xl font-mono text-primary leading-none tracking-tight">00:04:15<span class="text-sm text-slate-600">.12</span></span>
+</div>
+<div class="flex gap-2">
+<span class="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-400 border border-slate-700">MASTER OUT</span>
+<span class="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-400 border border-slate-700">-3.2dB</span>
+</div>
+</div>
+<!-- Transport Buttons -->
+<div class="flex gap-4 items-center justify-center py-2 bg-[#0c1010] rounded-xl shadow-inset-slot border border-surface-light p-2">
+<!-- Stop Button -->
+<button class="flex-1 aspect-square max-h-16 rounded bg-[#2a3030] shadow-[0_4px_0_rgb(20,20,20),0_5px_10px_rgba(0,0,0,0.5)] active:shadow-none active:translate-y-1 border-t border-slate-600 flex items-center justify-center group">
+<span class="material-symbols-outlined text-slate-400 group-active:text-slate-200" style="font-size: 32px;">stop</span>
+</button>
+<!-- Play Button (Big) -->
+<button class="flex-[1.5] aspect-square max-h-20 rounded bg-gradient-to-b from-[#2a3838] to-[#1b2727] shadow-[0_4px_0_rgb(15,30,30),0_5px_10px_rgba(0,0,0,0.5)] active:shadow-none active:translate-y-1 border-t border-surface-light flex flex-col items-center justify-center group relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-active:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-primary group-active:text-white drop-shadow-[0_0_5px_rgba(31,249,249,0.8)]" style="font-size: 40px;">play_arrow</span>
+<span class="text-[10px] font-bold text-primary/50 mt-1 tracking-widest uppercase">Play</span>
+</button>
+<!-- Record Button -->
+<button class="flex-1 aspect-square max-h-16 rounded bg-[#302a2a] shadow-[0_4px_0_rgb(30,15,15),0_5px_10px_rgba(0,0,0,0.5)] active:shadow-none active:translate-y-1 border-t border-red-900/50 flex items-center justify-center group">
+<div class="w-4 h-4 rounded-full bg-red-700 shadow-inner group-active:bg-red-500 group-active:shadow-neon-red transition-all"></div>
+</button>
+</div>
+</section>
+<!-- Bottom Navbar adapted to theme -->
+<div class="flex gap-2 border-t border-[#273a3a] bg-[#0c1212] px-4 pb-6 pt-2">
+<a class="just flex flex-1 flex-col items-center justify-end gap-1 rounded-full text-primary" href="#">
+<span class="material-symbols-outlined text-primary drop-shadow-[0_0_5px_rgba(31,249,249,0.5)]">tune</span>
+<p class="text-primary text-[10px] font-medium leading-normal tracking-widest uppercase">Mixer</p>
+</a>
+<a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#5a6b6b] hover:text-[#9bbbbb] transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<p class="text-[10px] font-medium leading-normal tracking-widest uppercase">Script</p>
+</a>
+<a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#5a6b6b] hover:text-[#9bbbbb] transition-colors" href="#">
+<span class="material-symbols-outlined">library_books</span>
+<p class="text-[10px] font-medium leading-normal tracking-widest uppercase">Library</p>
+</a>
+<a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#5a6b6b] hover:text-[#9bbbbb] transition-colors" href="#">
+<span class="material-symbols-outlined">ios_share</span>
+<p class="text-[10px] font-medium leading-normal tracking-widest uppercase">Export</p>
+</a>
 </div>
 </main>
-<div class="absolute bottom-10 right-8 z-50 flex flex-col items-end gap-4 group">
-<div class="flex flex-col gap-3 items-end transition-all duration-300 opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto mb-2">
-<button class="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-mono-text-secondary hover:text-white hover:border-white transition-all shadow-lg" title="Add Node">
-<span class="material-symbols-outlined text-lg">add</span>
-</button>
-<button class="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-mono-text-secondary hover:text-white hover:border-white transition-all shadow-lg" title="Search">
-<span class="material-symbols-outlined text-lg">search</span>
-</button>
-<button class="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-mono-text-secondary hover:text-white hover:border-white transition-all shadow-lg" title="Zoom">
-<span class="material-symbols-outlined text-lg">center_focus_strong</span>
-</button>
-</div>
-<button class="w-14 h-14 bg-white text-mono-bg rounded-full shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] flex items-center justify-center transition-all hover:scale-105 active:scale-95 z-50">
-<span class="material-symbols-outlined text-2xl group-hover:rotate-90 transition-transform duration-300">more_horiz</span>
-</button>
-</div>
-<div class="absolute bottom-0 w-full z-40 flex justify-center pb-4 pointer-events-none">
-<div class="flex gap-1.5 pointer-events-auto glass-panel px-3 py-1.5 rounded-full border border-white/10">
-<div class="w-1.5 h-1.5 bg-white rounded-full"></div>
-<div class="w-1.5 h-1.5 bg-white/20 rounded-full hover:bg-white/50 transition-colors cursor-pointer"></div>
-<div class="w-1.5 h-1.5 bg-white/20 rounded-full hover:bg-white/50 transition-colors cursor-pointer"></div>
-</div>
-</div>
-
 </body></html>
