@@ -1,167 +1,278 @@
 <!DOCTYPE html>
-<html class="dark" lang="en"><head>
+<html lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Chronos Canvas: Monastic Minimal Variant</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<title>Manuscript Fractal Canvas Variant 3</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
         tailwind.config = {
-            darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        "mono-bg": "#1c1c1e",
-                        "mono-surface": "#2c2c2e",
-                        "mono-border": "rgba(255, 255, 255, 0.2)",
-                        "mono-text-primary": "#f2f2f7",
-                        "mono-text-secondary": "#aeaeb2",
+                        "paper-cream": "#f3eeda",
+                        "paper-dark": "#e8e1c5",
+                        "ink-blue": "#1e2b45",
+                        "ink-black": "#1a1816",
+                        "ink-sepia": "#5c4d3c",
+                        "accent-gold": "#c5a059",
+                        "parchment-border": "#d6cfb6",
                     },
                     fontFamily: {
-                        serif: ["Playfair Display", "serif"],
-                        sans: ["Inter", "sans-serif"],
+                        "serif": ["Cormorant Garamond", "serif"],
+                        "display": ["Playfair Display", "serif"]
                     },
                     backgroundImage: {
-                        'soft-gradient': "radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, transparent 70%)",
+                        'paper-texture': "url('https://www.transparenttextures.com/patterns/cream-paper.png')",
+                    },
+                    boxShadow: {
+                        'ink-sm': '0 2px 4px rgba(30, 43, 69, 0.1)',
+                        'ink-md': '0 4px 12px rgba(30, 43, 69, 0.15)',
+                        'ink-lg': '0 10px 25px rgba(30, 43, 69, 0.2)',
+                        'page-stack': '2px 2px 0 #e8e1c5, 4px 4px 0 #e0d6b0, 6px 6px 0 #d8cba0',
                     }
                 },
             },
         }
     </script>
-<style>
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        .glass-panel {
-            background: rgba(30, 30, 32, 0.85);backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.15);box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-        }
-        .active-node-glow {
-            position: absolute;
-            z-index: -1;
-            width: 140%;
-            height: 140%;
-            top: -20%;
-            left: -20%;
-            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0) 60%);
-            pointer-events: none;
-        }.connector-line {
-            stroke-dasharray: 2, 4;stroke-width: 0.8px;}
-    </style>
-<style>
-        body {
-          min-height: max(884px, 100dvh);
-        }
-    </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
+<style>body {
+    background-color: #f3eeda;
+    color: #1a1816
     }
-  </style>
-  </head>
-<body class="bg-mono-bg text-mono-text-primary font-sans h-screen w-full overflow-hidden flex flex-col relative antialiased selection:bg-white selection:text-mono-bg">
-<header class="absolute top-0 left-0 right-0 z-50 pt-12 pb-4 px-6 flex justify-between items-center bg-gradient-to-b from-mono-bg/90 to-transparent">
-<div class="flex items-center gap-3 text-mono-text-secondary">
-<span class="material-symbols-outlined text-sm opacity-70">menu_book</span>
-<div class="flex items-center gap-2 text-xs tracking-widest uppercase font-medium">
-<span class="opacity-50">Eldoria</span>
-<span class="opacity-30">/</span>
-<span class="opacity-50">Fractured Lands</span>
-<span class="opacity-30">/</span>
-<span class="text-white border-b border-white/20 pb-0.5">Whispering Woods</span>
+.parchment-card {
+    background-color: #fcfbf7;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAMqBS6DJ7V6SE5O8WxbYyHlgpqbx4nOxBnrM1acGY3GCX0Zxb0zxNMLQoxIEfmxgyrzHktVUeGu2M5m1M2xuIA7IkQsje48C9P2N3tyCtQvIzeKUzIrulL6MhCotbCveQT9uzzbHdz45A5Qfy7JyNbMUN-6Ji5XyOvW-VALTT8w-fLzVEEhGKTLm8P-2tqLzSLKmrfo-JyN1hURWQ70ihwWKs-88nz9aJnx-sZDQb7z1Q5wRfxWGt6rXlUiAozg29Vtv2qBNdmn_3W);
+    border: 1px solid #d6cfb6;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.02), inset 0 0 40px rgba(197, 160, 89, 0.05)
+    }
+.vignette-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle, transparent 50%, rgba(92, 77, 60, 0.1) 90%, rgba(92, 77, 60, 0.25) 100%);
+    z-index: 40;
+    box-shadow: inset 0 0 150px rgba(92, 77, 60, 0.1)
+    }
+.ink-stroke {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 0;
+    filter: drop-shadow(1px 1px 0 rgba(30, 43, 69, 0.1))
+    }
+.ink-nib-cursor {
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 24px solid #1a1816;
+    transform: rotate(-30deg);
+    position: relative
+    }
+.ink-nib-cursor::after {
+    content: "";
+    position: absolute;
+    top: -24px;
+    left: -1px;
+    width: 2px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.3)
+    }
+.handwritten-border {
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px
+    }</style>
+</head>
+<body class="font-serif text-ink-black antialiased overflow-hidden h-screen w-screen selection:bg-accent-gold selection:text-white">
+<div class="fixed inset-0 z-0 bg-paper-cream">
+<div class="absolute inset-0 bg-paper-texture opacity-80"></div>
+<div class="absolute top-20 left-10 w-64 h-64 bg-accent-gold opacity-5 rounded-full blur-3xl"></div>
+<div class="absolute bottom-40 right-20 w-96 h-96 bg-ink-blue opacity-5 rounded-full blur-3xl"></div>
+</div>
+<div class="vignette-overlay"></div>
+<nav class="fixed top-0 left-0 right-0 z-50 flex flex-col items-center pt-6 pointer-events-none">
+<div class="pointer-events-auto mb-2 opacity-80 hover:opacity-100 transition-opacity">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-ink-sepia text-2xl">history_edu</span>
+<span class="font-display font-bold text-2xl tracking-wide text-ink-sepia uppercase border-b-2 border-accent-gold pb-1">The Manuscript</span>
 </div>
 </div>
-<button class="w-8 h-8 flex items-center justify-center rounded-full border border-mono-border hover:bg-white/5 transition-colors text-mono-text-primary">
-<span class="material-symbols-outlined text-sm">settings</span>
+<div class="parchment-card pointer-events-auto flex items-center gap-2 px-6 py-3 shadow-ink-sm handwritten-border transform rotate-[0.5deg]">
+<button class="flex items-center gap-2 hover:text-ink-blue transition-colors group">
+<span class="font-display italic text-lg text-ink-sepia group-hover:text-ink-blue">Act 1: Awakening</span>
 </button>
-</header>
-<main class="flex-1 relative w-full h-full overflow-hidden z-10 touch-none">
-<svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
-<path class="connector-line" d="M180,300 C250,300 150,520 220,520" fill="none" stroke="#888"></path>
-<path class="connector-line" d="M220,520 C280,520 300,450 340,400" fill="none" stroke="#888" stroke-opacity="0.5"></path>
-<rect fill="#1c1c1e" height="18" rx="4" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" width="90" x="185" y="383"></rect>
-<text fill="#ccc" font-family="Inter" font-size="9" letter-spacing="0.5" text-anchor="middle" x="230" y="396">CORRUPTION</text>
+<span class="material-symbols-outlined text-accent-gold text-sm">navigate_next</span>
+<button class="flex items-center gap-2 hover:text-ink-blue transition-colors group">
+<span class="font-display italic text-lg text-ink-sepia group-hover:text-ink-blue">The Whispering Woods</span>
+</button>
+<span class="material-symbols-outlined text-accent-gold text-sm">navigate_next</span>
+<div class="flex items-center gap-2 px-3 py-1 bg-paper-dark/30 rounded-sm border-b border-ink-black/20">
+<span class="font-display font-bold text-lg text-ink-black">Forest Depths</span>
+</div>
+</div>
+</nav>
+<div class="fixed top-6 right-8 z-50 pointer-events-auto">
+<div class="parchment-card flex items-center gap-3 px-4 py-2 shadow-ink-sm handwritten-border -rotate-1">
+<div class="flex -space-x-3">
+<img alt="User 1" class="h-10 w-10 rounded-full border-2 border-paper-cream ring-1 ring-ink-sepia/20 sepia contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz6O-JeOoyFtUlHYkTv60-aQyzo0ZkCKuOTLE6K1--Smm2MvQ6lAoCU7K3hawthEp3PIZUOFiidx6wk4bxxZXemZqWkAY4ORDLNZCoyWXX2z5Inlz-Xf9qWeKedeTNYRITWW9Q6B4IF5CscZ37aTXgZqAPUaE6ATq4XL0l_tVOKBe0ZH28ImtGRbGdgk_-0RrZU9Spif2QQoH7bCqdv9GCw6rCaXhDEE6YCSGPdzeCknQtqLX7piFHwIOFhLp_BtMiEq_A8EargQES"/>
+<img alt="User 2" class="h-10 w-10 rounded-full border-2 border-paper-cream ring-1 ring-ink-sepia/20 sepia contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC86GQT7RXH2Gi_oYhHWpEG3Ba-8rVL0kTx9Yp4X9nM21DjwKLn9EbPA_Cm4vyNSiwncGypt2fYkYclt34D4k-r_GNek7-w3vxaJLSx18wCN99zaf4-YLOl7ZL2_lENt2utkn1-3IxjTse1IxLW_znHUqZA9jyeT1HK-OEN1wqij-wu6ghNYG7O1ZE0lraYkoDshGI8RFGyljmCPwajzdzlN54iWozux-xuFkdQFXyJOvL5Wof99FIg194tBdiyXhMepH9yQK5AK8k0"/>
+<div class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-paper-cream bg-ink-sepia text-paper-cream font-display font-bold text-sm ring-1 ring-ink-sepia/20">+3</div>
+</div>
+<div class="h-8 w-px bg-ink-sepia/20 mx-1"></div>
+<button class="text-ink-sepia hover:text-ink-blue transition-colors">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</div>
+<main class="relative h-full w-full overflow-hidden flex items-center justify-center">
+<div class="absolute top-32 left-1/2 -translate-x-1/2 text-ink-sepia/5 font-display text-9xl italic tracking-widest pointer-events-none select-none z-0">
+            Silva
+        </div>
+<svg class="absolute inset-0 h-full w-full pointer-events-none z-0">
+<defs>
+<marker id="arrowhead" markerHeight="7" markerWidth="10" orient="auto" refX="9" refY="3.5">
+<polygon fill="#1e2b45" points="0 0, 10 3.5, 0 7"></polygon>
+</marker>
+</defs>
+<path class="ink-stroke" d="M 960 540 C 960 400, 600 400, 480 320" fill="none" marker-end="url(#arrowhead)" stroke="#1e2b45" stroke-width="2"></path>
+<path class="opacity-20" d="M 962 542 C 962 402, 602 402, 482 322" fill="none" stroke="#1e2b45" stroke-width="4"></path>
+<path class="ink-stroke" d="M 960 540 C 960 700, 1300 700, 1420 780" fill="none" marker-end="url(#arrowhead)" stroke="#1e2b45" stroke-width="2"></path>
+<path class="ink-stroke" d="M 960 540 C 960 700, 600 700, 520 750" fill="none" stroke="#1e2b45" stroke-dasharray="5,5" stroke-width="1.5"></path>
 </svg>
-<div class="absolute top-[220px] left-6 w-64 glass-panel rounded-sm p-5 cursor-grab active:cursor-grabbing hover:border-white/30 transition-colors group">
-<div class="active-node-glow opacity-0 group-hover:opacity-100 transition-opacity"></div>
-<div class="flex items-start justify-between mb-4">
-<div class="flex flex-col gap-1">
-<span class="text-[10px] uppercase tracking-wider text-mono-text-secondary">Location</span>
-<h3 class="text-white font-serif font-normal text-xl leading-tight italic">The Obsidian Spire</h3>
+<div class="relative z-20 transition-all duration-500 hover:scale-[1.02]">
+<div class="parchment-card w-[480px] p-8 shadow-ink-lg flex flex-col gap-6 relative overflow-hidden transform rotate-[0.5deg]">
+<div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-accent-gold/50 rounded-tl-lg m-2"></div>
+<div class="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-accent-gold/50 rounded-tr-lg m-2"></div>
+<div class="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-accent-gold/50 rounded-bl-lg m-2"></div>
+<div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-accent-gold/50 rounded-br-lg m-2"></div>
+<div class="flex items-start justify-between relative z-10">
+<div class="flex items-center gap-5">
+<div class="h-16 w-16 rounded-full border-2 border-ink-black flex items-center justify-center shadow-sm bg-white">
+<span class="material-symbols-outlined text-4xl text-ink-black">forest</span>
 </div>
-<span class="material-symbols-outlined text-mono-text-secondary text-base opacity-50">castle</span>
-</div>
-<div class="h-20 w-full bg-black/40 mb-4 overflow-hidden relative border border-white/5 grayscale hover:grayscale-0 transition-all duration-500">
-<img alt="Dark gothic spire silhouette against a purple night sky" class="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"/>
-</div>
-<div class="border-t border-white/10 pt-3 mt-1 flex justify-between items-center">
-<span class="text-[10px] text-mono-text-secondary">Magical Focus Point</span>
-<div class="w-1.5 h-1.5 rounded-full bg-white/20"></div>
-</div>
-</div>
-<div class="absolute top-[480px] left-1/2 -translate-x-1/2 w-72 glass-panel rounded-sm p-6 cursor-grab active:cursor-grabbing hover:border-white/40 transition-colors group z-20">
-<div class="active-node-glow opacity-100"></div>
-<div class="flex items-start justify-between mb-4">
-<div class="flex flex-col gap-1">
-<span class="text-[10px] uppercase tracking-wider text-mono-text-secondary">Territory</span>
-<h3 class="text-white font-serif font-semibold text-2xl leading-tight">Whispering Woods</h3>
-</div>
-<div class="w-6 h-6 border border-white/20 flex items-center justify-center text-white/70 rounded-full">
-<span class="material-symbols-outlined text-sm">forest</span>
+<div>
+<h1 class="font-display text-3xl font-bold text-ink-black italic">The Ancient Oak</h1>
+<p class="font-serif text-sm text-ink-sepia italic tracking-wide mt-1">Key Landmark â Dialogue Available</p>
 </div>
 </div>
-<p class="text-sm font-serif italic text-mono-text-secondary mb-5 leading-relaxed border-l-2 border-white/20 pl-3">
-            "Home of the unseen fae. The trees themselves seem to shift when not observed directly."
-        </p>
-<div class="flex items-center justify-between pt-2 border-t border-white/10">
-<div class="flex -space-x-3 opacity-70 grayscale group-hover:grayscale-0 transition-all">
-<div class="w-6 h-6 rounded-full bg-gray-600 border border-mono-bg"></div>
-<div class="w-6 h-6 rounded-full bg-gray-500 border border-mono-bg"></div>
-<div class="w-6 h-6 rounded-full bg-gray-800 border border-mono-bg flex items-center justify-center text-[8px] text-white">+3</div>
-</div>
-<button class="text-[10px] uppercase tracking-widest text-white hover:text-white/70 transition-colors border border-white/20 px-3 py-1 rounded-full hover:bg-white/5">
-                Inspect
-            </button>
+<div class="flex flex-col items-end gap-2">
+<button class="text-ink-sepia hover:text-ink-black transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+<div class="flex items-center gap-2 bg-paper-dark px-3 py-1 rounded-full border border-ink-sepia/20">
+<div class="w-2 h-2 bg-amber-600 rounded-full"></div>
+<span class="text-xs font-bold text-ink-sepia uppercase tracking-widest">Sarah</span>
 </div>
 </div>
-<div class="absolute top-[350px] left-[320px] w-48 glass-panel rounded-sm p-4 opacity-40 hover:opacity-100 transition-opacity scale-95 border-dashed border-white/20">
-<div class="flex items-center justify-between mb-2">
-<h4 class="text-slate-200 font-serif text-lg italic">Sunken Grotto</h4>
-<span class="material-symbols-outlined text-xs text-mono-text-secondary">water_drop</span>
 </div>
-<div class="h-[1px] w-full bg-white/10 mt-2 mb-2">
-<div class="h-full bg-white w-1/3"></div>
+<div class="relative py-4">
+<span class="absolute top-0 left-0 text-4xl text-accent-gold/40 font-display">â</span>
+<p class="font-serif text-xl text-ink-black leading-relaxed px-6 italic">
+                        Roots thick as castle walls sprawl across the forest floor. A face seems carved into the bark, eyes closed in slumber.
+                    </p>
+<span class="absolute bottom-0 right-0 text-4xl text-accent-gold/40 font-display rotate-180">â</span>
 </div>
-<p class="text-[9px] uppercase tracking-widest text-mono-text-secondary text-right">Draft</p>
+<div class="flex gap-4 border-t border-ink-sepia/10 pt-4">
+<button class="flex-1 py-3 px-4 rounded border border-ink-black text-ink-black font-display font-bold text-lg hover:bg-ink-black hover:text-white transition-all shadow-sm">
+                        Speak to Oak
+                    </button>
+<button class="flex-1 py-3 px-4 rounded border border-dashed border-ink-sepia text-ink-sepia font-display font-bold text-lg hover:border-ink-black hover:text-ink-black transition-all">
+                        Inspect Roots
+                    </button>
+</div>
+<div class="absolute -top-6 -right-8 pointer-events-none z-50">
+<div class="ink-nib-cursor drop-shadow-md"></div>
+<div class="absolute top-0 left-4 bg-amber-100 border border-amber-300 px-2 py-0.5 text-xs font-serif text-amber-900 rounded shadow-sm whitespace-nowrap">Sarah writing...</div>
+</div>
+</div>
+</div>
+<div class="absolute left-[15%] top-[20%] z-10 transition-all duration-500 hover:z-30 hover:scale-[1.02]">
+<div class="parchment-card w-72 p-6 shadow-md cursor-pointer group transform -rotate-2">
+<div class="flex items-center justify-between mb-4 border-b border-ink-sepia/10 pb-2">
+<h3 class="font-display font-bold text-xl text-ink-black group-hover:text-ink-blue">Shadowed Path</h3>
+<span class="material-symbols-outlined text-ink-sepia group-hover:text-ink-blue">visibility_off</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-serif italic text-ink-sepia text-lg">High Danger</span>
+<div class="flex gap-1">
+<div class="w-8 h-1 bg-ink-black"></div>
+<div class="w-8 h-1 bg-ink-black"></div>
+<div class="w-8 h-1 bg-ink-black/20"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute right-[15%] bottom-[20%] z-10 transition-all duration-500 hover:z-30 hover:scale-[1.02]">
+<div class="parchment-card w-80 p-6 shadow-ink-md cursor-pointer group transform rotate-1 border-t-4 border-t-ink-blue">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-2xl text-ink-blue">water_drop</span>
+<h3 class="font-display font-bold text-xl text-ink-black">The Hidden Spring</h3>
+</div>
+</div>
+<p class="font-serif text-lg text-ink-sepia leading-snug italic mb-4">
+                    The water glows with a faint bioluminescence. It restores vitality but clouds the mind.
+                </p>
+<div class="flex justify-end">
+<div class="flex items-center gap-2 bg-pink-50 border border-pink-200 px-2 py-1 rounded-sm shadow-sm transform rotate-2">
+<span class="w-1.5 h-1.5 rounded-full bg-pink-600"></span>
+<span class="text-xs font-bold text-pink-800 font-serif uppercase">Mike</span>
+</div>
+</div>
+<div class="absolute bottom-2 -right-8 pointer-events-none z-50">
+<div class="ink-nib-cursor drop-shadow-md border-t-pink-800"></div>
+</div>
+</div>
+</div>
+<div class="absolute left-[22%] bottom-[12%] z-10 transition-all duration-500 hover:z-30 hover:scale-[1.02] opacity-80 hover:opacity-100">
+<div class="parchment-card w-60 p-4 shadow-sm cursor-pointer border-l-4 border-l-ink-sepia bg-paper-dark/20 transform -rotate-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-lg text-ink-sepia">hub</span>
+<h3 class="font-display font-bold text-lg text-ink-sepia">Mycelium</h3>
+</div>
+<div class="flex items-center gap-1 text-sm text-ink-sepia/70 font-serif italic border-t border-ink-sepia/10 pt-2 mt-1">
+<span class="material-symbols-outlined text-sm">lock</span>
+<span>Requires Spore Key</span>
+</div>
+</div>
 </div>
 </main>
-<div class="absolute bottom-10 right-8 z-50 flex flex-col items-end gap-4 group">
-<div class="flex flex-col gap-3 items-end transition-all duration-300 opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto mb-2">
-<button class="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-mono-text-secondary hover:text-white hover:border-white transition-all shadow-lg" title="Add Node">
-<span class="material-symbols-outlined text-lg">add</span>
+<div class="fixed bottom-8 right-8 z-50 flex flex-col items-center gap-8">
+<div class="parchment-card flex flex-col gap-0 rounded-lg p-1 shadow-ink-md border border-ink-sepia/20">
+<button class="h-10 w-10 hover:bg-paper-dark flex items-center justify-center text-ink-black transition-colors rounded-t">
+<span class="material-symbols-outlined">add</span>
 </button>
-<button class="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-mono-text-secondary hover:text-white hover:border-white transition-all shadow-lg" title="Search">
-<span class="material-symbols-outlined text-lg">search</span>
-</button>
-<button class="w-10 h-10 glass-panel rounded-full flex items-center justify-center text-mono-text-secondary hover:text-white hover:border-white transition-all shadow-lg" title="Zoom">
-<span class="material-symbols-outlined text-lg">center_focus_strong</span>
+<div class="h-px w-6 bg-ink-sepia/20 mx-auto"></div>
+<button class="h-10 w-10 hover:bg-paper-dark flex items-center justify-center text-ink-black transition-colors rounded-b">
+<span class="material-symbols-outlined">remove</span>
 </button>
 </div>
-<button class="w-14 h-14 bg-white text-mono-bg rounded-full shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] flex items-center justify-center transition-all hover:scale-105 active:scale-95 z-50">
-<span class="material-symbols-outlined text-2xl group-hover:rotate-90 transition-transform duration-300">more_horiz</span>
-</button>
+<div class="relative flex flex-col items-center group cursor-help">
+<div class="relative h-16 w-16 shadow-page-stack bg-white border border-ink-sepia/30 flex items-center justify-center transform -rotate-6 transition-transform group-hover:-translate-y-1">
+<span class="font-display font-bold text-2xl text-ink-black">4</span>
+<div class="absolute top-2 left-2 right-2 h-px bg-ink-black/5"></div>
+<div class="absolute bottom-2 left-2 right-2 h-px bg-ink-black/5"></div>
 </div>
-<div class="absolute bottom-0 w-full z-40 flex justify-center pb-4 pointer-events-none">
-<div class="flex gap-1.5 pointer-events-auto glass-panel px-3 py-1.5 rounded-full border border-white/10">
-<div class="w-1.5 h-1.5 bg-white rounded-full"></div>
-<div class="w-1.5 h-1.5 bg-white/20 rounded-full hover:bg-white/50 transition-colors cursor-pointer"></div>
-<div class="w-1.5 h-1.5 bg-white/20 rounded-full hover:bg-white/50 transition-colors cursor-pointer"></div>
+<div class="mt-4 bg-ink-black text-white px-2 py-1 text-xs font-serif uppercase tracking-widest rounded shadow-lg">
+                Layer IV
+            </div>
+<div class="absolute right-full mr-6 top-1/2 -translate-y-1/2 parchment-card px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-ink-md">
+<span class="font-serif italic text-ink-sepia">Current Depth: <strong class="text-ink-black not-italic">The Fourth Layer</strong></span>
+</div>
+</div>
+</div>
+<div class="fixed bottom-8 left-8 z-50">
+<div class="parchment-card flex items-center gap-4 px-5 py-2 shadow-ink-md rounded-full border border-ink-sepia/20">
+<div class="flex h-2 w-2 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-800 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-green-700"></span>
+</div>
+<span class="font-serif italic text-lg text-ink-sepia">Live Session</span>
+<div class="h-4 w-px bg-ink-sepia/30 mx-1"></div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-ink-sepia">visibility</span>
+<span class="font-serif text-sm font-bold text-ink-black">3 viewers</span>
+</div>
 </div>
 </div>
 

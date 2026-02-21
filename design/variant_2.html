@@ -1,215 +1,279 @@
 <!DOCTYPE html>
-<html class="dark" lang="en"><head>
+<html lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Chronos Canvas: Organic Flow Variant</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<title>Manuscript Fractal Canvas Variant 3</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
         tailwind.config = {
-            darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        primary: "#a855f7",secondary: "#0d9488","background-dark": "#0f0518", 
-                        "surface-glass": "rgba(255, 255, 255, 0.05)",
+                        "paper-cream": "#f3eeda",
+                        "paper-dark": "#e8e1c5",
+                        "ink-blue": "#1e2b45",
+                        "ink-black": "#1a1816",
+                        "ink-sepia": "#5c4d3c",
+                        "accent-gold": "#c5a059",
+                        "parchment-border": "#d6cfb6",
                     },
                     fontFamily: {
-                        display: ["Space Grotesk", "sans-serif"],
-                        body: ["Inter", "sans-serif"],
+                        "serif": ["Cormorant Garamond", "serif"],
+                        "display": ["Playfair Display", "serif"]
                     },
                     backgroundImage: {
-                        'nebula': "radial-gradient(circle at 20% 30%, #1e1b4b 0%, transparent 50%), radial-gradient(circle at 80% 70%, #0f172a 0%, transparent 50%), radial-gradient(circle at 50% 50%, #312e81 0%, #020617 100%)",
+                        'paper-texture': "url('https://www.transparenttextures.com/patterns/cream-paper.png')",
                     },
                     boxShadow: {
-                        'glass-glow': '0 0 20px 0 rgba(168, 85, 247, 0.15)',
-                        'inner-light': 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.15)'
+                        'ink-sm': '0 2px 4px rgba(30, 43, 69, 0.1)',
+                        'ink-md': '0 4px 12px rgba(30, 43, 69, 0.15)',
+                        'ink-lg': '0 10px 25px rgba(30, 43, 69, 0.2)',
+                        'page-stack': '2px 2px 0 #e8e1c5, 4px 4px 0 #e0d6b0, 6px 6px 0 #d8cba0',
                     }
                 },
             },
         }
     </script>
-<style>
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        .glass-organic {
-            background: rgba(20, 20, 40, 0.3);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-        }
-        .blob-shape-1 {
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-        }
-        .blob-shape-2 {
-            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-        }
-        .blob-shape-3 {
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-        }
-        .text-glow {
-            text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
-        }
-    </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
+<style>body {
+    background-color: #f3eeda;
+    color: #1a1816
     }
-    </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
+.parchment-card {
+    background-color: #fcfbf7;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAMqBS6DJ7V6SE5O8WxbYyHlgpqbx4nOxBnrM1acGY3GCX0Zxb0zxNMLQoxIEfmxgyrzHktVUeGu2M5m1M2xuIA7IkQsje48C9P2N3tyCtQvIzeKUzIrulL6MhCotbCveQT9uzzbHdz45A5Qfy7JyNbMUN-6Ji5XyOvW-VALTT8w-fLzVEEhGKTLm8P-2tqLzSLKmrfo-JyN1hURWQ70ihwWKs-88nz9aJnx-sZDQb7z1Q5wRfxWGt6rXlUiAozg29Vtv2qBNdmn_3W);
+    border: 1px solid #d6cfb6;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.02), inset 0 0 40px rgba(197, 160, 89, 0.05)
     }
-  </style>
-  </head>
-<body class="bg-background-dark text-slate-100 font-display h-screen w-full overflow-hidden flex flex-col relative selection:bg-primary selection:text-white">
-<div class="absolute inset-0 z-0 pointer-events-none bg-nebula opacity-80">
-<div class="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-purple-900/20 rounded-full blur-3xl mix-blend-screen animate-pulse duration-[10000ms]"></div>
-<div class="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-teal-900/20 rounded-full blur-3xl mix-blend-screen"></div>
+.vignette-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle, transparent 50%, rgba(92, 77, 60, 0.1) 90%, rgba(92, 77, 60, 0.25) 100%);
+    z-index: 40;
+    box-shadow: inset 0 0 150px rgba(92, 77, 60, 0.1)
+    }
+.ink-stroke {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 0;
+    filter: drop-shadow(1px 1px 0 rgba(30, 43, 69, 0.1))
+    }
+.ink-nib-cursor {
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 24px solid #1a1816;
+    transform: rotate(-30deg);
+    position: relative
+    }
+.ink-nib-cursor::after {
+    content: "";
+    position: absolute;
+    top: -24px;
+    left: -1px;
+    width: 2px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.3)
+    }
+.handwritten-border {
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px
+    }</style>
+</head>
+<body class="font-serif text-ink-black antialiased overflow-hidden h-screen w-screen selection:bg-accent-gold selection:text-white">
+<div class="fixed inset-0 z-0 bg-paper-cream">
+<div class="absolute inset-0 bg-paper-texture opacity-80"></div>
+<div class="absolute top-20 left-10 w-64 h-64 bg-accent-gold opacity-5 rounded-full blur-3xl"></div>
+<div class="absolute bottom-40 right-20 w-96 h-96 bg-ink-blue opacity-5 rounded-full blur-3xl"></div>
 </div>
-<header class="absolute top-6 left-6 z-50">
-<div class="relative w-24 h-24 glass-organic rounded-full flex items-center justify-center group cursor-pointer hover:w-64 transition-all duration-500 ease-out overflow-hidden shadow-glass-glow">
-<div class="absolute z-10 flex flex-col items-center justify-center">
-<span class="material-symbols-outlined text-primary text-2xl drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]">forest</span>
-<span class="text-[10px] text-white/80 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">Current</span>
+<div class="vignette-overlay"></div>
+<nav class="fixed top-0 left-0 right-0 z-50 flex flex-col items-center pt-6 pointer-events-none">
+<div class="pointer-events-auto mb-2 opacity-80 hover:opacity-100 transition-opacity">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-ink-sepia text-2xl">history_edu</span>
+<span class="font-display font-bold text-2xl tracking-wide text-ink-sepia uppercase border-b-2 border-accent-gold pb-1">The Manuscript</span>
 </div>
-<div class="absolute inset-0 flex items-center justify-between px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 bg-black/40">
-<div class="flex flex-col items-center gap-1 scale-75 opacity-60">
-<span class="material-symbols-outlined text-slate-300">public</span>
-<span class="text-[8px] uppercase tracking-wider">Eldoria</span>
 </div>
-<div class="h-[1px] w-8 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
-<div class="flex flex-col items-center gap-1 scale-90 opacity-80">
-<span class="material-symbols-outlined text-slate-300">terrain</span>
-<span class="text-[8px] uppercase tracking-wider">Fractured</span>
-</div>
-<div class="h-[1px] w-8 bg-gradient-to-r from-transparent via-primary to-transparent"></div>
-<div class="w-8"></div>
-</div>
-<div class="absolute inset-0 border-2 border-transparent border-t-primary/50 border-r-teal-500/30 rounded-full animate-[spin_10s_linear_infinite]"></div>
-</div>
-</header>
-<div class="absolute top-8 right-6 z-50">
-<button class="w-12 h-12 glass-organic rounded-full flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/5 transition-colors shadow-lg">
-<span class="material-symbols-outlined">menu_open</span>
+<div class="parchment-card pointer-events-auto flex items-center gap-2 px-6 py-3 shadow-ink-sm handwritten-border transform rotate-[0.5deg]">
+<button class="flex items-center gap-2 hover:text-ink-blue transition-colors group">
+<span class="font-display italic text-lg text-ink-sepia group-hover:text-ink-blue">Act 1: Awakening</span>
 </button>
-</div>
-<main class="flex-1 relative w-full h-full overflow-hidden z-10 touch-none">
-<svg class="absolute inset-0 w-full h-full pointer-events-none z-0 filter drop-shadow-[0_0_8px_rgba(13,148,136,0.3)]">
-<defs>
-<linearGradient id="grad1" x1="0%" x2="100%" y1="0%" y2="0%">
-<stop offset="0%" style="stop-color:#a855f7;stop-opacity:0.2"></stop>
-<stop offset="50%" style="stop-color:#0d9488;stop-opacity:0.6"></stop>
-<stop offset="100%" style="stop-color:#a855f7;stop-opacity:0.2"></stop>
-</linearGradient>
-<filter id="glow">
-<feGaussianBlur result="coloredBlur" stdDeviation="2.5"></feGaussianBlur>
-<feMerge>
-<feMergeNode in="coloredBlur"></feMergeNode>
-<feMergeNode in="SourceGraphic"></feMergeNode>
-</feMerge>
-</filter>
-</defs>
-<path d="M190,320 Q200,400 150,450 T200,550" fill="none" filter="url(#glow)" stroke="url(#grad1)" stroke-linecap="round" stroke-width="2"></path>
-<path d="M250,580 C320,580 300,500 360,420" fill="none" filter="url(#glow)" stroke="url(#grad1)" stroke-dasharray="4 6" stroke-linecap="round" stroke-width="2"></path>
-<foreignObject height="40" width="100" x="160" y="420">
-<div class="glass-organic rounded-full px-2 py-1 text-center border-none bg-black/30">
-<span class="text-[9px] text-teal-200 font-mono tracking-widest uppercase">Corruption Flow</span>
-</div>
-</foreignObject>
-</svg>
-<div class="absolute top-[200px] left-8 w-56 h-56 glass-organic blob-shape-1 p-6 cursor-grab active:cursor-grabbing hover:border-primary/50 transition-all group flex flex-col items-center justify-center text-center shadow-glass-glow bg-gradient-to-br from-purple-900/20 to-transparent">
-<div class="absolute inset-0 rounded-[inherit] overflow-hidden -z-10 opacity-60 mix-blend-overlay">
-<img alt="Dark gothic spire silhouette against a purple night sky" class="w-full h-full object-cover scale-150 group-hover:scale-125 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAByVTR-yxgCClyixotMUZlPor2O-lqoFPHuXmgVjWa4bFIy_XOXtFuDFgEpSxw9jT2LbYlAUdQ6_jrnu2IC7WYOEozccyXXobBTeyyixE_B9_SnkRIGd1IXmMVOVLZhrGxZMDqisvQxGzBcYenfCND1earVxqjOC5rYdJ96dVnhzBlMHchYwLidtYINofq5wxl9RBCCETqyug6U5ioV2hLz-xhcfr1b-_6WXJvMU-9P5k20l5aAECVQpD1NoTgoSqzCsTve9ON1cA"/>
-</div>
-<div class="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-primary mb-2 shadow-inner-light">
-<span class="material-symbols-outlined text-xl">castle</span>
-</div>
-<h3 class="text-white font-bold text-lg leading-tight text-glow mb-1">Obsidian Spire</h3>
-<p class="text-[10px] text-slate-300 font-light tracking-wide uppercase">Magical Focus</p>
-<div class="mt-3 flex gap-1">
-<span class="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"></span>
-<span class="w-2 h-2 rounded-full bg-slate-600"></span>
+<span class="material-symbols-outlined text-accent-gold text-sm">navigate_next</span>
+<button class="flex items-center gap-2 hover:text-ink-blue transition-colors group">
+<span class="font-display italic text-lg text-ink-sepia group-hover:text-ink-blue">The Whispering Woods</span>
+</button>
+<span class="material-symbols-outlined text-accent-gold text-sm">navigate_next</span>
+<div class="flex items-center gap-2 px-3 py-1 bg-paper-dark/30 rounded-sm border-b border-ink-black/20">
+<span class="font-display font-bold text-lg text-ink-black">Forest Depths</span>
 </div>
 </div>
-<div class="absolute top-[480px] left-1/2 -translate-x-1/2 w-80 min-h-[320px] glass-organic blob-shape-2 p-8 cursor-grab active:cursor-grabbing hover:border-teal-500/50 transition-all group shadow-[0_0_50px_rgba(13,148,136,0.2)] bg-gradient-to-t from-teal-900/20 to-transparent flex flex-col items-center">
-<div class="absolute top-4 right-8 w-8 h-8 bg-teal-600 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-[0_0_15px_rgba(13,148,136,0.8)] animate-bounce">2</div>
-<div class="w-14 h-14 rounded-full bg-teal-500/20 flex items-center justify-center text-teal-300 mb-4 group-hover:scale-110 transition-transform duration-500 border border-teal-500/30">
-<span class="material-symbols-outlined text-2xl">forest</span>
-</div>
-<h3 class="text-white font-bold text-2xl leading-tight mb-1 text-center">Whispering Woods</h3>
-<p class="text-xs text-teal-200/80 mb-6 uppercase tracking-widest font-medium">Fae Territory</p>
-<p class="text-sm text-slate-200 text-center font-light leading-relaxed mb-6 opacity-90">
-            Home of the unseen. The trees shift when unobserved.
-        </p>
-<div class="flex items-center gap-3 w-full justify-center">
+</nav>
+<div class="fixed top-6 right-8 z-50 pointer-events-auto">
+<div class="parchment-card flex items-center gap-3 px-4 py-2 shadow-ink-sm handwritten-border -rotate-1">
 <div class="flex -space-x-3">
-<div class="w-8 h-8 rounded-full bg-indigo-500 border-2 border-black/50 shadow-lg"></div>
-<div class="w-8 h-8 rounded-full bg-purple-500 border-2 border-black/50 shadow-lg"></div>
-<div class="w-8 h-8 rounded-full bg-slate-800 border-2 border-black/50 flex items-center justify-center text-[10px] shadow-lg">+3</div>
+<img alt="User 1" class="h-10 w-10 rounded-full border-2 border-paper-cream ring-1 ring-ink-sepia/20 sepia contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz6O-JeOoyFtUlHYkTv60-aQyzo0ZkCKuOTLE6K1--Smm2MvQ6lAoCU7K3hawthEp3PIZUOFiidx6wk4bxxZXemZqWkAY4ORDLNZCoyWXX2z5Inlz-Xf9qWeKedeTNYRITWW9Q6B4IF5CscZ37aTXgZqAPUaE6ATq4XL0l_tVOKBe0ZH28ImtGRbGdgk_-0RrZU9Spif2QQoH7bCqdv9GCw6rCaXhDEE6YCSGPdzeCknQtqLX7piFHwIOFhLp_BtMiEq_A8EargQES"/>
+<img alt="User 2" class="h-10 w-10 rounded-full border-2 border-paper-cream ring-1 ring-ink-sepia/20 sepia contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC86GQT7RXH2Gi_oYhHWpEG3Ba-8rVL0kTx9Yp4X9nM21DjwKLn9EbPA_Cm4vyNSiwncGypt2fYkYclt34D4k-r_GNek7-w3vxaJLSx18wCN99zaf4-YLOl7ZL2_lENt2utkn1-3IxjTse1IxLW_znHUqZA9jyeT1HK-OEN1wqij-wu6ghNYG7O1ZE0lraYkoDshGI8RFGyljmCPwajzdzlN54iWozux-xuFkdQFXyJOvL5Wof99FIg194tBdiyXhMepH9yQK5AK8k0"/>
+<div class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-paper-cream bg-ink-sepia text-paper-cream font-display font-bold text-sm ring-1 ring-ink-sepia/20">+3</div>
 </div>
-<button class="w-8 h-8 rounded-full border border-teal-500/50 text-teal-300 flex items-center justify-center hover:bg-teal-500 hover:text-white transition-colors">
-<span class="material-symbols-outlined text-sm">arrow_outward</span>
+<div class="h-8 w-px bg-ink-sepia/20 mx-1"></div>
+<button class="text-ink-sepia hover:text-ink-blue transition-colors">
+<span class="material-symbols-outlined">share</span>
 </button>
 </div>
 </div>
-<div class="absolute top-[350px] left-[320px] w-40 h-40 glass-organic blob-shape-3 p-4 flex flex-col items-center justify-center opacity-70 hover:opacity-100 transition-opacity hover:scale-105 duration-300">
-<div class="w-8 h-8 rounded-full bg-blue-900/50 flex items-center justify-center mb-2">
-<span class="material-symbols-outlined text-sm text-blue-300">water_drop</span>
+<main class="relative h-full w-full overflow-hidden flex items-center justify-center">
+<div class="absolute top-32 left-1/2 -translate-x-1/2 text-ink-sepia/5 font-display text-9xl italic tracking-widest pointer-events-none select-none z-0">
+            Silva
+        </div>
+<svg class="absolute inset-0 h-full w-full pointer-events-none z-0">
+<defs>
+<marker id="arrowhead" markerHeight="7" markerWidth="10" orient="auto" refX="9" refY="3.5">
+<polygon fill="#1e2b45" points="0 0, 10 3.5, 0 7"></polygon>
+</marker>
+</defs>
+<path class="ink-stroke" d="M 960 540 C 960 400, 600 400, 480 320" fill="none" marker-end="url(#arrowhead)" stroke="#1e2b45" stroke-width="2"></path>
+<path class="opacity-20" d="M 962 542 C 962 402, 602 402, 482 322" fill="none" stroke="#1e2b45" stroke-width="4"></path>
+<path class="ink-stroke" d="M 960 540 C 960 700, 1300 700, 1420 780" fill="none" marker-end="url(#arrowhead)" stroke="#1e2b45" stroke-width="2"></path>
+<path class="ink-stroke" d="M 960 540 C 960 700, 600 700, 520 750" fill="none" stroke="#1e2b45" stroke-dasharray="5,5" stroke-width="1.5"></path>
+</svg>
+<div class="relative z-20 transition-all duration-500 hover:scale-[1.02]">
+<div class="parchment-card w-[480px] p-8 shadow-ink-lg flex flex-col gap-6 relative overflow-hidden transform rotate-[0.5deg]">
+<div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-accent-gold/50 rounded-tl-lg m-2"></div>
+<div class="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-accent-gold/50 rounded-tr-lg m-2"></div>
+<div class="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-accent-gold/50 rounded-bl-lg m-2"></div>
+<div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-accent-gold/50 rounded-br-lg m-2"></div>
+<div class="flex items-start justify-between relative z-10">
+<div class="flex items-center gap-5">
+<div class="h-16 w-16 rounded-full border-2 border-ink-black flex items-center justify-center shadow-sm bg-white">
+<span class="material-symbols-outlined text-4xl text-ink-black">forest</span>
 </div>
-<h4 class="text-slate-200 font-bold text-sm text-center">Sunken Grotto</h4>
-<div class="mt-2 w-16 h-1 bg-slate-700/50 rounded-full overflow-hidden">
-<div class="h-full bg-blue-500 w-1/3 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
+<div>
+<h1 class="font-display text-3xl font-bold text-ink-black italic">The Ancient Oak</h1>
+<p class="font-serif text-sm text-ink-sepia italic tracking-wide mt-1">Key Landmark â Dialogue Available</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2">
+<button class="text-ink-sepia hover:text-ink-black transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+<div class="flex items-center gap-2 bg-paper-dark px-3 py-1 rounded-full border border-ink-sepia/20">
+<div class="w-2 h-2 bg-amber-600 rounded-full"></div>
+<span class="text-xs font-bold text-ink-sepia uppercase tracking-widest">Sarah</span>
+</div>
+</div>
+</div>
+<div class="relative py-4">
+<span class="absolute top-0 left-0 text-4xl text-accent-gold/40 font-display">â</span>
+<p class="font-serif text-xl text-ink-black leading-relaxed px-6 italic">
+                        Roots thick as castle walls sprawl across the forest floor. A face seems carved into the bark, eyes closed in slumber.
+                    </p>
+<span class="absolute bottom-0 right-0 text-4xl text-accent-gold/40 font-display rotate-180">â</span>
+</div>
+<div class="flex gap-4 border-t border-ink-sepia/10 pt-4">
+<button class="flex-1 py-3 px-4 rounded border border-ink-black text-ink-black font-display font-bold text-lg hover:bg-ink-black hover:text-white transition-all shadow-sm">
+                        Speak to Oak
+                    </button>
+<button class="flex-1 py-3 px-4 rounded border border-dashed border-ink-sepia text-ink-sepia font-display font-bold text-lg hover:border-ink-black hover:text-ink-black transition-all">
+                        Inspect Roots
+                    </button>
+</div>
+<div class="absolute -top-6 -right-8 pointer-events-none z-50">
+<div class="ink-nib-cursor drop-shadow-md"></div>
+<div class="absolute top-0 left-4 bg-amber-100 border border-amber-300 px-2 py-0.5 text-xs font-serif text-amber-900 rounded shadow-sm whitespace-nowrap">Sarah writing...</div>
+</div>
+</div>
+</div>
+<div class="absolute left-[15%] top-[20%] z-10 transition-all duration-500 hover:z-30 hover:scale-[1.02]">
+<div class="parchment-card w-72 p-6 shadow-md cursor-pointer group transform -rotate-2">
+<div class="flex items-center justify-between mb-4 border-b border-ink-sepia/10 pb-2">
+<h3 class="font-display font-bold text-xl text-ink-black group-hover:text-ink-blue">Shadowed Path</h3>
+<span class="material-symbols-outlined text-ink-sepia group-hover:text-ink-blue">visibility_off</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-serif italic text-ink-sepia text-lg">High Danger</span>
+<div class="flex gap-1">
+<div class="w-8 h-1 bg-ink-black"></div>
+<div class="w-8 h-1 bg-ink-black"></div>
+<div class="w-8 h-1 bg-ink-black/20"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute right-[15%] bottom-[20%] z-10 transition-all duration-500 hover:z-30 hover:scale-[1.02]">
+<div class="parchment-card w-80 p-6 shadow-ink-md cursor-pointer group transform rotate-1 border-t-4 border-t-ink-blue">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-2xl text-ink-blue">water_drop</span>
+<h3 class="font-display font-bold text-xl text-ink-black">The Hidden Spring</h3>
+</div>
+</div>
+<p class="font-serif text-lg text-ink-sepia leading-snug italic mb-4">
+                    The water glows with a faint bioluminescence. It restores vitality but clouds the mind.
+                </p>
+<div class="flex justify-end">
+<div class="flex items-center gap-2 bg-pink-50 border border-pink-200 px-2 py-1 rounded-sm shadow-sm transform rotate-2">
+<span class="w-1.5 h-1.5 rounded-full bg-pink-600"></span>
+<span class="text-xs font-bold text-pink-800 font-serif uppercase">Mike</span>
+</div>
+</div>
+<div class="absolute bottom-2 -right-8 pointer-events-none z-50">
+<div class="ink-nib-cursor drop-shadow-md border-t-pink-800"></div>
+</div>
+</div>
+</div>
+<div class="absolute left-[22%] bottom-[12%] z-10 transition-all duration-500 hover:z-30 hover:scale-[1.02] opacity-80 hover:opacity-100">
+<div class="parchment-card w-60 p-4 shadow-sm cursor-pointer border-l-4 border-l-ink-sepia bg-paper-dark/20 transform -rotate-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-lg text-ink-sepia">hub</span>
+<h3 class="font-display font-bold text-lg text-ink-sepia">Mycelium</h3>
+</div>
+<div class="flex items-center gap-1 text-sm text-ink-sepia/70 font-serif italic border-t border-ink-sepia/10 pt-2 mt-1">
+<span class="material-symbols-outlined text-sm">lock</span>
+<span>Requires Spore Key</span>
+</div>
 </div>
 </div>
 </main>
-<div class="absolute bottom-28 right-6 flex flex-col items-center gap-4 z-20">
-<div class="glass-organic rounded-full p-2 flex flex-col gap-2 shadow-lg backdrop-blur-xl">
-<button class="w-10 h-10 rounded-full flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition-colors">
+<div class="fixed bottom-8 right-8 z-50 flex flex-col items-center gap-8">
+<div class="parchment-card flex flex-col gap-0 rounded-lg p-1 shadow-ink-md border border-ink-sepia/20">
+<button class="h-10 w-10 hover:bg-paper-dark flex items-center justify-center text-ink-black transition-colors rounded-t">
 <span class="material-symbols-outlined">add</span>
 </button>
-<button class="w-10 h-10 rounded-full flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition-colors">
+<div class="h-px w-6 bg-ink-sepia/20 mx-auto"></div>
+<button class="h-10 w-10 hover:bg-paper-dark flex items-center justify-center text-ink-black transition-colors rounded-b">
 <span class="material-symbols-outlined">remove</span>
 </button>
 </div>
-<button class="w-14 h-14 glass-organic rounded-full flex items-center justify-center text-primary hover:text-white hover:bg-primary/50 transition-all shadow-[0_0_20px_rgba(168,85,247,0.3)] border border-primary/30">
-<span class="material-symbols-outlined">center_focus_strong</span>
-</button>
+<div class="relative flex flex-col items-center group cursor-help">
+<div class="relative h-16 w-16 shadow-page-stack bg-white border border-ink-sepia/30 flex items-center justify-center transform -rotate-6 transition-transform group-hover:-translate-y-1">
+<span class="font-display font-bold text-2xl text-ink-black">4</span>
+<div class="absolute top-2 left-2 right-2 h-px bg-ink-black/5"></div>
+<div class="absolute bottom-2 left-2 right-2 h-px bg-ink-black/5"></div>
 </div>
-<div class="absolute bottom-32 left-6 z-30">
-<button class="group relative w-16 h-16 rounded-full glass-organic border border-teal-500/30 flex items-center justify-center shadow-[0_0_30px_rgba(13,148,136,0.3)] hover:shadow-[0_0_50px_rgba(13,148,136,0.5)] hover:scale-110 transition-all duration-300">
-<div class="absolute inset-0 bg-teal-500/10 rounded-full animate-ping opacity-20"></div>
-<span class="material-symbols-outlined text-3xl text-teal-200 group-hover:text-white transition-colors">add</span>
-</button>
+<div class="mt-4 bg-ink-black text-white px-2 py-1 text-xs font-serif uppercase tracking-widest rounded shadow-lg">
+                Layer IV
+            </div>
+<div class="absolute right-full mr-6 top-1/2 -translate-y-1/2 parchment-card px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-ink-md">
+<span class="font-serif italic text-ink-sepia">Current Depth: <strong class="text-ink-black not-italic">The Fourth Layer</strong></span>
 </div>
-<nav class="absolute bottom-8 left-1/2 -translate-x-1/2 w-[90%] max-w-md z-40">
-<div class="glass-organic rounded-full px-6 py-4 flex justify-between items-center shadow-2xl backdrop-blur-2xl border border-white/10">
-<a class="flex flex-col items-center justify-center gap-1 text-primary group relative" href="#">
-<div class="absolute -top-1 w-1 h-1 bg-primary rounded-full shadow-[0_0_8px_#a855f7]"></div>
-<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">grid_view</span>
-</a>
-<a class="flex flex-col items-center justify-center gap-1 text-slate-400 hover:text-teal-200 transition-colors group" href="#">
-<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">account_tree</span>
-</a>
-<a class="flex flex-col items-center justify-center gap-1 text-slate-400 hover:text-teal-200 transition-colors group" href="#">
-<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">group</span>
-</a>
-<a class="flex flex-col items-center justify-center gap-1 text-slate-400 hover:text-teal-200 transition-colors group" href="#">
-<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">settings</span>
-</a>
 </div>
-</nav>
-<div class="absolute top-6 right-20 z-20">
-<button class="w-12 h-12 glass-organic rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
-<span class="material-symbols-outlined text-xl">search</span>
-</button>
+</div>
+<div class="fixed bottom-8 left-8 z-50">
+<div class="parchment-card flex items-center gap-4 px-5 py-2 shadow-ink-md rounded-full border border-ink-sepia/20">
+<div class="flex h-2 w-2 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-800 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-green-700"></span>
+</div>
+<span class="font-serif italic text-lg text-ink-sepia">Live Session</span>
+<div class="h-4 w-px bg-ink-sepia/30 mx-1"></div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-ink-sepia">visibility</span>
+<span class="font-serif text-sm font-bold text-ink-black">3 viewers</span>
+</div>
+</div>
 </div>
 
 </body></html>
